@@ -1,24 +1,20 @@
 package engine.graphics;
 
-import engine.geometry.Point3D;
 import engine.geometry.Polygon3D;
 
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class Display extends Canvas implements Runnable {
-	private JFrame window;
-	private Color backgroundColor;
+public abstract class Display extends Canvas implements Runnable, DisplayConstants {
+	protected JFrame window;
+	protected Color backgroundColor;
+	protected final Renderer renderer;
 
-	private Thread thread;
+	protected Thread thread;
 
-	private final Renderer renderer;
-
-	public static final int SCREEN_WIDTH = 800;
-	public static final int SCREEN_HEIGHT = 600;
-	private String title;
-	private boolean isRunning;
+	protected String title;
+	protected boolean isRunning;
 
 	public Display(String title, Color backgroundColor) {
 		this.title = title;
@@ -34,7 +30,7 @@ public class Display extends Canvas implements Runnable {
 		this(title, Color.BLACK);
 	}
 
-	private void manageWindowSettings() {
+	protected void manageWindowSettings() {
 		window.setTitle(title);
 		window.add(this);
 		window.pack();
@@ -57,7 +53,7 @@ public class Display extends Canvas implements Runnable {
 		thread.start();
 	}
 
-	private synchronized void stop() {
+	protected synchronized void stop() {
 		isRunning = false;
 		try {
 			thread.join();
@@ -101,29 +97,23 @@ public class Display extends Canvas implements Runnable {
 		stop();
 	}
 
-	private void updateDisplay() {
-		Polygon3D poly = renderer.getPolygons().get(0);
-		Point3D[] points = poly.getPoints();
-		points[0].z -= 1;
-		points[1].z -= 1;
-		points[2].z -= 1;
-	}
+	abstract protected void updateDisplay();
 
-	private void render() {
-		// Create buffer if null
+	protected void render() {
+		// Create buffers if null
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3); // front-middle-back buffers
 			return;
 		}
 
-		Graphics g = bs.getDrawGraphics(); // get graphics object to draw on
+		Graphics g = bs.getDrawGraphics(); // Get graphics object to draw on
 
-		// Draw background (as black for now)
+		// Draw background
 		g.setColor(backgroundColor);
 		g.fillRect(0,0, SCREEN_HEIGHT * 2, SCREEN_HEIGHT * 2);
 
-		// Call the render method of the renderer
+		// Call the render method of the renderer using the graphics object from the buffer strategy
 		renderer.render(g);
 
 		// Delete graphics object and show next buffer
