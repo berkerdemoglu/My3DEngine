@@ -56,6 +56,16 @@ public class Polygon3D {
 		}
 	}
 
+	public void rotate(Axis axis, double degrees) {
+		for (Point3D p: points) {
+			Projector.rotatePoint(p, axis, degrees);
+		}
+	}
+
+	public Polygon3D copyPolygon() {
+		return new Polygon3D(this.color, this.points);
+	}
+
 	// Getters and Setters
 	public Point3D[] getPoints() {
 		return points;

@@ -1,5 +1,6 @@
 package engine.graphics;
 
+import engine.geometry.Mesh;
 import engine.geometry.Polygon3D;
 
 import javax.swing.JFrame;
@@ -64,7 +65,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 	@Override
 	public void run() {
-		final double nanoSeconds = 1000000000.0 / 60;
+		final double nanoSeconds = 1000000000.0 / FPS;
 
 		long lastTime = System.nanoTime();
 		long now;
@@ -121,7 +122,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		bs.show();
 	}
 
-	public void addPolygonToRender(Polygon3D polygon3D) {
-		renderer.addPolygon(polygon3D);
+	public void addMeshesToRender(Mesh... meshes) {
+		renderer.addMesh(meshes);
 	}
 }

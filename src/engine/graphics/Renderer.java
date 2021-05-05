@@ -1,34 +1,35 @@
 package engine.graphics;
 
-import engine.geometry.Polygon3D;
+import engine.geometry.Mesh;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Renderer {
 	private final int width;
 	private final int height;
 
-	private final ArrayList<Polygon3D> polygons;
+	private final ArrayList<Mesh> meshes;
 
 	public Renderer(int width, int height) {
 		this.width = width;
 		this.height = height;
 
-		polygons = new ArrayList<>();
+		meshes = new ArrayList<>();
 	}
 
 	public void render(Graphics g) {
-		for (Polygon3D polygon3D: polygons) {
-			polygon3D.render(g);
+		for (Mesh mesh: meshes) {
+			mesh.render(g);
 		}
 	}
 
-	public ArrayList<Polygon3D> getPolygons() {
-		return polygons;
+	public void addMesh(Mesh[] meshes) {
+		this.meshes.addAll(Arrays.asList(meshes));
 	}
 
-	public void addPolygon(Polygon3D polygon3D) {
-		polygons.add(polygon3D);
+	public ArrayList<Mesh> getMeshes() {
+		return meshes;
 	}
 }
