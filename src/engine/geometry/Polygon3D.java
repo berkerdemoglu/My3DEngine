@@ -35,6 +35,28 @@ public class Polygon3D {
 		g.fillPolygon(polygon);
 	}
 
+	public void translate(Axis axis, double inc) {
+		// Move the polygon by the increment amount in the specified axis.
+		switch (axis) {
+			case xAxis:
+				for (Point3D p: points) {
+					p.x += inc;
+				}
+				break;
+			case yAxis:
+				for (Point3D p: points) {
+					p.y += inc;
+				}
+				break;
+			case zAxis:
+				for (Point3D p: points) {
+					p.z += inc;
+				}
+				break;
+		}
+	}
+
+	// Getters and Setters
 	public Point3D[] getPoints() {
 		return points;
 	}
