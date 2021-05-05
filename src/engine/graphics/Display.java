@@ -1,7 +1,6 @@
 package engine.graphics;
 
 import engine.geometry.Mesh;
-import engine.geometry.Polygon3D;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -50,11 +49,11 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 		// Start the thread
 		isRunning = true;
-		thread = new Thread(this, "Display");
+		thread = new Thread(this, "Engine");
 		thread.start();
 	}
 
-	protected synchronized void stop() {
+	private synchronized void stop() {
 		isRunning = false;
 		try {
 			thread.join();
@@ -100,7 +99,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 	abstract protected void updateDisplay();
 
-	protected void render() {
+	private void render() {
 		// Create buffers if null
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
