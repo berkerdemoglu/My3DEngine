@@ -18,8 +18,8 @@ public abstract class Projector {
 		return new Point(x2d, y2d);
 	}
 
-	public static void rotatePoint(Point3D p, Axis axis, double degrees) {
-		double theta = toRadians(degrees);
+	public static void rotatePoint(Point3D p, Axis axis, double degrees, boolean clockwise) {
+		double theta = toRadians(degrees) * (clockwise ? -1: 1);
 		Matrix rotationMatrix;
 
 		// Get required rotation matrix for the axis

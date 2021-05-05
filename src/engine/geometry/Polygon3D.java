@@ -56,9 +56,9 @@ public class Polygon3D {
 		}
 	}
 
-	public void rotate(Axis axis, double degrees) {
+	public void rotate(Axis axis, double degrees, boolean clockwise) {
 		for (Point3D p: points) {
-			Projector.rotatePoint(p, axis, degrees);
+			Projector.rotatePoint(p, axis, degrees, clockwise);
 		}
 	}
 

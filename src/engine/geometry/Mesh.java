@@ -24,9 +24,19 @@ public class Mesh {
 		}
 	}
 
+	public void rotate(Axis axis, double degrees, boolean clockwise) {
+		for (Polygon3D poly: polygons) {
+			poly.rotate(axis, degrees, clockwise);
+		}
+	}
+
 	public void rotate(Axis axis, double degrees) {
 		for (Polygon3D poly: polygons) {
-			poly.rotate(axis, degrees);
+			poly.rotate(axis, degrees, false);
 		}
+	}
+
+	public Polygon3D[] getPolygons() {
+		return polygons;
 	}
 }
