@@ -16,12 +16,12 @@ public class Engine extends Display {
 	public static void main(String[] args) {
 		Engine eng = new Engine("3D Engine", Color.BLACK);
 
-		Point3D p1 = new Point3D(-100, -100, 10);
-		Point3D p2 = new Point3D(200, 200, 10);
-		Point3D p3 = new Point3D(0, 500, 10);
-		Point3D p4 = new Point3D(0, 0, 10);
+		Point3D p1 = new Point3D(-200, -200, 2); // lower left
+		Point3D p2 = new Point3D(-200, 200, 2); // upper left
+		Point3D p3 = new Point3D(200, 200, 2); // upper right
+		Point3D p4 = new Point3D(200, -200, 2); // lower right
 		Mesh mesh = new Mesh(
-				new Polygon3D(Color.BLUE, p1, p2, p3)
+				new Polygon3D(Color.BLUE, p1, p2, p3, p4)
 		);
 
 		eng.addMeshesToRender(mesh);
@@ -31,6 +31,6 @@ public class Engine extends Display {
 	@Override
 	protected void updateDisplay() {
 		Mesh mesh = renderer.getMeshes().get(0);
-		mesh.rotate(Axis.xAxis, 1);
+		mesh.rotate(Axis.zAxis, 2);
 	}
 }

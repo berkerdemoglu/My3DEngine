@@ -112,7 +112,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 		// Draw background
 		g.setColor(backgroundColor);
-		g.fillRect(0,0, SCREEN_HEIGHT * 2, SCREEN_HEIGHT * 2);
+		g.fillRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		// Call the render method of the renderer using the graphics object from the buffer strategy
 		renderer.render(g);
