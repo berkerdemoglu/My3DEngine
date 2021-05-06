@@ -66,6 +66,14 @@ public class Polygon3D {
 		return new Polygon3D(this.color, this.points);
 	}
 
+	public double getAverageZ() {
+		double avg = 0;
+		for (Point3D p: points) {
+			avg += p.z;
+		}
+		return avg;
+	}
+
 	// Getters and Setters
 	public Point3D[] getPoints() {
 		return points;

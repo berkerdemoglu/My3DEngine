@@ -1,9 +1,11 @@
 package engine.geometry;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mesh {
-	private Polygon3D[] polygons;
+	private final Polygon3D[] polygons;
 
 	public Mesh(Polygon3D... polygons) {
 		this.polygons = new Polygon3D[polygons.length];
@@ -28,11 +30,19 @@ public class Mesh {
 		for (Polygon3D poly: polygons) {
 			poly.rotate(axis, degrees, clockwise);
 		}
+		sortPolygons();
 	}
 
 	public void rotate(Axis axis, double degrees) {
-		for (Polygon3D poly: polygons) {
-			poly.rotate(axis, degrees, false);
+		rotate(axis, degrees, false);
+	}
+
+	public void sortPolygons() {
+		List<Polygon3D> polygonList = new ArrayList<>(List.of(polygons));
+		polygonList.sort(new PolygonComparator());
+
+		for (int i = 0; i < polygons.length; i++) {
+			polygons[i] = polygonList.get(i);
 		}
 	}
 
