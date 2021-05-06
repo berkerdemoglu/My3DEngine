@@ -1,14 +1,18 @@
 package engine.graphics;
 
+import engine.geometry.Axis;
 import engine.geometry.Mesh;
 
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 public abstract class Display extends Canvas implements Runnable, DisplayConstants {
 	protected JFrame window;
 	protected Color backgroundColor;
+
 	protected final Renderer renderer;
 
 	protected Thread thread;
@@ -37,6 +41,55 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setLocationRelativeTo(null); // start in the middle of the screen
 		window.setResizable(false);
+
+		// Add key listener for rotations.
+		window.addKeyListener(
+				new KeyListener() {
+					@Override
+					public void keyTyped(KeyEvent e) {}
+
+					@Override
+					public void keyPressed(KeyEvent e) {
+						int keyCode = e.getKeyCode();
+
+						switch (keyCode) {
+							case KeyEvent.VK_NUMPAD7:
+								for (Mesh mesh: renderer.getMeshes()) {
+									mesh.rotate(Axis.zAxis, 1, false);
+								}
+								break;
+							case KeyEvent.VK_NUMPAD9:
+								for (Mesh mesh: renderer.getMeshes()) {
+									mesh.rotate(Axis.zAxis, 1, true);
+								}
+								break;
+							case KeyEvent.VK_NUMPAD4:
+								for (Mesh mesh: renderer.getMeshes()) {
+									mesh.rotate(Axis.yAxis, 1, false);
+								}
+								break;
+							case KeyEvent.VK_NUMPAD6:
+								for (Mesh mesh: renderer.getMeshes()) {
+									mesh.rotate(Axis.yAxis, 1, true);
+								}
+								break;
+							case KeyEvent.VK_NUMPAD2:
+								for (Mesh mesh: renderer.getMeshes()) {
+									mesh.rotate(Axis.xAxis, 1, true);
+								}
+								break;
+							case KeyEvent.VK_NUMPAD8:
+								for (Mesh mesh: renderer.getMeshes()) {
+									mesh.rotate(Axis.xAxis, 1, false);
+								}
+								break;
+						}
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e) {}
+				}
+		);
 
 		window.setVisible(true);
 	}
