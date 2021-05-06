@@ -9,13 +9,25 @@ import static java.lang.Math.*;
 
 public abstract class Projector {
 	private static int d = 1; // distance to objects
+	private static double scale = 1;
 
 	public static Point project3DPoint(Point3D p3d) {
+		double x3d = p3d.x * scale;
+		double y3d = p3d.y * scale;
+		double depth = p3d.z * scale;
+		double[] newValues = scalePoint(x3d, y3d, depth);
+
 		// Add half the screen width and height so that the point is centered in the middle
-		int x2d = (int) (Engine.SCREEN_WIDTH / 2 + d*p3d.x);
-		int y2d = (int) (Engine.SCREEN_HEIGHT / 2 - d*p3d.y);
+		int x2d = (int) (Engine.SCREEN_WIDTH / 2 + newValues[0]);
+		int y2d = (int) (Engine.SCREEN_HEIGHT / 2 - newValues[1]);
 
 		return new Point(x2d, y2d);
+	}
+
+	private static double[] scalePoint(double x3d, double y3d, double depth) {
+		double depth2 = 15 - depth;
+		double localScale = Math.abs(1400 / (depth2 + 1400));
+		return new double[]{localScale * x3d, localScale * y3d};
 	}
 
 	public static void rotatePoint(Point3D p, Axis axis, double degrees, boolean clockwise) {
