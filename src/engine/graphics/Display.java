@@ -41,16 +41,11 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setLocationRelativeTo(null); // start in the middle of the screen
 		window.setResizable(false);
 
-		this.manageKeyListeners();
+		// Add key listener
+		Keyboard keyboard = new Keyboard(renderer);
+		window.addKeyListener(keyboard);
 
 		window.setVisible(true);
-	}
-
-	protected void manageKeyListeners() {
-		Keyboard keyboard = new Keyboard(renderer);
-		for (KeyListener keyListener: keyboard.keyListeners) {
-			window.addKeyListener(keyListener);
-		}
 	}
 
 	public synchronized void start() {
