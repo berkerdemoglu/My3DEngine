@@ -12,8 +12,8 @@ public abstract class Projector {
 
 	public static Point project3DPoint(Point3D p3d) {
 		// Add half the screen width and height so that the point is centered in the middle
-		int x2d = (int) (Engine.SCREEN_WIDTH / 2 + d*p3d.x / p3d.z);
-		int y2d = (int) (Engine.SCREEN_HEIGHT / 2 - d*p3d.y / p3d.z);
+		int x2d = (int) (Engine.SCREEN_WIDTH / 2 + d*p3d.x);
+		int y2d = (int) (Engine.SCREEN_HEIGHT / 2 - d*p3d.y);
 
 		return new Point(x2d, y2d);
 	}
@@ -53,7 +53,7 @@ public abstract class Projector {
 		}
 
 		Matrix result = Matrix.multiplyMatrices(rotationMatrix, p.asMatrix());
-		if (result == null) {
+		if (result == null) { // if matrix multiplication failed
 			return;
 		}
 
