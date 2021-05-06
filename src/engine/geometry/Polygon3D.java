@@ -67,11 +67,11 @@ public class Polygon3D {
 	}
 
 	public double getAverageZ() {
-		double avg = 0;
+		double sum = 0;
 		for (Point3D p: points) {
-			avg += p.z;
+			sum += p.z;
 		}
-		return avg;
+		return sum / points.length;
 	}
 
 	// Getters and Setters
