@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.Point;
+import java.util.Arrays;
 
 public class Polygon3D {
 	private Point3D[] points;
@@ -72,6 +73,11 @@ public class Polygon3D {
 			sum += p.z;
 		}
 		return sum / points.length;
+	}
+
+	@Override
+	public String toString() {
+		return Arrays.toString(points) + ", Color: " + color;
 	}
 
 	// Getters and Setters

@@ -18,4 +18,9 @@ public class Point3D {
 	public Matrix asMatrix() {
 		return new Matrix(new double[][] {{x}, {y}, {z}});
 	}
+
+	@Override
+	public String toString() {
+		return "[" + x + ", " + y + ", " + z + "]";
+	}
 }

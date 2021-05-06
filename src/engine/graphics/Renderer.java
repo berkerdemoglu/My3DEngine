@@ -29,6 +29,11 @@ public class Renderer {
 		this.meshes.addAll(Arrays.asList(meshes));
 	}
 
+	@Override
+	public String toString() {
+		return meshes.toString();
+	}
+
 	public ArrayList<Mesh> getMeshes() {
 		return meshes;
 	}

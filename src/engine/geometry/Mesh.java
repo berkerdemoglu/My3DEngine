@@ -2,6 +2,7 @@ package engine.geometry;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Mesh {
@@ -44,6 +45,11 @@ public class Mesh {
 		for (int i = 0; i < polygons.length; i++) {
 			polygons[i] = polygonList.get(i);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return Arrays.toString(polygons);
 	}
 
 	public Polygon3D[] getPolygons() {

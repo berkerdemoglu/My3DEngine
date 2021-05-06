@@ -1,5 +1,7 @@
 package engine.math;
 
+import java.util.Arrays;
+
 public class Matrix {
 	public final double[][] matrix;
 
@@ -47,5 +49,10 @@ public class Matrix {
 			cell += a1[i][k] * a2[k][j];
 		}
 		return cell;
+	}
+
+	@Override
+	public String toString() {
+		return Arrays.deepToString(matrix);
 	}
 }
