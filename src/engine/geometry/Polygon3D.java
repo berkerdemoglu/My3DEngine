@@ -23,7 +23,7 @@ public class Polygon3D {
 		this(Color.RED, points);
 	}
 
-	public void render(Graphics g) {
+	public void render(Graphics g, boolean wireframeDraw) {
 		Polygon polygon = new Polygon();
 		Point point;
 
@@ -34,6 +34,12 @@ public class Polygon3D {
 
 		g.setColor(color);
 		g.fillPolygon(polygon);
+
+		if (wireframeDraw) {
+			// Draw the edges of the polygon
+			g.setColor(Color.BLACK);
+			g.drawPolygon(polygon);
+		}
 	}
 
 	public void translate(Axis axis, double inc) {

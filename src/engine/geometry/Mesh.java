@@ -15,9 +15,9 @@ public class Mesh {
 		}
 	}
 
-	public void render(Graphics g) {
+	public void render(Graphics g, boolean wireframeDraw) {
 		for (Polygon3D polygon: polygons) {
-			polygon.render(g);
+			polygon.render(g, wireframeDraw);
 		}
 	}
 

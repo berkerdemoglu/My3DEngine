@@ -35,6 +35,7 @@ public class Engine extends Display {
 				new Polygon3D(Color.RED, p1, p2, p3, p4)
 		);
 
+//		eng.renderer.setWireframeDraw(false);
 		eng.addMeshesToRender(mesh);
 		eng.start();
 	}

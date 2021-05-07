@@ -2,6 +2,7 @@ package engine.graphics;
 
 import engine.geometry.Mesh;
 import engine.input.keyboard.Keyboard;
+import engine.input.keyboard.WireframeDrawListener;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -13,7 +14,8 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 	protected final Renderer renderer;
 	protected final Keyboard keyboard;
-	protected RenderingHints renderingHints;
+	protected final WireframeDrawListener wireframeDrawListener;
+	protected RenderingHints antiAliasingHints;
 
 	protected Thread thread;
 
@@ -29,9 +31,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 		renderer = new Renderer(SCREEN_WIDTH, SCREEN_HEIGHT);
 		keyboard = new Keyboard(renderer);
+		wireframeDrawListener = new WireframeDrawListener(renderer);
 
 		// Create antialiasing hints (by default)
-		renderingHints = new RenderingHints(
+		antiAliasingHints = new RenderingHints(
 				RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON
 		);
@@ -49,8 +52,9 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setLocationRelativeTo(null); // start in the middle of the screen
 		window.setResizable(false);
 
-		// Add key listener
+		// Add key listeners
 		window.addKeyListener(keyboard);
+		window.addKeyListener(wireframeDrawListener);
 
 		window.setVisible(true);
 	}
@@ -125,7 +129,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		Graphics g = bs.getDrawGraphics(); // Get graphics object to draw on
 		if (g instanceof Graphics2D) {
 			// Use anti-aliasing when possible
-			((Graphics2D) g).setRenderingHints(renderingHints);
+			((Graphics2D) g).setRenderingHints(antiAliasingHints);
 		}
 
 		// Draw background
