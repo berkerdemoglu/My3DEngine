@@ -1,6 +1,6 @@
 package engine.graphics;
 
-import engine.geometry.Mesh;
+import engine.geometry.entity.Entity;
 import engine.geometry.Projector;
 import engine.input.keyboard.Keyboard;
 import engine.input.keyboard.DrawListener;
@@ -128,8 +128,6 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	}
 
 	protected void handleMouseEvents() {
-		double mouseSensitivity = 2.5;
-
 		if (mouse.isScrollingUp()) {
 			Projector.scale *= Mouse.zoomFactor;
 		} else if (mouse.isScrollingDown()) {
@@ -167,7 +165,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		bs.show();
 	}
 
-	public void addMeshesToRender(Mesh... meshes) {
-		renderer.addMesh(meshes);
+	public void addEntitiesToRender(Entity... entities) {
+		renderer.addEntity(entities);
 	}
 }

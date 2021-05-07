@@ -1,8 +1,8 @@
 package engine.input.keyboard;
 
 import engine.Engine;
+import engine.geometry.entity.Entity;
 import engine.geometry.Axis;
-import engine.geometry.Mesh;
 import engine.graphics.Renderer;
 
 import java.awt.event.KeyEvent;
@@ -28,33 +28,33 @@ public class Keyboard implements KeyListener {
 
 	public void pressKeys() {
 		if (numpad7Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.zAxis, degreeChangeSpeed, false);
+			for (Entity entity: renderer.getEntities()) {
+				entity.rotate(Axis.zAxis, degreeChangeSpeed, false);
 			}
 
 		if (numpad9Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.zAxis, degreeChangeSpeed, true);
+			for (Entity entity: renderer.getEntities()) {
+				entity.rotate(Axis.zAxis, degreeChangeSpeed, true);
 			}
 
 		if (numpad4Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.yAxis, degreeChangeSpeed, true);
+			for (Entity entity: renderer.getEntities()) {
+				entity.rotate(Axis.yAxis, degreeChangeSpeed, true);
 			}
 
 		if (numpad6Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.yAxis, degreeChangeSpeed, false);
+			for (Entity entity: renderer.getEntities()) {
+				entity.rotate(Axis.yAxis, degreeChangeSpeed, false);
 			}
 
 		if (numpad2Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.xAxis, degreeChangeSpeed, false);
+			for (Entity entity: renderer.getEntities()) {
+				entity.rotate(Axis.xAxis, degreeChangeSpeed, false);
 			}
 
 		if (numpad8Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.xAxis, degreeChangeSpeed, true);
+			for (Entity entity: renderer.getEntities()) {
+				entity.rotate(Axis.xAxis, degreeChangeSpeed, true);
 			}
 	}
 

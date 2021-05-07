@@ -7,12 +7,15 @@ import java.util.List;
 
 public class Mesh {
 	private final Polygon3D[] polygons;
+	private final PolygonComparator polygonComparator;
 
 	public Mesh(Polygon3D... polygons) {
 		this.polygons = new Polygon3D[polygons.length];
 		for (int i = 0; i < polygons.length; i++) {
 			this.polygons[i] = polygons[i].copyPolygon();
 		}
+
+		polygonComparator = new PolygonComparator();
 	}
 
 	public void render(Graphics g, DrawType drawType) {
@@ -40,11 +43,19 @@ public class Mesh {
 
 	public void sortPolygons() {
 		List<Polygon3D> polygonList = new ArrayList<>(List.of(polygons));
-		polygonList.sort(new PolygonComparator());
+		polygonList.sort(polygonComparator);
 
 		for (int i = 0; i < polygons.length; i++) {
 			polygons[i] = polygonList.get(i);
 		}
+	}
+
+	public double getAverageZ() {
+		double sum = 0;
+		for (Polygon3D polygon: polygons) {
+			sum += polygon.getAverageZ();
+		}
+		return sum / polygons.length;
 	}
 
 	@Override
