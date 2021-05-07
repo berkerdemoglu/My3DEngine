@@ -13,9 +13,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	protected Color backgroundColor;
 
 	protected final Renderer renderer;
+	protected RenderingHints antiAliasingHints;
+
 	protected final Keyboard keyboard;
 	protected final WireframeDrawListener wireframeDrawListener;
-	protected RenderingHints antiAliasingHints;
 
 	protected Thread thread;
 
@@ -30,14 +31,14 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 		renderer = new Renderer(SCREEN_WIDTH, SCREEN_HEIGHT);
-		keyboard = new Keyboard(renderer);
-		wireframeDrawListener = new WireframeDrawListener(renderer);
-
-		// Create antialiasing hints (by default)
+		// Create antialiasing hints
 		antiAliasingHints = new RenderingHints(
 				RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON
 		);
+
+		keyboard = new Keyboard(renderer);
+		wireframeDrawListener = new WireframeDrawListener(renderer);
 	}
 
 	public Display(String title) {
@@ -53,8 +54,9 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setResizable(false);
 
 		// Add key listeners
-		window.addKeyListener(keyboard);
-		window.addKeyListener(wireframeDrawListener);
+		this.addKeyListener(keyboard);
+		this.addKeyListener(wireframeDrawListener);
+		this.requestFocus();
 
 		window.setVisible(true);
 	}
