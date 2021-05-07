@@ -11,10 +11,7 @@ public class Polygon3D {
 	private Color color;
 
 	public Polygon3D(Color color, Point3D... points) {
-		this.points = new Point3D[points.length];
-		for (int i = 0; i < points.length; i++) {
-			this.points[i] = points[i].copyPoint();
-		}
+		this.points = points.clone();
 
 		this.color = color;
 	}

@@ -10,8 +10,7 @@ public class Matrix {
 	}
 
 	public Matrix(double[][] matrix) {
-		// TODO: Check if this will cause problems because the array is on the heap
-		this.matrix = matrix;
+		this.matrix = matrix.clone();
 	}
 
 	public Matrix scale(double s) {

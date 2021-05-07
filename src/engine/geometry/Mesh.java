@@ -10,10 +10,7 @@ public class Mesh {
 	private final PolygonComparator polygonComparator;
 
 	public Mesh(Polygon3D... polygons) {
-		this.polygons = new Polygon3D[polygons.length];
-		for (int i = 0; i < polygons.length; i++) {
-			this.polygons[i] = polygons[i].copyPolygon();
-		}
+		this.polygons = polygons.clone();
 
 		polygonComparator = new PolygonComparator();
 	}
