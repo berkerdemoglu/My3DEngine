@@ -1,5 +1,6 @@
 package engine.input.keyboard;
 
+import engine.Engine;
 import engine.geometry.Axis;
 import engine.geometry.Mesh;
 import engine.graphics.Renderer;
@@ -10,7 +11,6 @@ import java.awt.event.KeyListener;
 public class Keyboard implements KeyListener {
 	private final Renderer renderer;
 
-
 	private boolean numpad7Pressed;
 	private boolean numpad9Pressed;
 
@@ -20,8 +20,42 @@ public class Keyboard implements KeyListener {
 	private boolean numpad2Pressed;
 	private boolean numpad8Pressed;
 
+	private final static double degreeChangeSpeed = 45.0 / Engine.FPS;
+
 	public Keyboard(Renderer renderer) {
 		this.renderer = renderer;
+	}
+
+	public void pressKeys() {
+		if (numpad7Pressed)
+			for (Mesh mesh: renderer.getMeshes()) {
+				mesh.rotate(Axis.zAxis, degreeChangeSpeed, false);
+			}
+
+		if (numpad9Pressed)
+			for (Mesh mesh: renderer.getMeshes()) {
+				mesh.rotate(Axis.zAxis, degreeChangeSpeed, true);
+			}
+
+		if (numpad4Pressed)
+			for (Mesh mesh: renderer.getMeshes()) {
+				mesh.rotate(Axis.yAxis, degreeChangeSpeed, true);
+			}
+
+		if (numpad6Pressed)
+			for (Mesh mesh: renderer.getMeshes()) {
+				mesh.rotate(Axis.yAxis, degreeChangeSpeed, false);
+			}
+
+		if (numpad2Pressed)
+			for (Mesh mesh: renderer.getMeshes()) {
+				mesh.rotate(Axis.xAxis, degreeChangeSpeed, false);
+			}
+
+		if (numpad8Pressed)
+			for (Mesh mesh: renderer.getMeshes()) {
+				mesh.rotate(Axis.xAxis, degreeChangeSpeed, true);
+			}
 	}
 
 	@Override
@@ -49,44 +83,12 @@ public class Keyboard implements KeyListener {
 				numpad8Pressed = true;
 				break;
 		}
-
-		// Press the keys
-		if (numpad7Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.zAxis, 1, false);
-			}
-
-		if (numpad9Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.zAxis, 1, true);
-			}
-
-		if (numpad4Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.yAxis, 1, true);
-			}
-
-		if (numpad6Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.yAxis, 1, false);
-			}
-
-		if (numpad2Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.xAxis, 1, true);
-			}
-
-		if (numpad8Pressed)
-			for (Mesh mesh: renderer.getMeshes()) {
-				mesh.rotate(Axis.xAxis, 1, false);
-			}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_NUMPAD7:
-				System.out.println("called release numpad7");
 				numpad7Pressed = false;
 				break;
 			case KeyEvent.VK_NUMPAD9:

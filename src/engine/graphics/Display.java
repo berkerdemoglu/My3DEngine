@@ -13,6 +13,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	protected Color backgroundColor;
 
 	protected final Renderer renderer;
+	protected final Keyboard keyboard;
 
 	protected Thread thread;
 
@@ -27,6 +28,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 		renderer = new Renderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+		keyboard = new Keyboard(renderer);
 	}
 
 	public Display(String title) {
@@ -42,7 +44,6 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setResizable(false);
 
 		// Add key listener
-		Keyboard keyboard = new Keyboard(renderer);
 		window.addKeyListener(keyboard);
 
 		window.setVisible(true);
@@ -89,6 +90,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 			while (delta >= 1) {
 				updateDisplay();
 				delta--;
+				keyboard.pressKeys();
 				render();
 				drawnFrames++; // we drew a frame
 			}
