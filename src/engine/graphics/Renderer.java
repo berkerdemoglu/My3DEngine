@@ -1,5 +1,6 @@
 package engine.graphics;
 
+import engine.geometry.DrawType;
 import engine.geometry.Mesh;
 
 import java.awt.Graphics;
@@ -11,19 +12,19 @@ public class Renderer {
 	private final int height;
 
 	private final ArrayList<Mesh> meshes;
-	private boolean wireframeDraw;
+	private DrawType drawType;
 
 	public Renderer(int width, int height) {
 		this.width = width;
 		this.height = height;
 
 		meshes = new ArrayList<>();
-		wireframeDraw = false;
+		drawType = DrawType.FILL;
 	}
 
 	public void render(Graphics g) {
 		for (Mesh mesh: meshes) {
-			mesh.render(g, wireframeDraw);
+			mesh.render(g, drawType);
 		}
 	}
 
@@ -40,11 +41,11 @@ public class Renderer {
 		return meshes;
 	}
 
-	public void setWireframeDraw(boolean wireframeDraw) {
-		this.wireframeDraw = wireframeDraw;
+	public void setDrawType(DrawType drawType) {
+		this.drawType = drawType;
 	}
 
-	public boolean isWireframeDraw() {
-		return wireframeDraw;
+	public DrawType getDrawType() {
+		return drawType;
 	}
 }

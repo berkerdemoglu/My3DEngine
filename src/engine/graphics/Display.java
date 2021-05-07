@@ -3,7 +3,7 @@ package engine.graphics;
 import engine.geometry.Mesh;
 import engine.geometry.Projector;
 import engine.input.keyboard.Keyboard;
-import engine.input.keyboard.WireframeDrawListener;
+import engine.input.keyboard.DrawListener;
 import engine.input.mouse.Mouse;
 
 import javax.swing.JFrame;
@@ -18,7 +18,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	protected RenderingHints antiAliasingHints;
 
 	protected final Keyboard keyboard;
-	protected final WireframeDrawListener wireframeDrawListener;
+	protected final DrawListener wireframeDrawListener;
 	protected final Mouse mouse;
 
 	protected Thread thread;
@@ -41,7 +41,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		);
 
 		keyboard = new Keyboard(renderer);
-		wireframeDrawListener = new WireframeDrawListener(renderer);
+		wireframeDrawListener = new DrawListener(renderer);
 
 		mouse = new Mouse();
 	}

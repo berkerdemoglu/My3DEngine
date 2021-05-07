@@ -23,7 +23,7 @@ public class Polygon3D {
 		this(Color.RED, points);
 	}
 
-	public void render(Graphics g, boolean wireframeDraw) {
+	public void render(Graphics g, DrawType drawType) {
 		Polygon polygon = new Polygon();
 		Point point;
 
@@ -32,13 +32,21 @@ public class Polygon3D {
 			polygon.addPoint(point.x, point.y);
 		}
 
-		if (wireframeDraw) {
-			// Draw the edges of the polygon
-			g.setColor(Color.LIGHT_GRAY);
-			g.drawPolygon(polygon);
-		} else {
-			g.setColor(color);
-			g.fillPolygon(polygon);
+		switch (drawType) {
+			case FILL:
+				g.setColor(color);
+				g.fillPolygon(polygon);
+				break;
+			case WIREFRAME_DRAW:
+				g.setColor(Color.LIGHT_GRAY);
+				g.drawPolygon(polygon);
+				break;
+			case FILL_N_HIGHLIGHT:
+				g.setColor(color);
+				g.fillPolygon(polygon);
+				g.setColor(Color.DARK_GRAY);
+				g.drawPolygon(polygon);
+				break;
 		}
 	}
 
