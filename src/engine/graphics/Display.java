@@ -5,7 +5,6 @@ import engine.input.keyboard.Keyboard;
 
 import javax.swing.JFrame;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 public abstract class Display extends Canvas implements Runnable, DisplayConstants {
@@ -14,6 +13,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 	protected final Renderer renderer;
 	protected final Keyboard keyboard;
+	protected RenderingHints renderingHints;
 
 	protected Thread thread;
 
@@ -29,6 +29,12 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 		renderer = new Renderer(SCREEN_WIDTH, SCREEN_HEIGHT);
 		keyboard = new Keyboard(renderer);
+
+		// Create antialiasing hints (by default)
+		renderingHints = new RenderingHints(
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON
+		);
 	}
 
 	public Display(String title) {
@@ -117,6 +123,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		}
 
 		Graphics g = bs.getDrawGraphics(); // Get graphics object to draw on
+		if (g instanceof Graphics2D) {
+			// Use anti-aliasing when possible
+			((Graphics2D) g).setRenderingHints(renderingHints);
+		}
 
 		// Draw background
 		g.setColor(backgroundColor);
