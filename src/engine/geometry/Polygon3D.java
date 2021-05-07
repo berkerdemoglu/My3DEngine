@@ -32,13 +32,13 @@ public class Polygon3D {
 			polygon.addPoint(point.x, point.y);
 		}
 
-		g.setColor(color);
-		g.fillPolygon(polygon);
-
 		if (wireframeDraw) {
 			// Draw the edges of the polygon
-			g.setColor(Color.BLACK);
+			g.setColor(Color.LIGHT_GRAY);
 			g.drawPolygon(polygon);
+		} else {
+			g.setColor(color);
+			g.fillPolygon(polygon);
 		}
 	}
 

@@ -1,6 +1,5 @@
 package engine;
 
-import engine.geometry.Axis;
 import engine.geometry.Mesh;
 import engine.geometry.Point3D;
 import engine.geometry.Polygon3D;
@@ -17,14 +16,14 @@ public class Engine extends Display {
 		Engine eng = new Engine("3D Engine", Color.BLACK);
 
 		double s = 50.0;
-		Point3D p1 = new Point3D(-s, -s, s);
-		Point3D p2 = new Point3D(s, -s, s);
-		Point3D p3 = new Point3D(s, s, s);
-		Point3D p4 = new Point3D(-s, s, s);
-		Point3D p5 = new Point3D(-s, -s, -s);
-		Point3D p6 = new Point3D(s, -s, -s);
-		Point3D p7 = new Point3D(s, s, -s);
-		Point3D p8 = new Point3D(-s, s, -s);
+		Point3D p1 = new Point3D(-2*s, -s, s);
+		Point3D p2 = new Point3D(2*s, -s, s);
+		Point3D p3 = new Point3D(2*s, s, s);
+		Point3D p4 = new Point3D(-2*s, s, s);
+		Point3D p5 = new Point3D(-2*s, -s, -s);
+		Point3D p6 = new Point3D(2*s, -s, -s);
+		Point3D p7 = new Point3D(2*s, s, -s);
+		Point3D p8 = new Point3D(-2*s, s, -s);
 
 		Mesh mesh = new Mesh(/*Color.CYAN,*/
 				new Polygon3D(Color.BLUE, p5, p6, p7, p8),
@@ -35,14 +34,12 @@ public class Engine extends Display {
 				new Polygon3D(Color.RED, p1, p2, p3, p4)
 		);
 
-//		eng.renderer.setWireframeDraw(false);
 		eng.addMeshesToRender(mesh);
 		eng.start();
 	}
 
 	@Override
 	protected void updateDisplay() {
-//		Mesh mesh = renderer.getMeshes().get(0);
-//		mesh.rotate(Axis.xAxis, 2);
+
 	}
 }
