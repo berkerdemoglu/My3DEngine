@@ -74,10 +74,6 @@ public class Polygon3D {
 		}
 	}
 
-	public Polygon3D copyPolygon() {
-		return new Polygon3D(this.color, this.points);
-	}
-
 	public double getAverageZ() {
 		double sum = 0;
 		for (Point3D p: points) {

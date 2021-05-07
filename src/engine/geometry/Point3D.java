@@ -11,10 +11,6 @@ public class Point3D {
 		this.z = z;
 	}
 
-	public Point3D copyPoint() {
-		return new Point3D(x, y, z);
-	}
-
 	public Matrix asMatrix() {
 		return new Matrix(new double[][] {{x}, {y}, {z}});
 	}
