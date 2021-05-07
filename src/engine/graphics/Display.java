@@ -1,8 +1,10 @@
 package engine.graphics;
 
 import engine.geometry.Mesh;
+import engine.geometry.Projector;
 import engine.input.keyboard.Keyboard;
 import engine.input.keyboard.WireframeDrawListener;
+import engine.input.mouse.Mouse;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -17,6 +19,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 	protected final Keyboard keyboard;
 	protected final WireframeDrawListener wireframeDrawListener;
+	protected final Mouse mouse;
 
 	protected Thread thread;
 
@@ -39,6 +42,8 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 		keyboard = new Keyboard(renderer);
 		wireframeDrawListener = new WireframeDrawListener(renderer);
+
+		mouse = new Mouse();
 	}
 
 	public Display(String title) {
@@ -57,6 +62,9 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		this.addKeyListener(keyboard);
 		this.addKeyListener(wireframeDrawListener);
 		this.requestFocus();
+
+		// Add mouse listeners
+		this.addMouseWheelListener(mouse);
 
 		window.setVisible(true);
 	}
@@ -100,9 +108,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 			lastTime = now; // reset last time
 
 			while (delta >= 1) {
+				keyboard.pressKeys();
+				handleMouseEvents();
 				updateDisplay();
 				delta--;
-				keyboard.pressKeys();
 				render();
 				drawnFrames++; // we drew a frame
 			}
@@ -116,6 +125,18 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		}
 
 		stop();
+	}
+
+	protected void handleMouseEvents() {
+		double mouseSensitivity = 2.5;
+
+		if (mouse.isScrollingUp()) {
+			Projector.scale *= Mouse.zoomFactor;
+		} else if (mouse.isScrollingDown()) {
+			Projector.scale /= Mouse.zoomFactor;
+		}
+
+		mouse.resetScroll();
 	}
 
 	abstract protected void updateDisplay();

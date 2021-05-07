@@ -8,8 +8,7 @@ import java.awt.Point;
 import static java.lang.Math.*;
 
 public abstract class Projector {
-	private static int d = 1; // distance to objects
-	private static double scale = 1;
+	public static double scale = 1;
 
 	public static Point project3DPoint(Point3D p3d) {
 		double x3d = p3d.x * scale;
