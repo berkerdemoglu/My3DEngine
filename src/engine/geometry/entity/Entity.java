@@ -6,16 +6,15 @@ import engine.geometry.Mesh;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Entity {
-	private Mesh[] meshes;
+	private final ArrayList<Mesh> meshes;
 	private final MeshComparator meshComparator;
 
 	public Entity(Mesh... meshes) {
-		this.meshes = new Mesh[meshes.length];
-		for (int i = 0; i < meshes.length; i++) {
-			this.meshes[i] = meshes[i].cloneMesh();
+		this.meshes = new ArrayList<>();
+		for (Mesh mesh : meshes) {
+			this.meshes.add(mesh.cloneMesh());
 		}
 
 		meshComparator = new MeshComparator();
@@ -35,15 +34,10 @@ public class Entity {
 	}
 
 	public void sortMeshes() {
-		List<Mesh> meshList = new ArrayList<>(List.of(meshes));
-		meshList.sort(meshComparator);
-
-		for (int i = 0; i < meshes.length; i++) {
-			this.meshes[i] = meshList.get(i);
-		}
+		meshes.sort(meshComparator);
 	}
 
-	public Mesh[] getMeshes() {
+	public ArrayList<Mesh> getMeshes() {
 		return meshes;
 	}
 }

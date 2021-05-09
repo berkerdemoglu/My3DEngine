@@ -3,16 +3,15 @@ package engine.geometry;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Mesh {
-	private final Polygon3D[] polygons;
+	private final ArrayList<Polygon3D> polygons;
 	private final PolygonComparator polygonComparator;
 
 	public Mesh(Polygon3D... polygons) {
-		this.polygons = new Polygon3D[polygons.length];
-		for (int i = 0; i < polygons.length; i++) {
-			this.polygons[i] = polygons[i].clonePolygon();
+		this.polygons = new ArrayList<>();
+		for (Polygon3D polygon : polygons) {
+			this.polygons.add(polygon.clonePolygon());
 		}
 
 		polygonComparator = new PolygonComparator();
@@ -42,12 +41,7 @@ public class Mesh {
 	}
 
 	public void sortPolygons() {
-		List<Polygon3D> polygonList = new ArrayList<>(List.of(polygons));
-		polygonList.sort(polygonComparator);
-
-		for (int i = 0; i < polygons.length; i++) {
-			polygons[i] = polygonList.get(i);
-		}
+		polygons.sort(polygonComparator);
 	}
 
 	public double getAverageZ() {
@@ -55,19 +49,19 @@ public class Mesh {
 		for (Polygon3D polygon: polygons) {
 			sum += polygon.getAverageZ();
 		}
-		return sum / polygons.length;
+		return sum / polygons.size();
 	}
 
 	@Override
 	public String toString() {
-		return Arrays.toString(polygons);
+		return polygons.toString();
 	}
 
 	public Mesh cloneMesh() {
-		return new Mesh(polygons);
+		return new Mesh(polygons.toArray(new Polygon3D[0]));
 	}
 
-	public Polygon3D[] getPolygons() {
+	public ArrayList<Polygon3D> getPolygons() {
 		return polygons;
 	}
 }
