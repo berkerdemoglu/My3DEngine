@@ -11,7 +11,10 @@ public class Polygon3D {
 	private Color color;
 
 	public Polygon3D(Color color, Point3D... points) {
-		this.points = points.clone();
+		this.points = new Point3D[points.length];
+		for (int i = 0; i < points.length; i++) {
+			this.points[i] = points[i].clonePoint();
+		}
 
 		this.color = color;
 	}
@@ -39,10 +42,10 @@ public class Polygon3D {
 				g.drawPolygon(polygon);
 				break;
 			case FILL_N_HIGHLIGHT:
-				g.setColor(color);
-				g.fillPolygon(polygon);
 				g.setColor(Color.DARK_GRAY);
 				g.drawPolygon(polygon);
+				g.setColor(color);
+				g.fillPolygon(polygon);
 				break;
 		}
 	}
@@ -85,6 +88,10 @@ public class Polygon3D {
 	@Override
 	public String toString() {
 		return Arrays.toString(points) + ", Color: " + color;
+	}
+
+	public Polygon3D clonePolygon() {
+		return new Polygon3D(color, points);
 	}
 
 	// Getters and Setters

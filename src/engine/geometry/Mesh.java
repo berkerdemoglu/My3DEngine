@@ -10,7 +10,10 @@ public class Mesh {
 	private final PolygonComparator polygonComparator;
 
 	public Mesh(Polygon3D... polygons) {
-		this.polygons = polygons.clone();
+		this.polygons = new Polygon3D[polygons.length];
+		for (int i = 0; i < polygons.length; i++) {
+			this.polygons[i] = polygons[i].clonePolygon();
+		}
 
 		polygonComparator = new PolygonComparator();
 	}
@@ -58,6 +61,10 @@ public class Mesh {
 	@Override
 	public String toString() {
 		return Arrays.toString(polygons);
+	}
+
+	public Mesh cloneMesh() {
+		return new Mesh(polygons);
 	}
 
 	public Polygon3D[] getPolygons() {

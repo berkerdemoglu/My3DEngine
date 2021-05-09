@@ -19,4 +19,8 @@ public class Point3D {
 	public String toString() {
 		return "[" + x + ", " + y + ", " + z + "]";
 	}
+
+	public Point3D clonePoint() {
+		return new Point3D(x, y, z);
+	}
 }

@@ -13,7 +13,10 @@ public class Entity {
 	private final MeshComparator meshComparator;
 
 	public Entity(Mesh... meshes) {
-		this.meshes = meshes.clone();
+		this.meshes = new Mesh[meshes.length];
+		for (int i = 0; i < meshes.length; i++) {
+			this.meshes[i] = meshes[i].cloneMesh();
+		}
 
 		meshComparator = new MeshComparator();
 	}
