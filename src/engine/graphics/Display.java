@@ -46,10 +46,6 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		mouse = new Mouse();
 	}
 
-	public Display(String title) {
-		this(title, Color.BLACK);
-	}
-
 	protected void manageWindowSettings() {
 		window.setTitle(title);
 		window.add(this);

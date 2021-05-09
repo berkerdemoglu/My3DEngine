@@ -2,7 +2,6 @@ package engine.geometry;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Mesh {
 	private final ArrayList<Polygon3D> polygons;

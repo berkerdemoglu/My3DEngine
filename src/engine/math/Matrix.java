@@ -5,10 +5,6 @@ import java.util.Arrays;
 public class Matrix {
 	public final double[][] matrix;
 
-	public Matrix(int rows, int columns) {
-		matrix = new double[rows][columns];
-	}
-
 	public Matrix(double[][] matrix) {
 		this.matrix = matrix.clone();
 	}
