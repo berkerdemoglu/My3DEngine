@@ -2,7 +2,7 @@ package engine;
 
 import engine.geometry.Mesh;
 import engine.geometry.entity.Entity;
-import engine.geometry.shape.ShapeBuilder;
+import engine.geometry.shape.MeshBuilder;
 import engine.graphics.Display;
 
 import java.awt.Color;
@@ -20,7 +20,7 @@ public class Engine extends Display {
 //				ShapeBuilder.constructCube(Color.CYAN, 50, new Point3D(0, 0, 200)),
 //				ShapeBuilder.constructCube(Color.GREEN, 50, new Point3D(200, 200, 200)),
 //				ShapeBuilder.constructRectanglePrism(new Color(1.0f, 1.0f, 1.0f, 0.5f), new Point3D(0,0,0), 50, 100, 200)
-				ShapeBuilder.fromObjFile(Color.LIGHT_GRAY, "D:\\kodlama\\java_projects\\My3DEngine\\resources\\gourd.obj")
+				MeshBuilder.fromObjFile(Color.GREEN, "D:\\kodlama\\java_projects\\My3DEngine\\resources\\gourd.obj")
 		};
 
 		Entity entity = new Entity(meshes);

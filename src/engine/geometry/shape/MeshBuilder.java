@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShapeBuilder {
+public class MeshBuilder {
 
 	public static Mesh constructCube(Color color, double size, Point3D center) {
 		double centerX = center.x;
