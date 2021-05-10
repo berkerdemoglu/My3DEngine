@@ -80,12 +80,8 @@ public class MeshBuilder {
 		List<Point3D> vertices = new ArrayList<>();
 		String[] line;
 		for (String l: lines) {
-			line = l.split(" ");
+			line = l.split("\\s+");
 			if (l.isEmpty()) continue;
-
-			if (l.startsWith("s")) {
-				continue;
-			}
 
 			if (l.charAt(0) == 'v') {
 				Point3D v = new Point3D(
