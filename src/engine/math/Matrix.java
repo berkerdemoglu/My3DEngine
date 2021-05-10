@@ -2,13 +2,25 @@ package engine.math;
 
 import java.util.Arrays;
 
+/**
+ * The <code>Matrix</code> class is used for projection, rotation, and is generally involved in back-end functionality.
+ */
 public class Matrix {
 	public final double[][] matrix;
 
+	/**
+	 * Creates a new <code>Matrix</code> from a 2-dimensional array.
+	 * @param matrix A 2D array of <code>double</code> values.
+	 */
 	public Matrix(double[][] matrix) {
 		this.matrix = matrix.clone();
 	}
 
+	/**
+	 * Currently unused.
+	 * @param s The value to scale the matrix by
+	 * @return A new scaled <code>Matrix</code>
+	 */
 	public Matrix scale(double s) {
 		double[][] newMatrixArray = new double[matrix.length][matrix[0].length];
 
@@ -21,6 +33,12 @@ public class Matrix {
 		return new Matrix(newMatrixArray);
 	}
 
+	/**
+	 * Multiplies a matrix by another.
+	 * @param m1 The first matrix
+	 * @param m2 The second matrix
+	 * @return The result of the multiplication, also a matrix.
+	 */
 	public static Matrix multiplyMatrices(Matrix m1, Matrix m2) {
 		if (m1.matrix[0].length != m2.matrix.length) {
 			// Check that the two matrices can be multiplied, and if not, return null

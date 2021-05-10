@@ -10,6 +10,13 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
+/**
+ * Perhaps the most important class of the engine, it is the window where all the magic happens.7
+ * It is an abstract class and must be inherited from. The {@link engine.Engine} class inherits from this class too.
+ *
+ * The <code>Display</code> class allows customization as it has <code>protected</code> variables.
+ * It is easy to add keys to detect, entities to render, and more.
+ */
 public abstract class Display extends Canvas implements Runnable, DisplayConstants {
 	protected JFrame window;
 	protected Color backgroundColor;
@@ -26,6 +33,11 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	protected String title;
 	protected boolean isRunning;
 
+	/**
+	 * Create a new display object.
+	 * @param title Title of the window
+	 * @param backgroundColor Background color of the scene
+	 */
 	public Display(String title, Color backgroundColor) {
 		this.title = title;
 		this.backgroundColor = backgroundColor;
@@ -33,7 +45,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window = new JFrame();
 		window.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
-		renderer = new Renderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+		renderer = new Renderer();
 		// Create antialiasing hints
 		antiAliasingHints = new RenderingHints(
 				RenderingHints.KEY_ANTIALIASING,
@@ -46,6 +58,11 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		mouse = new Mouse();
 	}
 
+	/**
+	 * This function can be overridden but its main function is to manage its window's ({@link JFrame}) properties
+	 * such as adding key listeners, adding mouse listeners, etc. However, it is generally recommended that
+	 * this function not be overridden.
+	 */
 	protected void manageWindowSettings() {
 		window.setTitle(title);
 		window.add(this);
@@ -65,6 +82,9 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		window.setVisible(true);
 	}
 
+	/**
+	 * Starts the thread of the display.
+	 */
 	public synchronized void start() {
 		if (isRunning) {return;} // guard clause so that another display can't be started
 
@@ -77,6 +97,9 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		thread.start();
 	}
 
+	/**
+	 * This method is responsible for joining the thread and stopping the display.
+	 */
 	private synchronized void stop() {
 		isRunning = false;
 		try {
@@ -86,6 +109,9 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		}
 	}
 
+	/**
+	 * This method comes from the {@link Runnable} interface and starts the main loop of the display.
+	 */
 	@Override
 	public void run() {
 		final double nanoSeconds = 1000000000.0 / FPS;
@@ -123,6 +149,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		stop();
 	}
 
+	/**
+	 * This method is responsible for controlling mouse events. It is generally a good idea to override this function
+	 * if you are not content with its functionality.
+	 */
 	protected void handleMouseEvents() {
 		if (mouse.isScrollingUp()) {
 			Projector.scale *= Mouse.zoomFactor;
@@ -133,8 +163,16 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		mouse.resetScroll();
 	}
 
+	/**
+	 * <code>updateDisplay()</code> is an abstract method that must be implemented by the inheriting class
+	 * and is generally used to control entities in every loop.
+	 */
 	abstract protected void updateDisplay();
 
+	/**
+	 * This method is very important for the display class as it is responsible for creating a {@link BufferStrategy}
+	 * and getting its graphics, and then rendering entities from the {@link Renderer} class.
+	 */
 	private void render() {
 		// Create buffers if null
 		BufferStrategy bs = getBufferStrategy();
@@ -161,6 +199,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		bs.show();
 	}
 
+	/**
+	 * This method adds entities to the list of entities of the <code>Renderer</code> class.
+	 * @param entities Entities to be rendered
+	 */
 	public void addEntitiesToRender(Entity... entities) {
 		renderer.addEntity(entities);
 	}

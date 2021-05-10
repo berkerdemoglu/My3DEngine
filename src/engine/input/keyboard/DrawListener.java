@@ -6,6 +6,9 @@ import engine.graphics.Renderer;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * This class implements {@link KeyListener} and is used to switch between different draw types.
+ */
 public class DrawListener implements KeyListener {
 	private final Renderer renderer;
 
@@ -23,6 +26,7 @@ public class DrawListener implements KeyListener {
 		}
 	}
 
+	// The following methods do not need implementations.
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	@Override

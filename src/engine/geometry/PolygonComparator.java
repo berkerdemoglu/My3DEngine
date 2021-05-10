@@ -2,6 +2,9 @@ package engine.geometry;
 
 import java.util.Comparator;
 
+/**
+ * Used to sort polygons according to their average Z coordinate.
+ */
 public class PolygonComparator implements Comparator<Polygon3D> {
 
 	@Override

@@ -7,9 +7,17 @@ import java.awt.Point;
 
 import static java.lang.Math.*;
 
+/**
+ * Used to project to 2D, rotate around an axis, and scale 3D points.
+ */
 public abstract class Projector {
-	public static double scale = 1;
+	public static double scale = 1;  // this will be changed in the future
 
+	/**
+	 * Project 3D point to 2D.
+	 * @param p3d A {@link Point3D} to be projected
+	 * @return A projected 2D {@link Point}
+	 */
 	public static Point project3DPoint(Point3D p3d) {
 		double x3d = p3d.x * scale;
 		double y3d = p3d.y * scale;
@@ -23,12 +31,28 @@ public abstract class Projector {
 		return new Point(x2d, y2d);
 	}
 
+	/**
+	 * Scales a point accordingly. Used for perspective projection.
+	 * This method is called in the <code>project3DPoint()</code> method.
+	 * @param x3d The scaled X coordinate of the 3D point
+	 * @param y3d The scaled Y coordinate of the 3D point
+	 * @param depth The scaled Z coordinate of the 3D point which is used for depth
+	 * @return A 2 element <code>double</code> array of the locally scaled X and Y coordinates.
+	 */
 	private static double[] scalePoint(double x3d, double y3d, double depth) {
 		double depth2 = 15 - depth;
 		double localScale = Math.abs(1400 / (depth2 + 1400));
 		return new double[]{localScale * x3d, localScale * y3d};
 	}
 
+	/**
+	 * Rotates a 3D point around an axis.
+	 * This method is called in the <code>rotate()</code> method of {@link Polygon3D}.
+	 * @param p The 3D point to rotate.
+	 * @param axis The axis to rotate around.
+	 * @param degrees How much to rotate in degrees.
+	 * @param clockwise Clockwise or counterclockwise rotation.
+	 */
 	public static void rotatePoint(Point3D p, Axis axis, double degrees, boolean clockwise) {
 		double theta = toRadians(degrees) * (clockwise ? -1: 1);
 		Matrix rotationMatrix;
