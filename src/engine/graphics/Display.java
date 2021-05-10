@@ -182,6 +182,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		}
 
 		Graphics2D g = (Graphics2D) bs.getDrawGraphics(); // Get Graphics2D object to draw on
+		g.setRenderingHints(antiAliasingHints);
 
 		// Draw background
 		g.setColor(backgroundColor);
