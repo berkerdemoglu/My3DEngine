@@ -14,6 +14,13 @@ import java.util.List;
 
 public class MeshBuilder {
 
+	/**
+	 * Constructs a cube.
+	 * @param color The color of the cube
+	 * @param size The size of the cube (The length of its edges)
+	 * @param center The center of the cube
+	 * @return A cube as a {@link Mesh}
+	 */
 	public static Mesh constructCube(Color color, double size, Point3D center) {
 		double centerX = center.x;
 		double centerY = center.y;
@@ -41,7 +48,16 @@ public class MeshBuilder {
 		return mesh;
 	}
 
-	public static Mesh constructRectanglePrism(Color color, Point3D center, double a, double b, double c) {
+	/**
+	 * Constructs a rectangular prism (a cuboid).
+	 * @param color The color of the prism.
+	 * @param a The length of its edge in the x-axis.
+	 * @param b The length of its edge in the y-axis.
+	 * @param c The length of its edge in the z-axis.
+	 * @param center The center of the rectangular prism.
+	 * @return A rectangular prism as a {@link Mesh}
+	 */
+	public static Mesh constructRectangularPrism(Color color,double a, double b, double c, Point3D center) {
 		double centerX = center.x;
 		double centerY = center.y;
 		double centerZ = center.z;
@@ -71,7 +87,14 @@ public class MeshBuilder {
 		return mesh;
 	}
 
-	public static Mesh fromObjFile(Color color, String filename) throws IOException {
+	/**
+	 * Constructs a {@link Mesh} from a <i>.obj</i> file.
+	 * @param filename The path to the <i>.obj</i> file.
+	 * @param color The color of the mesh
+	 * @return The mesh from the file
+	 * @throws IOException Throws an <code>IOException</code> if there is an error with reading the file.
+	 */
+	public static Mesh fromObjFile(String filename, Color color) throws IOException {
 		Path filePath = Paths.get(filename);
 
 		List<String> lines = Files.readAllLines(filePath);

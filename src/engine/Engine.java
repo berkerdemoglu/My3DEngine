@@ -20,7 +20,7 @@ public class Engine extends Display {
 //				ShapeBuilder.constructCube(Color.CYAN, 50, new Point3D(0, 0, 200)),
 //				ShapeBuilder.constructCube(Color.GREEN, 50, new Point3D(200, 200, 200)),
 //				ShapeBuilder.constructRectanglePrism(new Color(1.0f, 1.0f, 1.0f, 0.5f), new Point3D(0,0,0), 50, 100, 200)
-				MeshBuilder.fromObjFile(Color.GREEN, "D:\\kodlama\\java_projects\\My3DEngine\\resources\\gourd.obj")
+				MeshBuilder.fromObjFile("D:\\kodlama\\java_projects\\My3DEngine\\resources\\gourd.obj", Color.GREEN)
 		};
 
 		Entity entity = new Entity(meshes);
