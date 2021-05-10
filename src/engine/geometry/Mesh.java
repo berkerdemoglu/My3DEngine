@@ -2,6 +2,7 @@ package engine.geometry;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class that holds a list of polygons.
@@ -16,6 +17,19 @@ public class Mesh {
 	 * @param polygons Polygons that make up the mesh
 	 */
 	public Mesh(Polygon3D... polygons) {
+		this.polygons = new ArrayList<>();
+		for (Polygon3D polygon : polygons) {
+			this.polygons.add(polygon.clonePolygon());
+		}
+
+		polygonComparator = new PolygonComparator();
+	}
+
+	/**
+	 * Fallback method for creating a mesh from a list of polygons
+	 * @param polygons Polygons that make up the mesh
+	 */
+	public Mesh(List<Polygon3D> polygons) {
 		this.polygons = new ArrayList<>();
 		for (Polygon3D polygon : polygons) {
 			this.polygons.add(polygon.clonePolygon());

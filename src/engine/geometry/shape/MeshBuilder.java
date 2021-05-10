@@ -91,10 +91,12 @@ public class MeshBuilder {
 	 * Constructs a {@link Mesh} from a <i>.obj</i> file.
 	 * @param filename The path to the <i>.obj</i> file.
 	 * @param color The color of the mesh
+	 * @param scale The value to scale the points by
+	 * @param center The center of the mesh
 	 * @return The mesh from the file
 	 * @throws IOException Throws an <code>IOException</code> if there is an error with reading the file.
 	 */
-	public static Mesh fromObjFile(String filename, Color color) throws IOException {
+	public static Mesh fromObjFile(String filename, Color color, double scale, Point3D center) throws IOException {
 		Path filePath = Paths.get(filename);
 
 		List<String> lines = Files.readAllLines(filePath);
@@ -104,13 +106,14 @@ public class MeshBuilder {
 		String[] line;
 		for (String l: lines) {
 			line = l.split("\\s+");
-			if (l.isEmpty()) continue;
+			if (l.isEmpty()) continue; // make sure that the line is not empty
 
 			if (l.charAt(0) == 'v') {
 				Point3D v = new Point3D(
-						Double.parseDouble(line[1]),
-						Double.parseDouble(line[2]),
-						Double.parseDouble(line[3]));
+						(Double.parseDouble(line[1]) * scale) + center.x,
+						(Double.parseDouble(line[2]) * scale) + center.y,
+						(Double.parseDouble(line[3])  * scale) + center.z
+				);
 				vertices.add(v);
 			}
 
@@ -119,17 +122,17 @@ public class MeshBuilder {
 				f[0] = Integer.parseInt(line[1]);
 				f[1] = Integer.parseInt(line[2]);
 				f[2] = Integer.parseInt(line[3]);
-				triangles.add(new Polygon3D(color, vertices.get(f[0] - 1), vertices.get(f[1] - 1), vertices.get(f[2] - 1)));
+				triangles.add(new Polygon3D(
+						color,
+						vertices.get(f[0] - 1),
+						vertices.get(f[1] - 1),
+						vertices.get(f[2] - 1)
+						)
+				);
 			}
 		}
 
-		Polygon3D[] polygonArray = new Polygon3D[triangles.size()];
-		for (int i = 0; i < polygonArray.length; i++) {
-			polygonArray[i] = triangles.get(i);
-		}
-
-		Mesh mesh = new Mesh(polygonArray);
-
+		Mesh mesh = new Mesh(triangles);
 		return mesh;
 	}
 }
