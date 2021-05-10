@@ -19,7 +19,7 @@ public class Numpad4Key extends Key {
 		if (!isKeyPressed) return;
 
 		for (Entity entity: renderer.getEntities()) {
-			entity.rotate(Axis.zAxis, degreeChangeSpeed, false);
+			entity.rotate(Axis.yAxis, degreeChangeSpeed, true);
 		}
 	}
 }

@@ -38,7 +38,6 @@ public class Keyboard implements KeyListener {
 		int keyCode = e.getKeyCode();
 		for (Key key: keys) {
 			if (key.getKeyCode() == keyCode) {
-				System.out.println("Pressed key: " + keyCode);
 				key.setKeyPressed(true);
 				break;
 			}
