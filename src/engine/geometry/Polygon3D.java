@@ -1,5 +1,6 @@
 package engine.geometry;
 
+import engine.graphics.renderer.AmbientLightSource;
 import engine.math.Vector3D;
 
 import java.awt.Color;
@@ -45,8 +46,8 @@ public class Polygon3D {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this polygon
 	 */
-	public void render(Graphics g, DrawType drawType, Vector3D lightVector) {
-		litColor = updateLitColor(lightVector);
+	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource) {
+		litColor = updateLitColor(ambientLightSource);
 
 		Polygon polygon = new Polygon();
 		Point point;
@@ -74,11 +75,14 @@ public class Polygon3D {
 		}
 	}
 
-	private Color updateLitColor(Vector3D lightVector) {
+	private Color updateLitColor(AmbientLightSource ambientLightSource) {
 		// Get lighting ratio for the polygon.
+		Vector3D lightVector = ambientLightSource.getLightVector();
+
 		Vector3D v1 = new Vector3D(points[0], points[1]);
 		Vector3D v2 = new Vector3D(points[1], points[2]);
 		Vector3D normalVector = Vector3D.normalize(Vector3D.crossProduct(v2, v1));
+
 		double dotProduct = Vector3D.dotProduct(normalVector, lightVector);
 		int sign = (dotProduct < 0 ? -1: 1);
 		lightingRatio = (dotProduct*dotProduct*sign + 1) / 2;

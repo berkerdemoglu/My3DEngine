@@ -1,6 +1,6 @@
 package engine.input.keyboard.keys;
 
-import engine.graphics.Renderer;
+import engine.graphics.renderer.Renderer;
 
 /**
  * Key is an abstract class that provides extensive customization for handling key presses and is used along with
@@ -31,10 +31,6 @@ public abstract class Key {
 	// Getters and Setters
 	public void setKeyPressed(boolean keyPressed) {
 		isKeyPressed = keyPressed;
-	}
-
-	public boolean isKeyPressed() {
-		return isKeyPressed;
 	}
 
 	public int getKeyCode() {

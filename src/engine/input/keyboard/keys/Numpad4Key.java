@@ -2,7 +2,7 @@ package engine.input.keyboard.keys;
 
 import engine.geometry.Axis;
 import engine.geometry.entity.Entity;
-import engine.graphics.Renderer;
+import engine.graphics.renderer.Renderer;
 
 import java.awt.event.KeyEvent;
 
@@ -18,7 +18,7 @@ public class Numpad4Key extends Key {
 	public void pressKey() {
 		if (!isKeyPressed) return;
 
-		for (Entity entity: renderer.getEntities()) {
+		for (Entity entity: renderer.getScene().getEntities()) {
 			entity.rotate(Axis.yAxis, degreeChangeSpeed, true);
 		}
 	}

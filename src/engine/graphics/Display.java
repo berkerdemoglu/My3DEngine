@@ -2,6 +2,8 @@ package engine.graphics;
 
 import engine.geometry.entity.Entity;
 import engine.geometry.Projector;
+import engine.graphics.renderer.Renderer;
+import engine.graphics.renderer.Scene;
 import engine.input.keyboard.Keyboard;
 import engine.input.keyboard.DrawListener;
 import engine.input.mouse.Mouse;
@@ -19,7 +21,6 @@ import java.awt.image.BufferStrategy;
  */
 public abstract class Display extends Canvas implements Runnable, DisplayConstants {
 	protected JFrame window;
-	protected Color backgroundColor;
 
 	protected final Renderer renderer;
 	protected RenderingHints antiAliasingHints;
@@ -38,14 +39,13 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	 * @param title Title of the window
 	 * @param backgroundColor Background color of the scene
 	 */
-	public Display(String title, Color backgroundColor) {
+	public Display(String title, Scene scene) {
 		this.title = title;
-		this.backgroundColor = backgroundColor;
 
 		window = new JFrame();
 		window.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
-		renderer = new Renderer();
+		renderer = new Renderer(scene);
 		// Create antialiasing hints
 		antiAliasingHints = new RenderingHints(
 				RenderingHints.KEY_ANTIALIASING,
@@ -56,6 +56,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		wireframeDrawListener = new DrawListener(renderer);
 
 		mouse = new Mouse();
+	}
+
+	public Display(String title) {
+		this(title, null);
 	}
 
 	/**
@@ -93,7 +97,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 		// Start the thread
 		isRunning = true;
-		thread = new Thread(this, "Engine");
+		thread = new Thread(this);
 		thread.start();
 	}
 
@@ -184,10 +188,6 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		Graphics2D g = (Graphics2D) bs.getDrawGraphics(); // Get Graphics2D object to draw on
 		g.setRenderingHints(antiAliasingHints);
 
-		// Draw background
-		g.setColor(backgroundColor);
-		g.fillRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
 		// Call the render method of the renderer using the graphics object from the buffer strategy
 		renderer.render(g);
 
@@ -200,7 +200,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	 * This method adds entities to the list of entities of the <code>Renderer</code> class.
 	 * @param entities Entities to be rendered
 	 */
-	public void addEntitiesToRender(Entity... entities) {
-		renderer.addEntity(entities);
+	public void addEntitiesToScene(Entity... entities) {
+		renderer.getScene().addEntitiesToScene(entities);
 	}
 }

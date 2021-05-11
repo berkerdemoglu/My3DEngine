@@ -1,7 +1,7 @@
 package engine.input.keyboard;
 
 import engine.geometry.DrawType;
-import engine.graphics.Renderer;
+import engine.graphics.renderer.Renderer;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

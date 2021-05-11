@@ -1,6 +1,6 @@
 package engine.geometry;
 
-import engine.math.Vector3D;
+import engine.graphics.renderer.AmbientLightSource;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -45,10 +45,11 @@ public class Mesh {
 	 * Render the mesh to the screen by rendering every polygon of the mesh
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this mesh
+	 * @param ambientLightSource A source of light illuminating the mesh
 	 */
-	public void render(Graphics g, DrawType drawType, Vector3D lightVector) {
+	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource) {
 		for (Polygon3D polygon: polygons) {
-			polygon.render(g, drawType, lightVector);
+			polygon.render(g, drawType, ambientLightSource);
 		}
 	}
 

@@ -5,31 +5,37 @@ import engine.geometry.Point3D;
 import engine.geometry.entity.Entity;
 import engine.geometry.shape.MeshBuilder;
 import engine.graphics.Display;
+import engine.graphics.renderer.AmbientLightSource;
+import engine.graphics.renderer.Scene;
+import engine.math.Vector3D;
 
 import java.awt.*;
 import java.io.IOException;
 
 public class Engine extends Display {
-	public Engine(String title, Color backgroundColor) {
-		super(title, backgroundColor);
+	public Engine(String title) {
+		super(title);
 	}
 
 	public static void main(String[] args) throws IOException {
-		Engine eng = new Engine("3D Engine", Color.BLACK);
+		Engine eng = new Engine("3D Engine");
+
+		Scene scene = new Scene(
+				SCREEN_WIDTH, SCREEN_HEIGHT, Color.BLACK,
+				new AmbientLightSource(new Vector3D(100, 0, 0))
+		);
+
+		eng.renderer.setScene(scene);
 
 		Mesh[] meshes = {
-//				ShapeBuilder.constructCube(Color.CYAN, 50, new Point3D(0, 0, 200)),
-//				ShapeBuilder.constructCube(Color.GREEN, 50, new Point3D(200, 200, 200)),
-//				ShapeBuilder.constructRectanglePrism(new Color(1.0f, 1.0f, 1.0f, 0.5f), new Point3D(0,0,0), 50, 100, 200)
 				MeshBuilder.fromObjFile(
-						"D:\\kodlama\\java_projects\\My3DEngine\\resources\\gourd.obj",
-						Color.GREEN, 20, new Point3D(100, 100, 100)
+						"D:\\kodlama\\java_projects\\My3DEngine\\resources\\sphere.obj",
+						new Color(50, 194, 217), 20, new Point3D(0, 0, 0)
 				)
 		};
 
 		Entity entity = new Entity(meshes);
-
-		eng.addEntitiesToRender(entity);
+		eng.addEntitiesToScene(entity);
 		eng.start();
 	}
 

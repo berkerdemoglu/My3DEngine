@@ -3,7 +3,7 @@ package engine.geometry.entity;
 import engine.geometry.Axis;
 import engine.geometry.DrawType;
 import engine.geometry.Mesh;
-import engine.math.Vector3D;
+import engine.graphics.renderer.AmbientLightSource;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -34,10 +34,11 @@ public class Entity {
 	 * Renders the entity's meshes one by one.
 	 * @param g Graphics object to draw on
 	 * @param drawType Signifies which draw type should be used to render this entity
+	 * @param ambientLightSource A source of light illuminating the entity
 	 */
-	public void render(Graphics g, DrawType drawType, Vector3D lightVector) {
+	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource) {
 		for (Mesh mesh: meshes) {
-			mesh.render(g, drawType, lightVector);
+			mesh.render(g, drawType, ambientLightSource);
 		}
 	}
 
