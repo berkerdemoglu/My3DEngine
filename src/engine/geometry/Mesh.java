@@ -23,6 +23,7 @@ public class Mesh {
 		}
 
 		polygonComparator = new PolygonComparator();
+		sortPolygons();
 	}
 
 	/**
