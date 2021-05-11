@@ -1,6 +1,7 @@
 package engine.graphics.renderer;
 
 import engine.geometry.DrawType;
+import engine.graphics.camera.Camera;
 
 import java.awt.Graphics;
 
@@ -10,14 +11,17 @@ import java.awt.Graphics;
 public class Renderer {
 	private DrawType drawType;
 	private Scene scene;
+	public final Camera camera;
 
 	/**
 	 * Create a new <code>Renderer</code>.
 	 */
 	public Renderer(Scene scene) {
+		this.scene = scene;
+
 		drawType = DrawType.FILL;
 
-		this.scene = scene;
+		camera = new Camera();
 	}
 
 	/**
@@ -25,7 +29,7 @@ public class Renderer {
 	 * @param g Graphics object used for rendering
 	 */
 	public void render(Graphics g) {
-		scene.renderScene(g, drawType);
+		scene.renderScene(g, drawType, camera);
 	}
 
 	// Getters and Setters

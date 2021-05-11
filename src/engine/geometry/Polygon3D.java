@@ -1,5 +1,6 @@
 package engine.geometry;
 
+import engine.graphics.camera.Camera;
 import engine.graphics.renderer.AmbientLightSource;
 import engine.math.Vector3D;
 
@@ -46,14 +47,14 @@ public class Polygon3D {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this polygon
 	 */
-	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource) {
+	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource, Camera camera) {
 		litColor = updateLitColor(ambientLightSource);
 
 		Polygon polygon = new Polygon();
 		Point point;
 
 		for (Point3D point3D: points) {
-			point = Projector.project3DPoint(point3D);
+			point = Projector.project3DPoint(point3D, camera);
 			polygon.addPoint(point.x, point.y);
 		}
 

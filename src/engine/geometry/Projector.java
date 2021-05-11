@@ -1,6 +1,7 @@
 package engine.geometry;
 
 import engine.Engine;
+import engine.graphics.camera.Camera;
 import engine.math.Matrix;
 
 import java.awt.Point;
@@ -18,10 +19,10 @@ public abstract class Projector {
 	 * @param p3d A {@link Point3D} to be projected
 	 * @return A projected 2D {@link Point}
 	 */
-	public static Point project3DPoint(Point3D p3d) {
-		double x3d = p3d.x * scale;
-		double y3d = p3d.y * scale;
-		double depth = p3d.z * scale;
+	public static Point project3DPoint(Point3D p3d, Camera camera) {
+		double x3d = (p3d.x + camera.x) * scale;
+		double y3d = (p3d.y + camera.y) * scale;
+		double depth = (p3d.z + camera.z) * scale;
 		double[] newValues = scalePoint(x3d, y3d, depth);
 
 		// Add half the screen width and height so that the point is centered in the middle

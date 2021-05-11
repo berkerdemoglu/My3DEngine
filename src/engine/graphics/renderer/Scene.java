@@ -2,6 +2,7 @@ package engine.graphics.renderer;
 
 import engine.geometry.DrawType;
 import engine.geometry.entity.Entity;
+import engine.graphics.camera.Camera;
 
 import java.awt.Graphics;
 import java.awt.Color;
@@ -27,14 +28,14 @@ public class Scene {
 		this.ambientLightSource = ambientLightSource;
 	}
 
-	public void renderScene(Graphics g, DrawType drawType) {
+	public void renderScene(Graphics g, DrawType drawType, Camera camera) {
 		// Draw background
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, width, height);
 
 		// Render the entities
 		for (Entity entity: entities) {
-			entity.render(g, drawType, ambientLightSource);
+			entity.render(g, drawType, ambientLightSource, camera);
 		}
 	}
 

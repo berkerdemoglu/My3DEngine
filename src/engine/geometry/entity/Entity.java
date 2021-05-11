@@ -3,6 +3,7 @@ package engine.geometry.entity;
 import engine.geometry.Axis;
 import engine.geometry.DrawType;
 import engine.geometry.Mesh;
+import engine.graphics.camera.Camera;
 import engine.graphics.renderer.AmbientLightSource;
 
 import java.awt.Graphics;
@@ -36,9 +37,9 @@ public class Entity {
 	 * @param drawType Signifies which draw type should be used to render this entity
 	 * @param ambientLightSource A source of light illuminating the entity
 	 */
-	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource) {
+	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource, Camera camera) {
 		for (Mesh mesh: meshes) {
-			mesh.render(g, drawType, ambientLightSource);
+			mesh.render(g, drawType, ambientLightSource, camera);
 		}
 	}
 
