@@ -1,5 +1,7 @@
 package engine.geometry;
 
+import engine.math.Vector3D;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
@@ -13,6 +15,8 @@ import java.util.Arrays;
 public class Polygon3D {
 	private Point3D[] points;
 	private Color color;
+	private Color litColor;
+	private double lightingRatio;
 
 	/**
 	 * Constructs a new polygon in 3D space.
@@ -41,7 +45,9 @@ public class Polygon3D {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this polygon
 	 */
-	public void render(Graphics g, DrawType drawType) {
+	public void render(Graphics g, DrawType drawType, Vector3D lightVector) {
+		litColor = updateLitColor(lightVector);
+
 		Polygon polygon = new Polygon();
 		Point point;
 
@@ -52,7 +58,7 @@ public class Polygon3D {
 
 		switch (drawType) {
 			case FILL:
-				g.setColor(color);
+				g.setColor(litColor);
 				g.fillPolygon(polygon);
 				break;
 			case WIREFRAME_DRAW:
@@ -62,10 +68,27 @@ public class Polygon3D {
 			case FILL_N_HIGHLIGHT:
 				g.setColor(Color.DARK_GRAY);
 				g.drawPolygon(polygon);
-				g.setColor(color);
+				g.setColor(litColor);
 				g.fillPolygon(polygon);
 				break;
 		}
+	}
+
+	private Color updateLitColor(Vector3D lightVector) {
+		// Get lighting ratio for the polygon.
+		Vector3D v1 = new Vector3D(points[0], points[1]);
+		Vector3D v2 = new Vector3D(points[1], points[2]);
+		Vector3D normalVector = Vector3D.normalize(Vector3D.crossProduct(v2, v1));
+		double dotProduct = Vector3D.dotProduct(normalVector, lightVector);
+		int sign = (dotProduct < 0 ? -1: 1);
+		lightingRatio = (dotProduct*dotProduct*sign + 1) / 2;
+
+		// Update the lit color of the polygon.
+		int red = (int) (color.getRed() * lightingRatio);
+		int green = (int) (color.getGreen() * lightingRatio);
+		int blue = (int) (color.getBlue() * lightingRatio);
+
+		return new Color(red, green, blue);
 	}
 
 	/**

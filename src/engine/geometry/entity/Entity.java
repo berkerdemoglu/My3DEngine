@@ -3,6 +3,7 @@ package engine.geometry.entity;
 import engine.geometry.Axis;
 import engine.geometry.DrawType;
 import engine.geometry.Mesh;
+import engine.math.Vector3D;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -34,9 +35,9 @@ public class Entity {
 	 * @param g Graphics object to draw on
 	 * @param drawType Signifies which draw type should be used to render this entity
 	 */
-	public void render(Graphics g, DrawType drawType) {
+	public void render(Graphics g, DrawType drawType, Vector3D lightVector) {
 		for (Mesh mesh: meshes) {
-			mesh.render(g, drawType);
+			mesh.render(g, drawType, lightVector);
 		}
 	}
 

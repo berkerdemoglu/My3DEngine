@@ -2,6 +2,7 @@ package engine.graphics;
 
 import engine.geometry.entity.Entity;
 import engine.geometry.DrawType;
+import engine.math.Vector3D;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 public class Renderer {
 	private final ArrayList<Entity> entities;
 	private DrawType drawType;
+	private Vector3D lightVector;
 
 	/**
 	 * Create a new <code>Renderer</code>.
@@ -20,6 +22,8 @@ public class Renderer {
 	public Renderer() {
 		entities = new ArrayList<>();
 		drawType = DrawType.FILL;
+
+		lightVector = Vector3D.normalize(new Vector3D(100, 0, 0));
 	}
 
 	/**
@@ -28,7 +32,7 @@ public class Renderer {
 	 */
 	public void render(Graphics g) {
 		for (Entity entity: entities) {
-			entity.render(g, drawType);
+			entity.render(g, drawType, lightVector);
 		}
 	}
 

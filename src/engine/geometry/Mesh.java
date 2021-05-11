@@ -1,5 +1,7 @@
 package engine.geometry;
 
+import engine.math.Vector3D;
+
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +46,9 @@ public class Mesh {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this mesh
 	 */
-	public void render(Graphics g, DrawType drawType) {
+	public void render(Graphics g, DrawType drawType, Vector3D lightVector) {
 		for (Polygon3D polygon: polygons) {
-			polygon.render(g, drawType);
+			polygon.render(g, drawType, lightVector);
 		}
 	}
 
