@@ -37,7 +37,6 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	/**
 	 * Create a new display object.
 	 * @param title Title of the window
-	 * @param backgroundColor Background color of the scene
 	 */
 	public Display(String title, Scene scene) {
 		this.title = title;
@@ -142,7 +141,6 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 				drawnFrames++; // we drew a frame
 			}
 
-			// If one second has passed
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				window.setTitle(title + " - " + drawnFrames + "fps");

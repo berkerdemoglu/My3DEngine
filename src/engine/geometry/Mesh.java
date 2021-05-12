@@ -1,7 +1,7 @@
 package engine.geometry;
 
 import engine.graphics.camera.Camera;
-import engine.graphics.renderer.AmbientLightSource;
+import engine.graphics.renderer.LightSource;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -46,11 +46,11 @@ public class Mesh {
 	 * Render the mesh to the screen by rendering every polygon of the mesh
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this mesh
-	 * @param ambientLightSource A source of light illuminating the mesh
+	 * @param lightSource A source of light illuminating the mesh
 	 */
-	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource, Camera camera) {
+	public void render(Graphics g, DrawType drawType, LightSource lightSource, Camera camera) {
 		for (Polygon3D polygon: polygons) {
-			polygon.render(g, drawType, ambientLightSource, camera);
+			polygon.render(g, drawType, lightSource, camera);
 		}
 	}
 

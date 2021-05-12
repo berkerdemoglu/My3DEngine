@@ -4,7 +4,7 @@ import engine.geometry.Axis;
 import engine.geometry.DrawType;
 import engine.geometry.Mesh;
 import engine.graphics.camera.Camera;
-import engine.graphics.renderer.AmbientLightSource;
+import engine.graphics.renderer.LightSource;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -35,11 +35,11 @@ public class Entity {
 	 * Renders the entity's meshes one by one.
 	 * @param g Graphics object to draw on
 	 * @param drawType Signifies which draw type should be used to render this entity
-	 * @param ambientLightSource A source of light illuminating the entity
+	 * @param lightSource A source of light illuminating the entity
 	 */
-	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource, Camera camera) {
+	public void render(Graphics g, DrawType drawType, LightSource lightSource, Camera camera) {
 		for (Mesh mesh: meshes) {
-			mesh.render(g, drawType, ambientLightSource, camera);
+			mesh.render(g, drawType, lightSource, camera);
 		}
 	}
 

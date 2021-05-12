@@ -1,13 +1,10 @@
 package engine.geometry;
 
 import engine.graphics.camera.Camera;
-import engine.graphics.renderer.AmbientLightSource;
+import engine.graphics.renderer.LightSource;
 import engine.math.Vector3D;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Polygon;
-import java.awt.Point;
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -47,8 +44,8 @@ public class Polygon3D {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this polygon
 	 */
-	public void render(Graphics g, DrawType drawType, AmbientLightSource ambientLightSource, Camera camera) {
-		litColor = updateLitColor(ambientLightSource);
+	public void render(Graphics g, DrawType drawType, LightSource lightSource, Camera camera) {
+		litColor = updateLitColor(lightSource, camera);
 
 		Polygon polygon = new Polygon();
 		Point point;
@@ -76,12 +73,19 @@ public class Polygon3D {
 		}
 	}
 
-	private Color updateLitColor(AmbientLightSource ambientLightSource) {
-		// Get lighting ratio for the polygon.
-		Vector3D lightVector = ambientLightSource.getLightVector();
+	private Color updateLitColor(LightSource lightSource, Camera camera) {
+		// Get camera adjusted points' vectors.
+		Point3D p0 = Point3D.cameraAdjustedPoint(points[0], camera);
+		Point3D p1 = Point3D.cameraAdjustedPoint(points[1], camera);
+		Point3D p2 = Point3D.cameraAdjustedPoint(points[2], camera);
 
-		Vector3D v1 = new Vector3D(points[0], points[1]);
-		Vector3D v2 = new Vector3D(points[1], points[2]);
+		Vector3D v1 = new Vector3D(p0, p1);
+		Vector3D v2 = new Vector3D(p1, p2);
+
+		// Calculate the light vector for the polygon.
+		Vector3D lightVector = lightSource.getLightVectorTo(getCentroid(), camera);
+
+		// Get lighting ratio for the polygon.
 		Vector3D normalVector = Vector3D.normalize(Vector3D.crossProduct(v2, v1));
 
 		double dotProduct = Vector3D.dotProduct(normalVector, lightVector);
@@ -132,6 +136,23 @@ public class Polygon3D {
 		for (Point3D p: points) {
 			Projector.rotatePoint(p, axis, degrees, clockwise);
 		}
+	}
+
+	public Point3D getCentroid() {
+		double numPoints = points.length;;
+
+		double sumX = 0;
+		double sumY = 0;
+		double sumZ = 0;
+		for (Point3D p: points) {
+			sumX += p.x;
+			sumY += p.y;
+			sumZ += p.z;
+		}
+
+		Point3D centroid = new Point3D(sumX/numPoints, sumY/numPoints, sumZ/numPoints);
+
+		return centroid;
 	}
 
 	/**

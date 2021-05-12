@@ -1,5 +1,6 @@
 package engine.geometry;
 
+import engine.graphics.camera.Camera;
 import engine.math.Matrix;
 
 /**
@@ -18,6 +19,10 @@ public class Point3D {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	public static Point3D cameraAdjustedPoint(Point3D point, Camera camera) {
+		return new Point3D(point.x + camera.x, point.y + camera.y, point.z + camera.z);
 	}
 
 	/**

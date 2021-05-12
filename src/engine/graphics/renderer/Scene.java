@@ -13,19 +13,19 @@ import java.util.Arrays;
 public class Scene {
 	private Color backgroundColor;
 	private final ArrayList<Entity> entities;
-	private AmbientLightSource ambientLightSource;
+	private LightSource lightSource;
 
 	private final int width;
 	private final int height;
 
-	public Scene(int width, int height, Color backgroundColor, AmbientLightSource ambientLightSource, Entity... entities) {
+	public Scene(int width, int height, Color backgroundColor, LightSource lightSource, Entity... entities) {
 		this.width = width;
 		this.height = height;
 		this.backgroundColor = backgroundColor;
 
 		this.entities = new ArrayList<>(Arrays.asList(entities));
 
-		this.ambientLightSource = ambientLightSource;
+		this.lightSource = lightSource;
 	}
 
 	public void renderScene(Graphics g, DrawType drawType, Camera camera) {
@@ -35,7 +35,7 @@ public class Scene {
 
 		// Render the entities
 		for (Entity entity: entities) {
-			entity.render(g, drawType, ambientLightSource, camera);
+			entity.render(g, drawType, lightSource, camera);
 		}
 	}
 
@@ -44,7 +44,7 @@ public class Scene {
 	}
 
 	public Scene cloneScene() {
-		return new Scene(width, height, backgroundColor, ambientLightSource, entities.toArray(new Entity[0]));
+		return new Scene(width, height, backgroundColor, lightSource, entities.toArray(new Entity[0]));
 	}
 
 	// Getters and Setters
@@ -56,7 +56,7 @@ public class Scene {
 		return entities;
 	}
 
-	public AmbientLightSource getLightSource() {
-		return ambientLightSource;
+	public LightSource getLightSource() {
+		return lightSource;
 	}
 }

@@ -5,9 +5,8 @@ import engine.geometry.Point3D;
 import engine.geometry.entity.Entity;
 import engine.geometry.shape.MeshBuilder;
 import engine.graphics.Display;
-import engine.graphics.renderer.AmbientLightSource;
+import engine.graphics.renderer.LightSource;
 import engine.graphics.renderer.Scene;
-import engine.math.Vector3D;
 
 import java.awt.*;
 import java.io.IOException;
@@ -22,15 +21,16 @@ public class Engine extends Display {
 
 		Scene scene = new Scene(
 				SCREEN_WIDTH, SCREEN_HEIGHT, Color.BLACK,
-				new AmbientLightSource(new Vector3D(100, 0, 0))
+				new LightSource(new Point3D(-100, 0, 0))
 		);
 
 		eng.renderer.setScene(scene);
+		eng.renderer.camera.x = 10;
 
 		Mesh[] meshes = {
 				MeshBuilder.fromObjFile(
-						"D:\\kodlama\\java_projects\\My3DEngine\\resources\\sphere.obj",
-						new Color(50, 194, 217), 20, new Point3D(0, 0, 0)
+						"D:\\kodlama\\java_projects\\My3DEngine\\resources\\gourd.obj",
+						new Color(50, 194, 217), 20, new Point3D(50, 10, 10)
 				)
 		};
 
@@ -41,6 +41,6 @@ public class Engine extends Display {
 
 	@Override
 	protected void updateDisplay() {
-
+//		renderer.camera.moveCamera(1, 0, 0);
 	}
 }
