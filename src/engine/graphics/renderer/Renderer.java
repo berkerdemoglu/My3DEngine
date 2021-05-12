@@ -1,5 +1,6 @@
 package engine.graphics.renderer;
 
+import engine.Engine;
 import engine.geometry.DrawType;
 import engine.graphics.camera.Camera;
 
@@ -29,6 +30,9 @@ public class Renderer {
 	 * @param g Graphics object used for rendering
 	 */
 	public void render(Graphics g) {
+		g.setColor(scene.getBackgroundColor());
+		g.fillRect(0, 0, Engine.SCREEN_WIDTH, Engine.SCREEN_HEIGHT);
+
 		scene.renderScene(g, drawType, camera);
 	}
 
