@@ -195,4 +195,32 @@ public abstract class Key {
 			renderer.camera.moveCamera(cameraMoveSpeed, 0, 0);
 		}
 	}
+
+	public static class KeyShift extends Key {
+
+		public KeyShift(Renderer renderer) {
+			super(renderer, KeyEvent.VK_SHIFT);
+		}
+
+		@Override
+		public void pressKey() {
+			if (!isKeyPressed) return;
+
+			renderer.camera.moveCamera(0, cameraMoveSpeed, 0);
+		}
+	}
+
+	public static class KeySpace extends Key {
+
+		public KeySpace(Renderer renderer) {
+			super(renderer, KeyEvent.VK_SPACE);
+		}
+
+		@Override
+		public void pressKey() {
+			if (!isKeyPressed) return;
+
+			renderer.camera.moveCamera(0, -cameraMoveSpeed, 0);
+		}
+	}
 }

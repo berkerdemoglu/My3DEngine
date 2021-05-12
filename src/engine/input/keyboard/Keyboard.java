@@ -49,6 +49,7 @@ public class Keyboard implements KeyListener {
 				// Camera movement keys
 				new Key.KeyW(renderer), new Key.KeyA(renderer),
 				new Key.KeyS(renderer), new Key.KeyD(renderer),
+				new Key.KeyShift(renderer), new Key.KeySpace(renderer),
 		};
 	}
 
