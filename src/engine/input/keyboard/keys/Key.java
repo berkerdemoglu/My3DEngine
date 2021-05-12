@@ -206,7 +206,7 @@ public abstract class Key {
 		public void pressKey() {
 			if (!isKeyPressed) return;
 
-			renderer.camera.moveCamera(0, cameraMoveSpeed, 0);
+			renderer.camera.moveCamera(0, -cameraMoveSpeed, 0);
 		}
 	}
 
@@ -220,7 +220,7 @@ public abstract class Key {
 		public void pressKey() {
 			if (!isKeyPressed) return;
 
-			renderer.camera.moveCamera(0, -cameraMoveSpeed, 0);
+			renderer.camera.moveCamera(0, cameraMoveSpeed, 0);
 		}
 	}
 }

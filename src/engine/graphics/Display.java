@@ -13,7 +13,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 /**
- * Perhaps the most important class of the engine, it is the window where all the magic happens.7
+ * Perhaps the most important class of the engine, it is the window where all the magic happens.
  * It is an abstract class and must be inherited from. The {@link engine.Engine} class inherits from this class too.
  *
  * The <code>Display</code> class allows customization as it has <code>protected</code> variables.

@@ -8,7 +8,7 @@ import engine.graphics.Display;
 import engine.graphics.renderer.LightSource;
 import engine.graphics.renderer.Scene;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 
 public class Engine extends Display {
@@ -20,7 +20,7 @@ public class Engine extends Display {
 		Engine eng = new Engine("3D Engine");
 
 		Scene scene = new Scene(
-				SCREEN_WIDTH, SCREEN_HEIGHT, Color.BLACK,
+				Color.BLACK,
 				new LightSource(new Point3D(-100, 0, 0))
 		);
 
@@ -41,6 +41,6 @@ public class Engine extends Display {
 
 	@Override
 	protected void updateDisplay() {
-//		renderer.camera.moveCamera(1, 0, 0);
+
 	}
 }
