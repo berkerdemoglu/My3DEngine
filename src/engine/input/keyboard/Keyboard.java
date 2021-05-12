@@ -16,6 +16,7 @@ public class Keyboard implements KeyListener {
 	private final Key[] keys;
 
 	public final static double degreeChangeSpeed = 45.0 / Engine.FPS;
+	public final static double cameraMoveSpeed = 60.0 / Engine.FPS;
 
 	/**
 	 * Create a new <code>Keyboard</code> with a <code>Renderer</code> and an array of keys
@@ -29,20 +30,25 @@ public class Keyboard implements KeyListener {
 	/**
 	 * Fallback method that provides a default list of keys to press. The default keys are used for rotation.
 	 *
-	 * The {@link Numpad2Key} is used for counterclockwise rotations on the x-axis
-	 * The {@link Numpad8Key} is used for clockwise rotations on the x-axis
-	 * The {@link Numpad4Key} is used for clockwise rotations on the y-axis
-	 * The {@link Numpad6Key} is used for counterclockwise rotations on the y-axis
-	 * The {@link Numpad7Key} is used for counterclockwise rotations on the z-axis
-	 * The {@link Numpad9Key} is used for counterclockwise rotations on the z-axis
+	 * The {@link Key.KeyNumpad2} is used for counterclockwise rotations on the x-axis
+	 * The {@link Key.KeyNumpad8} is used for clockwise rotations on the x-axis
+	 * The {@link Key.KeyNumpad4} is used for clockwise rotations on the y-axis
+	 * The {@link Key.KeyNumpad6} is used for counterclockwise rotations on the y-axis
+	 * The {@link Key.KeyNumpad7} is used for counterclockwise rotations on the z-axis
+	 * The {@link Key.KeyNumpad9} is used for counterclockwise rotations on the z-axis
 	 *
 	 * @param renderer The <code>Renderer</code> object
 	 */
 	public Keyboard(Renderer renderer) {
 		this.keys = new Key[]{
-				new Numpad2Key(renderer), new Numpad8Key(renderer),
-				new Numpad4Key(renderer), new Numpad6Key(renderer),
-				new Numpad7Key(renderer), new Numpad9Key(renderer),
+				// Entity rotation keys
+				new Key.KeyNumpad2(renderer), new Key.KeyNumpad8(renderer),
+				new Key.KeyNumpad4(renderer), new Key.KeyNumpad6(renderer),
+				new Key.KeyNumpad7(renderer), new Key.KeyNumpad9(renderer),
+
+				// Camera movement keys
+				new Key.KeyW(renderer), new Key.KeyA(renderer),
+				new Key.KeyS(renderer), new Key.KeyD(renderer),
 		};
 	}
 
