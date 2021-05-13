@@ -16,8 +16,8 @@ public class Camera {
 	}
 
 	public void moveCamera(double dx, double dy, double dz) {
-		x -= dx;
-		y -= dy;
-		z -= dz;
+		x += dx;
+		y += dy;
+		z += dz;
 	}
 }

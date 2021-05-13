@@ -20,8 +20,8 @@ public abstract class Projector {
 	 * @return A projected 2D {@link Point}
 	 */
 	public static Point project3DPoint(Point3D p3d, Camera camera) {
-		double x3d = (p3d.x + camera.x) * scale;
-		double y3d = (p3d.y + camera.y) * scale;
+		double x3d = (p3d.x - camera.x) * scale;
+		double y3d = (p3d.y - camera.y) * scale;
 		double depth = (p3d.z + camera.z) * scale;
 		double[] newValues = scalePoint(x3d, y3d, depth);
 
