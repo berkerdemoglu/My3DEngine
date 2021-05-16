@@ -3,6 +3,7 @@ package engine.geometry;
 import engine.Engine;
 import engine.graphics.camera.Camera;
 import engine.math.Matrix;
+import engine.math.Vector3D;
 
 import java.awt.Point;
 
@@ -16,13 +17,13 @@ public abstract class Projector {
 
 	/**
 	 * Project 3D point to 2D.
-	 * @param p3d A {@link Point3D} to be projected
+	 * @param v3d A {@link Vector3D} to be projected
 	 * @return A projected 2D {@link Point}
 	 */
-	public static Point project3DPoint(Point3D p3d, Camera camera) {
-		double x3d = (p3d.x - camera.x) * scale;
-		double y3d = (p3d.y - camera.y) * scale;
-		double depth = (p3d.z + camera.z) * scale;
+	public static Point project3DPoint(Vector3D v3d, Camera camera) {
+		double x3d = (v3d.x - camera.position.x) * scale;
+		double y3d = (v3d.y - camera.position.y) * scale;
+		double depth = (v3d.z + camera.position.z) * scale;
 		double[] newValues = scalePoint(x3d, y3d, depth);
 
 		// Add half the screen width and height so that the point is centered in the middle
@@ -49,12 +50,12 @@ public abstract class Projector {
 	/**
 	 * Rotates a 3D point around an axis.
 	 * This method is called in the <code>rotate()</code> method of {@link Polygon3D}.
-	 * @param p The 3D point to rotate.
+	 * @param v3d The 3D point to rotate.
 	 * @param axis The axis to rotate around.
 	 * @param degrees How much to rotate in degrees.
 	 * @param clockwise Clockwise or counterclockwise rotation.
 	 */
-	public static void rotatePoint(Point3D p, Axis axis, double degrees, boolean clockwise) {
+	public static void rotateVector(Vector3D v3d, Axis axis, double degrees, boolean clockwise) {
 		double theta = toRadians(degrees) * (clockwise ? -1: 1);
 		Matrix rotationMatrix;
 
@@ -88,13 +89,13 @@ public abstract class Projector {
 				return;
 		}
 
-		Matrix result = Matrix.multiplyMatrices(rotationMatrix, p.asMatrix());
+		Matrix result = Matrix.multiplyMatrices(rotationMatrix, v3d.asMatrix());
 		if (result == null) { // if matrix multiplication failed
 			return;
 		}
 
-		p.x = result.matrix[0][0];
-		p.y = result.matrix[1][0];
-		p.z = result.matrix[2][0];
+		v3d.x = result.matrix[0][0];
+		v3d.y = result.matrix[1][0];
+		v3d.z = result.matrix[2][0];
 	}
 }

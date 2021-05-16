@@ -1,23 +1,21 @@
 package engine.graphics.camera;
 
+import engine.math.Vector3D;
+
 public class Camera {
-	public double x, y, z;
+	public Vector3D position;
 
 	public Camera() {
-		x = 0;
-		y = 0;
-		z = 0;
+		position = new Vector3D(0, 0, 0);
 	}
 
 	public Camera(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		position = new Vector3D(x, y, z);
 	}
 
 	public void moveCamera(double dx, double dy, double dz) {
-		x += dx;
-		y += dy;
-		z += dz;
+		position.x += dx;
+		position.y += dy;
+		position.z += dz;
 	}
 }

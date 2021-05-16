@@ -1,7 +1,7 @@
 package engine.geometry.shape;
 
 import engine.geometry.Mesh;
-import engine.geometry.Point3D;
+import engine.math.Vector3D;
 import engine.geometry.Polygon3D;
 
 import java.awt.Color;
@@ -21,20 +21,20 @@ public class MeshBuilder {
 	 * @param center The center of the cube
 	 * @return A cube as a {@link Mesh}
 	 */
-	public static Mesh constructCube(Color color, double size, Point3D center) {
+	public static Mesh constructCube(Color color, double size, Vector3D center) {
 		double centerX = center.x;
 		double centerY = center.y;
 		double centerZ = center.z;
 
 		double s = size / 2;
-		Point3D p1 = new Point3D(centerX - s, centerY + -s, centerZ + s);
-		Point3D p2 = new Point3D(centerX + s, centerY + -s, centerZ + s);
-		Point3D p3 = new Point3D(centerX + s, centerY + s, centerZ + s);
-		Point3D p4 = new Point3D(centerX - s, centerY + s, centerZ + s);
-		Point3D p5 = new Point3D(centerX + -s, centerY + -s, centerZ + -s);
-		Point3D p6 = new Point3D(centerX + s, centerY + -s, centerZ + -s);
-		Point3D p7 = new Point3D(centerX + s, centerY + s, centerZ + -s);
-		Point3D p8 = new Point3D(centerX + -s, centerY + s, centerZ + -s);
+		Vector3D p1 = new Vector3D(centerX - s, centerY + -s, centerZ + s);
+		Vector3D p2 = new Vector3D(centerX + s, centerY + -s, centerZ + s);
+		Vector3D p3 = new Vector3D(centerX + s, centerY + s, centerZ + s);
+		Vector3D p4 = new Vector3D(centerX - s, centerY + s, centerZ + s);
+		Vector3D p5 = new Vector3D(centerX + -s, centerY + -s, centerZ + -s);
+		Vector3D p6 = new Vector3D(centerX + s, centerY + -s, centerZ + -s);
+		Vector3D p7 = new Vector3D(centerX + s, centerY + s, centerZ + -s);
+		Vector3D p8 = new Vector3D(centerX + -s, centerY + s, centerZ + -s);
 
 		Mesh mesh = new Mesh(
 				new Polygon3D(color, p5, p6, p7, p8),
@@ -57,7 +57,7 @@ public class MeshBuilder {
 	 * @param center The center of the rectangular prism.
 	 * @return A rectangular prism as a {@link Mesh}
 	 */
-	public static Mesh constructRectangularPrism(Color color,double a, double b, double c, Point3D center) {
+	public static Mesh constructRectangularPrism(Color color,double a, double b, double c, Vector3D center) {
 		double centerX = center.x;
 		double centerY = center.y;
 		double centerZ = center.z;
@@ -66,14 +66,14 @@ public class MeshBuilder {
 		double halfB = b / 2;
 		double halfC = c / 2;
 
-		Point3D p1 = new Point3D(centerX + -halfA, centerY + -halfB, centerZ + halfC);
-		Point3D p2 = new Point3D(centerX + halfA, centerY + -halfB, centerZ + halfC);
-		Point3D p3 = new Point3D(centerX + halfA, centerY + halfB, centerZ + halfC);
-		Point3D p4 = new Point3D(centerX + -halfA, centerY + halfB, centerZ + halfC);
-		Point3D p5 = new Point3D(centerX + -halfA, centerY + -halfB, centerZ + -halfC);
-		Point3D p6 = new Point3D(centerX + halfA, centerY + -halfB, centerZ + -halfC);
-		Point3D p7 = new Point3D(centerX + halfA, centerY + halfB, centerZ + -halfC);
-		Point3D p8 = new Point3D(centerX + -halfA, centerY + halfB, centerZ + -halfC);
+		Vector3D p1 = new Vector3D(centerX + -halfA, centerY + -halfB, centerZ + halfC);
+		Vector3D p2 = new Vector3D(centerX + halfA, centerY + -halfB, centerZ + halfC);
+		Vector3D p3 = new Vector3D(centerX + halfA, centerY + halfB, centerZ + halfC);
+		Vector3D p4 = new Vector3D(centerX + -halfA, centerY + halfB, centerZ + halfC);
+		Vector3D p5 = new Vector3D(centerX + -halfA, centerY + -halfB, centerZ + -halfC);
+		Vector3D p6 = new Vector3D(centerX + halfA, centerY + -halfB, centerZ + -halfC);
+		Vector3D p7 = new Vector3D(centerX + halfA, centerY + halfB, centerZ + -halfC);
+		Vector3D p8 = new Vector3D(centerX + -halfA, centerY + halfB, centerZ + -halfC);
 
 		Mesh mesh = new Mesh(
 				new Polygon3D(color, p5, p6, p7, p8),
@@ -96,20 +96,21 @@ public class MeshBuilder {
 	 * @return The mesh from the file
 	 * @throws IOException Throws an <code>IOException</code> if there is an error with reading the file.
 	 */
-	public static Mesh fromObjFile(String filename, Color color, double scale, Point3D center) throws IOException {
+	public static Mesh fromObjFile(String filename, Color color, double scale, Vector3D center) throws IOException {
 		Path filePath = Paths.get(filename);
 
 		List<String> lines = Files.readAllLines(filePath);
 
-		List<Polygon3D> triangles = new ArrayList<>();
-		List<Point3D> vertices = new ArrayList<>();
+		List<Polygon3D> polygons = new ArrayList<>();
+		List<Vector3D> vertices = new ArrayList<>();
 		String[] line;
 		for (String l: lines) {
 			line = l.split("\\s+");
 			if (l.isEmpty()) continue; // make sure that the line is not empty
 
 			if (l.charAt(0) == 'v') {
-				Point3D v = new Point3D(
+				// We are reading a vertex
+				Vector3D v = new Vector3D(
 						(Double.parseDouble(line[1]) * scale) + center.x,
 						(Double.parseDouble(line[2]) * scale) + center.y,
 						(Double.parseDouble(line[3])  * scale) + center.z
@@ -118,11 +119,12 @@ public class MeshBuilder {
 			}
 
 			if (l.charAt(0) == 'f') {
+				// We are reading a face (triangle)
 				int[] f = new int[3];
 				f[0] = Integer.parseInt(line[1]);
 				f[1] = Integer.parseInt(line[2]);
 				f[2] = Integer.parseInt(line[3]);
-				triangles.add(new Polygon3D(
+				polygons.add(new Polygon3D(
 						color,
 						vertices.get(f[0] - 1),
 						vertices.get(f[1] - 1),
@@ -132,7 +134,7 @@ public class MeshBuilder {
 			}
 		}
 
-		Mesh mesh = new Mesh(triangles);
+		Mesh mesh = new Mesh(polygons);
 		return mesh;
 	}
 }

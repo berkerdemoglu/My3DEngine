@@ -9,10 +9,10 @@ import java.util.Arrays;
 
 /**
  * A polygon in 3D space.
- * A <code>Polygon3D</code> is made up of numerous {@link Point3D}s and a color.
+ * A <code>Polygon3D</code> is made up of numerous {@link Vector3D}s and a color.
  */
 public class Polygon3D {
-	private Point3D[] points;
+	private Vector3D[] vertices;
 	private Color color;
 	private Color litColor;
 	private double lightingRatio;
@@ -22,10 +22,10 @@ public class Polygon3D {
 	 * @param color Color of the polygon
 	 * @param points Points in 3D plane that make up the polygon
 	 */
-	public Polygon3D(Color color, Point3D... points) {
-		this.points = new Point3D[points.length];
-		for (int i = 0; i < points.length; i++) {
-			this.points[i] = points[i].clonePoint();
+	public Polygon3D(Color color, Vector3D... vertices) {
+		this.vertices = new Vector3D[vertices.length];
+		for (int i = 0; i < vertices.length; i++) {
+			this.vertices[i] = vertices[i].clone();
 		}
 
 		this.color = color;
@@ -35,8 +35,8 @@ public class Polygon3D {
 	 * Fallback method for constructing a polygon without a color.
 	 * @param points Points in 3D plane that make up the polygon
 	 */
-	public Polygon3D(Point3D... points) {
-		this(Color.RED, points);
+	public Polygon3D(Vector3D... vertices) {
+		this(Color.RED, vertices);
 	}
 
 	/**
@@ -48,11 +48,11 @@ public class Polygon3D {
 		litColor = updateLitColor(lightSource, camera);
 
 		Polygon polygon = new Polygon();
-		Point point;
+		Point point2D;
 
-		for (Point3D point3D: points) {
-			point = Projector.project3DPoint(point3D, camera);
-			polygon.addPoint(point.x, point.y);
+		for (Vector3D vector3D: vertices) {
+			point2D = Projector.project3DPoint(vector3D, camera);
+			polygon.addPoint(point2D.x, point2D.y);
 		}
 
 		switch (drawType) {
@@ -75,12 +75,12 @@ public class Polygon3D {
 
 	private Color updateLitColor(LightSource lightSource, Camera camera) {
 		// Get camera adjusted points' vectors.
-		Point3D p0 = Point3D.cameraAdjustedPoint(points[0], camera);
-		Point3D p1 = Point3D.cameraAdjustedPoint(points[1], camera);
-		Point3D p2 = Point3D.cameraAdjustedPoint(points[2], camera);
+		Vector3D surfacePoint1 = Vector3D.cameraAdjustedVector(vertices[0], camera);
+		Vector3D surfacePoint2 = Vector3D.cameraAdjustedVector(vertices[1], camera);
+		Vector3D surfacePoint3 = Vector3D.cameraAdjustedVector(vertices[2], camera);
 
-		Vector3D v1 = new Vector3D(p0, p1);
-		Vector3D v2 = new Vector3D(p1, p2);
+		Vector3D v1 = new Vector3D(surfacePoint1, surfacePoint2);
+		Vector3D v2 = new Vector3D(surfacePoint2, surfacePoint3);
 
 		// Calculate the light vector for the polygon.
 		Vector3D lightVector = lightSource.getLightVectorTo(getCentroid(), camera);
@@ -109,18 +109,18 @@ public class Polygon3D {
 		// Move the polygon by the increment amount in the specified axis.
 		switch (axis) {
 			case xAxis:
-				for (Point3D p: points) {
-					p.x += inc;
+				for (Vector3D v: vertices) {
+					v.x += inc;
 				}
 				break;
 			case yAxis:
-				for (Point3D p: points) {
-					p.y += inc;
+				for (Vector3D v: vertices) {
+					v.y += inc;
 				}
 				break;
 			case zAxis:
-				for (Point3D p: points) {
-					p.z += inc;
+				for (Vector3D v: vertices) {
+					v.z += inc;
 				}
 				break;
 		}
@@ -133,24 +133,24 @@ public class Polygon3D {
 	 * @param clockwise Which direction (clockwise or counterclockwise) the polygon should be rotated.
 	 */
 	public void rotate(Axis axis, double degrees, boolean clockwise) {
-		for (Point3D p: points) {
-			Projector.rotatePoint(p, axis, degrees, clockwise);
+		for (Vector3D v: vertices) {
+			Projector.rotateVector(v, axis, degrees, clockwise);
 		}
 	}
 
-	public Point3D getCentroid() {
-		double numPoints = points.length;;
+	public Vector3D getCentroid() {
+		double numPoints = vertices.length;;
 
 		double sumX = 0;
 		double sumY = 0;
 		double sumZ = 0;
-		for (Point3D p: points) {
-			sumX += p.x;
-			sumY += p.y;
-			sumZ += p.z;
+		for (Vector3D v: vertices) {
+			sumX += v.x;
+			sumY += v.y;
+			sumZ += v.z;
 		}
 
-		Point3D centroid = new Point3D(sumX/numPoints, sumY/numPoints, sumZ/numPoints);
+		Vector3D centroid = new Vector3D(sumX/numPoints, sumY/numPoints, sumZ/numPoints);
 
 		return centroid;
 	}
@@ -161,10 +161,10 @@ public class Polygon3D {
 	 */
 	public double getAverageZ() {
 		double sum = 0;
-		for (Point3D p: points) {
+		for (Vector3D p: vertices) {
 			sum += p.z;
 		}
-		return sum / points.length;
+		return sum / vertices.length;
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class Polygon3D {
 	 */
 	@Override
 	public String toString() {
-		return Arrays.toString(points) + ", Color: " + color;
+		return Arrays.toString(vertices) + ", Color: " + color;
 	}
 
 	/**
@@ -183,16 +183,19 @@ public class Polygon3D {
 	 * @return A new polygon object that has the same data as this polygon.
 	 */
 	public Polygon3D clonePolygon() {
-		return new Polygon3D(color, points);
+		return new Polygon3D(color, vertices);
 	}
 
 	// Getters and Setters
-	public Point3D[] getPoints() {
-		return points;
+	public Vector3D[] getPoints() {
+		return vertices;
 	}
 
-	public void setPoints(Point3D[] points) {
-		this.points = points;
+	public void setPoints(Vector3D[] vertices) {
+		this.vertices = vertices;
+		for (int i = 0; i < vertices.length; i++) {
+			this.vertices[i] = vertices[i].clone();
+		}
 	}
 
 	public Color getColor() {

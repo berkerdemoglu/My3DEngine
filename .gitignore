@@ -1,5 +1,7 @@
-out/
 .idea/workspace.xml
 .idea/shelf/
 .idea/usage.statistics.xml
+.idea/discord.xml
+
+out/
 resources/

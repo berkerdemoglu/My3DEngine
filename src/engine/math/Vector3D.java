@@ -1,6 +1,6 @@
 package engine.math;
 
-import engine.geometry.Point3D;
+import engine.graphics.camera.Camera;
 
 public class Vector3D {
 	public double x, y, z;
@@ -11,10 +11,10 @@ public class Vector3D {
 		this.z = z;
 	}
 
-	public Vector3D(Point3D p1, Point3D p2) {
-		x = p2.x - p1.x;
-		y = p2.y - p1.y;
-		z = p2.z - p1.z;
+	public Vector3D(Vector3D v1, Vector3D v2) {
+		x = v2.x - v1.x;
+		y = v2.y - v1.y;
+		z = v2.z - v1.z;
 	}
 
 	public double getMagnitude() {
@@ -38,5 +38,23 @@ public class Vector3D {
 	public static Vector3D normalize(Vector3D v) {
 		double m = v.getMagnitude();
 		return new Vector3D(v.x/m, v.y/m, v.z/m);
+	}
+
+	public static Vector3D cameraAdjustedVector(Vector3D vector, Camera camera) {
+		return new Vector3D(vector.x + camera.position.x, vector.y + camera.position.y, vector.z + camera.position.z);
+	}
+
+	public Matrix asMatrix() {
+		return new Matrix(new double[][] {{x}, {y}, {z}});
+	}
+
+	@Override
+	public String toString() {
+		return "[" + x + ", " + y + ", " + z + "]";
+	}
+
+	@Override
+	public Vector3D clone() {
+		return new Vector3D(x, y, z);
 	}
 }
