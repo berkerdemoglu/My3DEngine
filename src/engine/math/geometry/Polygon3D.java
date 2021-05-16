@@ -1,7 +1,7 @@
-package engine.geometry;
+package engine.math.geometry;
 
-import engine.graphics.camera.Camera;
-import engine.graphics.renderer.LightSource;
+import engine.rendering.world.Camera;
+import engine.rendering.world.LightSource;
 import engine.math.Vector3D;
 
 import java.awt.*;

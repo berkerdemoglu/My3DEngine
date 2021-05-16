@@ -1,4 +1,4 @@
-package engine.geometry;
+package engine.math.geometry;
 
 import java.util.Comparator;
 

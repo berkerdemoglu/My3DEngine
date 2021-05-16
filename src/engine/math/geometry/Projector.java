@@ -1,7 +1,7 @@
-package engine.geometry;
+package engine.math.geometry;
 
 import engine.Engine;
-import engine.graphics.camera.Camera;
+import engine.rendering.world.Camera;
 import engine.math.Matrix;
 import engine.math.Vector3D;
 

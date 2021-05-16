@@ -1,6 +1,4 @@
-package engine.geometry.entity;
-
-import engine.geometry.Mesh;
+package engine.models.mesh;
 
 import java.util.Comparator;
 

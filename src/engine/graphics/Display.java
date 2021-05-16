@@ -1,9 +1,9 @@
 package engine.graphics;
 
-import engine.geometry.entity.Entity;
-import engine.geometry.Projector;
-import engine.graphics.renderer.Renderer;
-import engine.graphics.renderer.Scene;
+import engine.models.entity.Entity;
+import engine.math.geometry.Projector;
+import engine.rendering.Renderer;
+import engine.rendering.world.Scene;
 import engine.input.keyboard.Keyboard;
 import engine.input.keyboard.DrawListener;
 import engine.input.mouse.Mouse;

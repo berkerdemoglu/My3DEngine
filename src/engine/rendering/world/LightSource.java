@@ -1,7 +1,6 @@
-package engine.graphics.renderer;
+package engine.rendering.world;
 
 import engine.math.Vector3D;
-import engine.graphics.camera.Camera;
 
 public class LightSource {
 	private Vector3D source;

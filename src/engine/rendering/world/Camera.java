@@ -1,4 +1,4 @@
-package engine.graphics.camera;
+package engine.rendering.world;
 
 import engine.math.Vector3D;
 

@@ -1,6 +1,6 @@
 package engine.math;
 
-import engine.graphics.camera.Camera;
+import engine.rendering.world.Camera;
 
 public class Vector3D {
 	public double x, y, z;

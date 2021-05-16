@@ -1,8 +1,7 @@
-package engine.geometry.shape;
+package engine.models.mesh;
 
-import engine.geometry.Mesh;
 import engine.math.Vector3D;
-import engine.geometry.Polygon3D;
+import engine.math.geometry.Polygon3D;
 
 import java.awt.Color;
 import java.io.IOException;

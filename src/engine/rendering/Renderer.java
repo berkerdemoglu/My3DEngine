@@ -1,8 +1,9 @@
-package engine.graphics.renderer;
+package engine.rendering;
 
 import engine.Engine;
-import engine.geometry.DrawType;
-import engine.graphics.camera.Camera;
+import engine.math.geometry.DrawType;
+import engine.rendering.world.Camera;
+import engine.rendering.world.Scene;
 
 import java.awt.Graphics;
 

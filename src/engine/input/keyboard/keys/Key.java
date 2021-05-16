@@ -1,8 +1,8 @@
 package engine.input.keyboard.keys;
 
-import engine.geometry.Axis;
-import engine.geometry.entity.Entity;
-import engine.graphics.renderer.Renderer;
+import engine.math.geometry.Axis;
+import engine.models.entity.Entity;
+import engine.rendering.Renderer;
 
 import java.awt.event.KeyEvent;
 

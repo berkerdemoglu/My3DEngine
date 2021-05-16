@@ -1,7 +1,11 @@
-package engine.geometry;
+package engine.models.mesh;
 
-import engine.graphics.camera.Camera;
-import engine.graphics.renderer.LightSource;
+import engine.math.geometry.Axis;
+import engine.math.geometry.DrawType;
+import engine.math.geometry.Polygon3D;
+import engine.math.geometry.PolygonComparator;
+import engine.rendering.world.Camera;
+import engine.rendering.world.LightSource;
 
 import java.awt.Graphics;
 import java.util.ArrayList;

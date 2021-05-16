@@ -1,12 +1,12 @@
 package engine;
 
-import engine.geometry.Mesh;
+import engine.models.mesh.Mesh;
 import engine.math.Vector3D;
-import engine.geometry.entity.Entity;
-import engine.geometry.shape.MeshBuilder;
+import engine.models.entity.Entity;
+import engine.models.mesh.MeshBuilder;
 import engine.graphics.Display;
-import engine.graphics.renderer.LightSource;
-import engine.graphics.renderer.Scene;
+import engine.rendering.world.LightSource;
+import engine.rendering.world.Scene;
 
 import java.awt.Color;
 import java.io.IOException;

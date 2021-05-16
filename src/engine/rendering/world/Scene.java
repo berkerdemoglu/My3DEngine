@@ -1,8 +1,7 @@
-package engine.graphics.renderer;
+package engine.rendering.world;
 
-import engine.geometry.DrawType;
-import engine.geometry.entity.Entity;
-import engine.graphics.camera.Camera;
+import engine.math.geometry.DrawType;
+import engine.models.entity.Entity;
 
 import java.awt.Graphics;
 import java.awt.Color;
