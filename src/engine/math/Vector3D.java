@@ -5,6 +5,12 @@ import engine.rendering.world.Camera;
 public class Vector3D {
 	public double x, y, z;
 
+	public Vector3D() {
+		x = 0;
+		y = 0;
+		z = 0;
+	}
+
 	public Vector3D(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
@@ -46,6 +52,12 @@ public class Vector3D {
 
 	public Matrix asMatrix() {
 		return new Matrix(new double[][] {{x}, {y}, {z}});
+	}
+
+	public Matrix asQuaternion() {
+		return new Matrix(new double[][]{
+				{x, y, z, 1}
+		});
 	}
 
 	@Override
