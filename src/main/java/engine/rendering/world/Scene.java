@@ -3,8 +3,7 @@ package engine.rendering.world;
 import engine.math.geometry.DrawType;
 import engine.models.entity.Entity;
 
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +21,7 @@ public class Scene {
 		this.lightSource = lightSource;
 	}
 
-	public void renderScene(Graphics g, DrawType drawType, Camera camera) {
+	public void renderScene(Graphics2D g, DrawType drawType, Camera camera) {
 		// Render the entities
 		for (Entity entity: entities) {
 			entity.render(g, drawType, lightSource, camera);

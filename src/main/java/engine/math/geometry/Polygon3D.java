@@ -48,7 +48,7 @@ public class Polygon3D {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this polygon
 	 */
-	public void render(Graphics g, DrawType drawType, LightSource lightSource, Camera camera) {
+	public void render(Graphics2D g, DrawType drawType, LightSource lightSource, Camera camera) {
 //		if (!shouldBeDrawn(camera)) return;
 
 		updateLighting(lightSource, camera);
