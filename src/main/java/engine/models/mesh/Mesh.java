@@ -7,7 +7,7 @@ import engine.math.geometry.PolygonComparator;
 import engine.rendering.world.Camera;
 import engine.rendering.world.LightSource;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class Mesh {
 	 * @param drawType Signifies which draw type should be used to render this mesh
 	 * @param lightSource A source of light illuminating the mesh
 	 */
-	public void render(Graphics g, DrawType drawType, LightSource lightSource, Camera camera) {
+	public void render(Graphics2D g, DrawType drawType, LightSource lightSource, Camera camera) {
 		for (Polygon3D polygon: polygons) {
 			polygon.render(g, drawType, lightSource, camera);
 		}

@@ -7,7 +7,7 @@ import engine.models.mesh.MeshComparator;
 import engine.rendering.world.Camera;
 import engine.rendering.world.LightSource;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +38,7 @@ public class Entity {
 	 * @param drawType Signifies which draw type should be used to render this entity
 	 * @param lightSource A source of light illuminating the entity
 	 */
-	public void render(Graphics g, DrawType drawType, LightSource lightSource, Camera camera) {
+	public void render(Graphics2D g, DrawType drawType, LightSource lightSource, Camera camera) {
 		for (Mesh mesh: meshes) {
 			mesh.render(g, drawType, lightSource, camera);
 		}

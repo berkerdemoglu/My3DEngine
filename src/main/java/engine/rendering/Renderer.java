@@ -5,7 +5,7 @@ import engine.math.geometry.DrawType;
 import engine.rendering.world.Camera;
 import engine.rendering.world.Scene;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * The <code>Renderer</code> is responsible for rendering scenes.
@@ -30,7 +30,7 @@ public class Renderer {
 	 * Renders all entities.
 	 * @param g Graphics object used for rendering
 	 */
-	public void render(Graphics g) {
+	public void render(Graphics2D g) {
 		g.setColor(scene.getBackgroundColor());
 		g.fillRect(0, 0, Engine.SCREEN_WIDTH, Engine.SCREEN_HEIGHT);
 
