@@ -1,23 +1,23 @@
-package engine;
+package engine.engine;
 
 import engine.models.mesh.Mesh;
-import engine.math.Vector3D;
+import engine.graphics.math.Vector3D;
 import engine.models.entity.Entity;
 import engine.models.mesh.MeshBuilder;
-import engine.graphics.Display;
-import engine.rendering.world.LightSource;
-import engine.rendering.world.Scene;
+import engine.graphics.display.Display;
+import engine.graphics.rendering.scene.LightSource;
+import engine.graphics.rendering.scene.Scene;
 
 import java.awt.Color;
 import java.io.IOException;
 
-public class Engine extends Display {
-	public Engine(String title) {
+public class ExampleEngine extends Display {
+	public ExampleEngine(String title) {
 		super(title);
 	}
 
 	public static void main(String[] args) throws IOException {
-		Engine eng = new Engine("3D Engine");
+		ExampleEngine eng = new ExampleEngine("3D Engine");
 
 		Scene scene = new Scene(
 				Color.BLACK,
@@ -40,7 +40,7 @@ public class Engine extends Display {
 	}
 
 	@Override
-	protected void updateDisplay() {
+	protected void update() {
 
 	}
 }
