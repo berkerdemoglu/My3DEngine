@@ -1,7 +1,14 @@
+# Intellij IDEA files
 .idea/workspace.xml
 .idea/shelf/
 .idea/usage.statistics.xml
 .idea/discord.xml
 
+# Compiles files
+*.jar
+*.class
+*.zip
+
+# Results
 out/
-resources/
+target/
