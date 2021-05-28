@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="My3DEngine:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/My3DEngine_jar</output-path>
-    <root id="archive" name="My3DEngine.jar">
-      <element id="module-output" name="My3DEngine" />
-    </root>
-  </artifact>
-</component>
