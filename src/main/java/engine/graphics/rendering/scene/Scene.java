@@ -1,6 +1,7 @@
-package engine.rendering.world;
+package engine.graphics.rendering.scene;
 
-import engine.math.geometry.DrawType;
+import engine.graphics.math.geometry.DrawType;
+import engine.graphics.rendering.Camera;
 import engine.models.entity.Entity;
 
 import java.awt.*;
@@ -32,7 +33,8 @@ public class Scene {
 		this.entities.addAll(Arrays.asList(entities));
 	}
 
-	public Scene cloneScene() {
+	@Override
+	public Scene clone() {
 		return new Scene(backgroundColor, lightSource, entities.toArray(new Entity[0]));
 	}
 
@@ -47,5 +49,13 @@ public class Scene {
 
 	public LightSource getLightSource() {
 		return lightSource;
+	}
+
+	public void setBackgroundColor(Color backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
+
+	public void setLightSource(LightSource lightSource) {
+		this.lightSource = lightSource;
 	}
 }

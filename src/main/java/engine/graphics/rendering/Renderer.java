@@ -1,9 +1,8 @@
-package engine.rendering;
+package engine.graphics.rendering;
 
-import engine.Engine;
-import engine.math.geometry.DrawType;
-import engine.rendering.world.Camera;
-import engine.rendering.world.Scene;
+import engine.graphics.display.DisplayConstants;
+import engine.graphics.math.geometry.DrawType;
+import engine.graphics.rendering.scene.Scene;
 
 import java.awt.*;
 
@@ -32,7 +31,7 @@ public class Renderer {
 	 */
 	public void render(Graphics2D g) {
 		g.setColor(scene.getBackgroundColor());
-		g.fillRect(0, 0, Engine.SCREEN_WIDTH, Engine.SCREEN_HEIGHT);
+		g.fillRect(0, 0, DisplayConstants.SCREEN_WIDTH, DisplayConstants.SCREEN_HEIGHT);
 
 		scene.renderScene(g, drawType, camera);
 	}

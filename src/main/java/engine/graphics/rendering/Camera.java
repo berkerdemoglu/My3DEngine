@@ -1,6 +1,6 @@
-package engine.rendering.world;
+package engine.graphics.rendering;
 
-import engine.math.Vector3D;
+import engine.graphics.math.Vector3D;
 
 public class Camera {
 	public Vector3D position;

@@ -1,8 +1,8 @@
-package engine.math.geometry;
+package engine.graphics.math.geometry;
 
-import engine.rendering.world.Camera;
-import engine.math.Matrix;
-import engine.math.Vector3D;
+import engine.graphics.rendering.Camera;
+import engine.graphics.math.Matrix;
+import engine.graphics.math.Vector3D;
 
 import java.awt.Point;
 

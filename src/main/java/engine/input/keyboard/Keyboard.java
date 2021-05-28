@@ -1,7 +1,7 @@
 package engine.input.keyboard;
 
-import engine.Engine;
-import engine.rendering.Renderer;
+import engine.graphics.display.DisplayConstants;
+import engine.graphics.rendering.Renderer;
 import engine.input.keyboard.keys.*;
 
 import java.awt.event.KeyEvent;
@@ -15,8 +15,8 @@ import java.util.Arrays;
 public class Keyboard implements KeyListener {
 	private final Key[] keys;
 
-	public final static double degreeChangeSpeed = 45.0 / Engine.FPS;
-	public final static double cameraMoveSpeed = 60.0 / Engine.FPS;
+	public final static double degreeChangeSpeed = 45.0 / DisplayConstants.FPS;
+	public final static double cameraMoveSpeed = 60.0 / DisplayConstants.FPS;
 
 	/**
 	 * Create a new <code>Keyboard</code> with a <code>Renderer</code> and an array of keys

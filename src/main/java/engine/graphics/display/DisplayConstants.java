@@ -1,4 +1,4 @@
-package engine.graphics;
+package engine.graphics.display;
 
 /**
  * This interface will be changed in the future but its current functionality is used to set and change properties

@@ -1,4 +1,4 @@
-package engine.math;
+package engine.graphics.math;
 
 import java.util.Arrays;
 

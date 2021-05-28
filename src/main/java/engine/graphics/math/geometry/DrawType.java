@@ -1,4 +1,4 @@
-package engine.math.geometry;
+package engine.graphics.math.geometry;
 
 /**
  * Represents the draw type of entities. There are 3 options available: Wireframe drawing, filling the entire polygon,

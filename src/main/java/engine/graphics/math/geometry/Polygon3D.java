@@ -1,14 +1,14 @@
-package engine.math.geometry;
+package engine.graphics.math.geometry;
 
-import engine.rendering.world.Camera;
-import engine.rendering.world.LightSource;
-import engine.math.Vector3D;
+import engine.graphics.rendering.Camera;
+import engine.graphics.rendering.scene.LightSource;
+import engine.graphics.math.Vector3D;
 
 import java.awt.*;
 import java.util.Arrays;
 
-import static engine.graphics.DisplayConstants.SCREEN_HEIGHT;
-import static engine.graphics.DisplayConstants.SCREEN_WIDTH;
+import static engine.graphics.display.DisplayConstants.SCREEN_HEIGHT;
+import static engine.graphics.display.DisplayConstants.SCREEN_WIDTH;
 import static java.lang.Math.toRadians;
 
 /**

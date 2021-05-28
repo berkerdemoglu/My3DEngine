@@ -1,11 +1,11 @@
 package engine.models.entity;
 
-import engine.math.geometry.Axis;
-import engine.math.geometry.DrawType;
+import engine.graphics.math.geometry.Axis;
+import engine.graphics.math.geometry.DrawType;
 import engine.models.mesh.Mesh;
 import engine.models.mesh.MeshComparator;
-import engine.rendering.world.Camera;
-import engine.rendering.world.LightSource;
+import engine.graphics.rendering.Camera;
+import engine.graphics.rendering.scene.LightSource;
 
 import java.awt.*;
 import java.util.ArrayList;
