@@ -1,9 +1,9 @@
-package engine.graphics;
+package engine.graphics.display;
 
 import engine.models.entity.Entity;
-import engine.math.geometry.Projector;
-import engine.rendering.Renderer;
-import engine.rendering.world.Scene;
+import engine.graphics.math.geometry.Projector;
+import engine.graphics.rendering.Renderer;
+import engine.graphics.rendering.scene.Scene;
 import engine.input.keyboard.Keyboard;
 import engine.input.keyboard.DrawListener;
 import engine.input.mouse.Mouse;
@@ -14,7 +14,7 @@ import java.awt.image.BufferStrategy;
 
 /**
  * Perhaps the most important class of the engine, it is the window where all the magic happens.
- * It is an abstract class and must be inherited from. The {@link engine.Engine} class inherits from this class too.
+ * It is an abstract class and must be inherited from.
  *
  * The <code>Display</code> class allows customization as it has <code>protected</code> variables.
  * It is easy to add keys to detect, entities to render, and more.
@@ -135,7 +135,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 			while (delta >= 1) {
 				keyboard.pressKeys();
 				handleMouseEvents();
-				updateDisplay();
+				update();
 				delta--;
 				render();
 				drawnFrames++; // we drew a frame
@@ -166,10 +166,10 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	}
 
 	/**
-	 * <code>updateDisplay()</code> is an abstract method that must be implemented by the inheriting class
+	 * <code>update()</code> is an abstract method that must be implemented by the inheriting class
 	 * and is generally used to control entities in every loop.
 	 */
-	abstract protected void updateDisplay();
+	abstract protected void update();
 
 	/**
 	 * This method is very important for the display class as it is responsible for creating a {@link BufferStrategy}
