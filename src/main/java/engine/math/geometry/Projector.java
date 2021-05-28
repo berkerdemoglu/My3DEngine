@@ -1,6 +1,5 @@
 package engine.math.geometry;
 
-import engine.Engine;
 import engine.rendering.world.Camera;
 import engine.math.Matrix;
 import engine.math.Vector3D;
@@ -13,24 +12,56 @@ import static java.lang.Math.*;
  * Used to project to 2D, rotate around an axis, and scale 3D points.
  */
 public abstract class Projector {
-	public static double scale = 1;  // this will be changed in the future
+	public static double scale = 1;
 
 	/**
 	 * Project 3D point to 2D.
 	 * @param v3d A {@link Vector3D} to be projected
 	 * @return A projected 2D {@link Point}
 	 */
-	public static Point project3DPoint(Vector3D v3d, Camera camera) {
-		double x3d = (v3d.x - camera.position.x) * scale;
-		double y3d = (v3d.y - camera.position.y) * scale;
-		double depth = (v3d.z + camera.position.z) * scale;
-		double[] newValues = scalePoint(x3d, y3d, depth);
+	public static Point project3DPoint(
+			Vector3D v3d, Camera camera,
+			double width, double height, double fov, double near, double far
+	) {
+		double aspectRatio = height / width;
+		double fovRad = 1.0 / tan(fov * 0.5 / 180.0 * PI);
 
-		// Add half the screen width and height so that the point is centered in the middle
-		int x2d = (int) (Engine.SCREEN_WIDTH / 2 + newValues[0]);
-		int y2d = (int) (Engine.SCREEN_HEIGHT / 2 - newValues[1]);
+		Matrix projectionMatrix = new Matrix(
+				new double[][]{
+						{aspectRatio * fovRad, 0, 0, 0},
+						{0, fovRad, 0, 0},
+						{0, 0, far / (far - near), 1},
+						{0, 0, (-far * near) / (far - near), 0}
+				}
+		);
+		Matrix pointMatrix = v3d.asQuaternion();
 
-		return new Point(x2d, y2d);
+		Matrix result = Matrix.multiplyMatrices(pointMatrix, projectionMatrix);
+
+		Vector3D o = new Vector3D(result.matrix[0][0], result.matrix[0][1], result.matrix[0][2]);
+		double w = result.matrix[0][3];
+//		if (w != 0) {
+//			o.x /= w;
+//			o.y /= w;
+//			o.z /= w;
+//		}
+
+		o.x *= scale;
+		o.y *= scale;
+		o.z *= scale;
+
+		return new Point((int) (o.x + width/2), (int) (o.y + height/2));
+
+//		double x3d = (v3d.x - camera.position.x) * scale;
+//		double y3d = (v3d.y - camera.position.y) * scale;
+//		double depth = (v3d.z + camera.position.z) * scale;
+//		double[] newValues = scalePoint(x3d, y3d, depth);
+//
+//		// Add half the screen width and height so that the point is centered in the middle
+//		int x2d = (int) (Engine.SCREEN_WIDTH / 2 + newValues[0]);
+//		int y2d = (int) (Engine.SCREEN_HEIGHT / 2 - newValues[1]);
+//
+//		return new Point(x2d, y2d);
 	}
 
 	/**
@@ -52,11 +83,9 @@ public abstract class Projector {
 	 * This method is called in the <code>rotate()</code> method of {@link Polygon3D}.
 	 * @param v3d The 3D point to rotate.
 	 * @param axis The axis to rotate around.
-	 * @param degrees How much to rotate in degrees.
-	 * @param clockwise Clockwise or counterclockwise rotation.
+	 * @param theta How much to rotate in radians.
 	 */
-	public static void rotateVector(Vector3D v3d, Axis axis, double degrees, boolean clockwise) {
-		double theta = toRadians(degrees) * (clockwise ? -1: 1);
+	public static void rotateVector(Vector3D v3d, Axis axis, double theta) {
 		Matrix rotationMatrix;
 
 		// Get required rotation matrix for the axis

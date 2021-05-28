@@ -55,7 +55,7 @@ public abstract class Key {
 			if (!isKeyPressed) return;
 
 			for (Entity entity: renderer.getScene().getEntities()) {
-				entity.rotate(Axis.xAxis, degreeChangeSpeed, false);
+				entity.rotate(Axis.xAxis, degreeChangeSpeed, true);
 			}
 		}
 	}
@@ -103,7 +103,7 @@ public abstract class Key {
 			if (!isKeyPressed) return;
 
 			for (Entity entity: renderer.getScene().getEntities()) {
-				entity.rotate(Axis.zAxis, degreeChangeSpeed, false);
+				entity.rotate(Axis.zAxis, degreeChangeSpeed, true);
 			}
 		}
 	}
@@ -119,7 +119,7 @@ public abstract class Key {
 			if (!isKeyPressed) return;
 
 			for (Entity entity: renderer.getScene().getEntities()) {
-				entity.rotate(Axis.xAxis, degreeChangeSpeed, true);
+				entity.rotate(Axis.xAxis, degreeChangeSpeed, false);
 			}
 		}
 	}
@@ -135,7 +135,7 @@ public abstract class Key {
 			if (!isKeyPressed) return;
 
 			for (Entity entity: renderer.getScene().getEntities()) {
-				entity.rotate(Axis.zAxis, degreeChangeSpeed, true);
+				entity.rotate(Axis.zAxis, degreeChangeSpeed, false);
 			}
 		}
 	}

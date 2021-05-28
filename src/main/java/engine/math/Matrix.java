@@ -16,6 +16,10 @@ public class Matrix {
 		this.matrix = matrix.clone();
 	}
 
+	public Matrix(int rows, int cols) {
+		matrix = new double[rows][cols];
+	}
+
 	/**
 	 * Currently unused.
 	 * @param s The value to scale the matrix by

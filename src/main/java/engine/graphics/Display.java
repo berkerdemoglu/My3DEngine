@@ -117,20 +117,20 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	 */
 	@Override
 	public void run() {
-		final double nanoSeconds = 1000000000.0 / FPS;
+		final double nanoSecondsPerUpdate = 1000000000.0 / FPS;
 
-		long lastTime = System.nanoTime();
-		long now;
+		long lastNano = System.nanoTime();
+		long nowNano;
 
-		long timer = System.currentTimeMillis();
+		long secondCounter = System.currentTimeMillis();
 		double delta = 0;
 		int drawnFrames = 0;
 
 		// Main loop
 		while (isRunning) {
-			now = System.nanoTime();
-			delta += (now - lastTime) / nanoSeconds;
-			lastTime = now; // reset last time
+			nowNano = System.nanoTime();
+			delta += (nowNano - lastNano) / nanoSecondsPerUpdate;
+			lastNano = nowNano; // reset last time
 
 			while (delta >= 1) {
 				keyboard.pressKeys();
@@ -141,8 +141,8 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 				drawnFrames++; // we drew a frame
 			}
 
-			if (System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
+			if (System.currentTimeMillis() - secondCounter > 1000) {
+				secondCounter += 1000;
 				window.setTitle(title + " - " + drawnFrames + "fps");
 				drawnFrames = 0; // reset drawn frames to 0
 			}

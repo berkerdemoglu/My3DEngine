@@ -25,13 +25,13 @@ public class Engine extends Display {
 		);
 
 		eng.renderer.setScene(scene);
-		eng.renderer.camera.position.x = 10;
 
 		Mesh[] meshes = {
-				MeshBuilder.fromObjFile(
-						"D:\\kodlama\\java_projects\\My3DEngine\\resources\\gourd.obj",
-						new Color(50, 194, 217), 20, new Vector3D(50, 10, 10)
-				)
+//				MeshBuilder.fromObjFile(
+//						"D:\\kodlama\\java_projects\\My3DEngine\\resources\\sphere.obj",
+//						new Color(50, 194, 217), 20, new Vector3D(50, 10, 10)
+//				),
+				MeshBuilder.constructCube(Color.CYAN, 100, new Vector3D(50, 10, 10))
 		};
 
 		Entity entity = new Entity(meshes);

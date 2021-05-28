@@ -7,6 +7,10 @@ import engine.math.Vector3D;
 import java.awt.*;
 import java.util.Arrays;
 
+import static engine.graphics.DisplayConstants.SCREEN_HEIGHT;
+import static engine.graphics.DisplayConstants.SCREEN_WIDTH;
+import static java.lang.Math.toRadians;
+
 /**
  * A polygon in 3D space.
  * A <code>Polygon3D</code> is made up of numerous {@link Vector3D}s and a color.
@@ -14,13 +18,13 @@ import java.util.Arrays;
 public class Polygon3D {
 	private Vector3D[] vertices;
 	private Color color;
-	private Color litColor;
+	private Color lightAdjustedColor;
 	private double lightingRatio;
 
 	/**
 	 * Constructs a new polygon in 3D space.
 	 * @param color Color of the polygon
-	 * @param points Points in 3D plane that make up the polygon
+	 * @param vertices Points in 3D plane that make up the polygon
 	 */
 	public Polygon3D(Color color, Vector3D... vertices) {
 		this.vertices = new Vector3D[vertices.length];
@@ -33,7 +37,7 @@ public class Polygon3D {
 
 	/**
 	 * Fallback method for constructing a polygon without a color.
-	 * @param points Points in 3D plane that make up the polygon
+	 * @param vertices Points in 3D plane that make up the polygon
 	 */
 	public Polygon3D(Vector3D... vertices) {
 		this(Color.RED, vertices);
@@ -44,20 +48,25 @@ public class Polygon3D {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this polygon
 	 */
-	public void render(Graphics g, DrawType drawType, LightSource lightSource, Camera camera) {
-		litColor = updateLitColor(lightSource, camera);
+	public void render(Graphics2D g, DrawType drawType, LightSource lightSource, Camera camera) {
+//		if (!shouldBeDrawn(camera)) return;
+
+		updateLighting(lightSource, camera);
 
 		Polygon polygon = new Polygon();
 		Point point2D;
 
 		for (Vector3D vector3D: vertices) {
-			point2D = Projector.project3DPoint(vector3D, camera);
+			point2D = Projector.project3DPoint(
+					vector3D, camera,
+					SCREEN_WIDTH, SCREEN_HEIGHT, 90, 0.1, 1000
+			);
 			polygon.addPoint(point2D.x, point2D.y);
 		}
 
 		switch (drawType) {
 			case FILL:
-				g.setColor(litColor);
+				g.setColor(lightAdjustedColor);
 				g.fillPolygon(polygon);
 				break;
 			case WIREFRAME_DRAW:
@@ -67,28 +76,36 @@ public class Polygon3D {
 			case FILL_N_HIGHLIGHT:
 				g.setColor(Color.DARK_GRAY);
 				g.drawPolygon(polygon);
-				g.setColor(litColor);
+				g.setColor(lightAdjustedColor);
 				g.fillPolygon(polygon);
 				break;
 		}
 	}
 
-	private Color updateLitColor(LightSource lightSource, Camera camera) {
-		// Get camera adjusted points' vectors.
-		Vector3D surfacePoint1 = Vector3D.cameraAdjustedVector(vertices[0], camera);
-		Vector3D surfacePoint2 = Vector3D.cameraAdjustedVector(vertices[1], camera);
-		Vector3D surfacePoint3 = Vector3D.cameraAdjustedVector(vertices[2], camera);
+	public boolean shouldBeDrawn(Camera camera) {
+		Vector3D point = new Vector3D(
+				vertices[0].x - camera.position.x,
+				vertices[0].y - camera.position.y,
+				vertices[0].z - camera.position.z
+		);
 
-		Vector3D v1 = new Vector3D(surfacePoint1, surfacePoint2);
-		Vector3D v2 = new Vector3D(surfacePoint2, surfacePoint3);
+		double dotProduct = Vector3D.dotProduct(getNormalVector(), point);
 
-		// Calculate the light vector for the polygon.
+		return dotProduct < 0;
+	}
+
+	private void updateLighting(LightSource lightSource, Camera camera) {
+		// Check if a light source was provided.
+		if (lightSource == null) {
+			lightAdjustedColor = new Color(color.getRGB());
+			return;
+		}
+
+		// Calculate the light vector to the polygon.
 		Vector3D lightVector = lightSource.getLightVectorTo(getCentroid(), camera);
 
 		// Get lighting ratio for the polygon.
-		Vector3D normalVector = Vector3D.normalize(Vector3D.crossProduct(v2, v1));
-
-		double dotProduct = Vector3D.dotProduct(normalVector, lightVector);
+		double dotProduct = Vector3D.dotProduct(getNormalVector(), lightVector);
 		int sign = (dotProduct < 0 ? -1: 1);
 		lightingRatio = (dotProduct*dotProduct*sign + 1) / 2;
 
@@ -97,7 +114,15 @@ public class Polygon3D {
 		int green = (int) (color.getGreen() * lightingRatio);
 		int blue = (int) (color.getBlue() * lightingRatio);
 
-		return new Color(red, green, blue);
+		lightAdjustedColor = new Color(red, green, blue);
+	}
+
+	public Vector3D getNormalVector() {
+		Vector3D line1 = new Vector3D(vertices[0], vertices[1]);
+		Vector3D line2 = new Vector3D(vertices[1], vertices[2]);
+
+		Vector3D normalVector = Vector3D.normalize(Vector3D.crossProduct(line2, line1));
+		return normalVector;
 	}
 
 	/**
@@ -133,8 +158,10 @@ public class Polygon3D {
 	 * @param clockwise Which direction (clockwise or counterclockwise) the polygon should be rotated.
 	 */
 	public void rotate(Axis axis, double degrees, boolean clockwise) {
+		double rotationTheta;
 		for (Vector3D v: vertices) {
-			Projector.rotateVector(v, axis, degrees, clockwise);
+			rotationTheta = toRadians(degrees * (clockwise ? -1: 1));
+			Projector.rotateVector(v, axis, rotationTheta);
 		}
 	}
 
