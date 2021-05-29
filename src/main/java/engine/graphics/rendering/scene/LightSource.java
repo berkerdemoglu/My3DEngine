@@ -17,6 +17,11 @@ public class LightSource {
 		);
 	}
 
+	@Override
+	public LightSource clone() {
+		return new LightSource(source.clone());
+	}
+
 	public Vector3D getSource() {
 		return source;
 	}

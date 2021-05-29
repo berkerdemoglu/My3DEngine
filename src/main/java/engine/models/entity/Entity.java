@@ -1,7 +1,8 @@
 package engine.models.entity;
 
 import engine.graphics.math.geometry.Axis;
-import engine.graphics.math.geometry.DrawType;
+import engine.graphics.math.geometry.ProjectionValues;
+import engine.graphics.rendering.DrawType;
 import engine.models.mesh.Mesh;
 import engine.models.mesh.MeshComparator;
 import engine.graphics.rendering.Camera;
@@ -25,7 +26,7 @@ public class Entity {
 	public Entity(Mesh... meshes) {
 		this.meshes = new ArrayList<>();
 		for (Mesh mesh : meshes) {
-			this.meshes.add(mesh.cloneMesh());
+			this.meshes.add(mesh.clone());
 		}
 
 		meshComparator = new MeshComparator();
@@ -38,9 +39,13 @@ public class Entity {
 	 * @param drawType Signifies which draw type should be used to render this entity
 	 * @param lightSource A source of light illuminating the entity
 	 */
-	public void render(Graphics2D g, DrawType drawType, LightSource lightSource, Camera camera) {
+	public void render(
+			Graphics2D g, DrawType drawType,
+			LightSource lightSource, Camera camera,
+			ProjectionValues projectionValues
+	) {
 		for (Mesh mesh: meshes) {
-			mesh.render(g, drawType, lightSource, camera);
+			mesh.render(g, drawType, lightSource, camera, projectionValues);
 		}
 	}
 
@@ -55,6 +60,16 @@ public class Entity {
 			mesh.rotate(axis, degrees, clockwise);
 		}
 		sortMeshes();
+	}
+
+	@Override
+	public Entity clone() {
+		Mesh[] meshes = new Mesh[this.meshes.size()];
+		for (int i = 0; i < meshes.length; i++) {
+			meshes[i] = this.meshes.get(i).clone();
+		}
+
+		return new Entity(meshes);
 	}
 
 	/**

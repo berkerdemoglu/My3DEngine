@@ -1,6 +1,7 @@
 package engine.graphics.math.geometry;
 
 import engine.graphics.rendering.Camera;
+import engine.graphics.rendering.DrawType;
 import engine.graphics.rendering.scene.LightSource;
 import engine.graphics.math.Vector3D;
 
@@ -48,7 +49,11 @@ public class Polygon3D {
 	 * @param g Graphics object used to draw polygons
 	 * @param drawType Signifies which draw type should be used to render this polygon
 	 */
-	public void render(Graphics2D g, DrawType drawType, LightSource lightSource, Camera camera) {
+	public void render(
+			Graphics2D g, DrawType drawType,
+			LightSource lightSource, Camera camera,
+			ProjectionValues projectionValues
+	) {
 //		if (!shouldBeDrawn(camera)) return;
 
 		updateLighting(lightSource, camera);
@@ -57,9 +62,9 @@ public class Polygon3D {
 		Point point2D;
 
 		for (Vector3D vector3D: vertices) {
-			point2D = Projector.project3DPoint(
-					vector3D, camera,
-					SCREEN_WIDTH, SCREEN_HEIGHT, 90, 0.1, 1000
+			point2D = Projector.project3DPoint(vector3D, camera,
+					projectionValues.width, projectionValues.height,
+					projectionValues.fov, projectionValues.near, projectionValues.far
 			);
 			polygon.addPoint(point2D.x, point2D.y);
 		}
@@ -204,13 +209,16 @@ public class Polygon3D {
 
 	/**
 	 * Used to clone a polygon.
-	 * <p>
-	 *     Note: This will be replaced by <code>Object.clone()</code> in the future.
-	 * </p>
 	 * @return A new polygon object that has the same data as this polygon.
 	 */
-	public Polygon3D clonePolygon() {
-		return new Polygon3D(color, vertices);
+	@Override
+	public Polygon3D clone() {
+		Vector3D[] vertices = new Vector3D[this.vertices.length];
+		for (int i = 0; i < vertices.length; i++) {
+			vertices[i] = this.vertices[i].clone();
+		}
+
+		return new Polygon3D(new Color(color.getRGB()), vertices);
 	}
 
 	// Getters and Setters

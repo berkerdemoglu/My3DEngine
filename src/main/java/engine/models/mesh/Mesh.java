@@ -1,7 +1,8 @@
 package engine.models.mesh;
 
 import engine.graphics.math.geometry.Axis;
-import engine.graphics.math.geometry.DrawType;
+import engine.graphics.math.geometry.ProjectionValues;
+import engine.graphics.rendering.DrawType;
 import engine.graphics.math.geometry.Polygon3D;
 import engine.graphics.math.geometry.PolygonComparator;
 import engine.graphics.rendering.Camera;
@@ -26,7 +27,7 @@ public class Mesh {
 	public Mesh(Polygon3D... polygons) {
 		this.polygons = new ArrayList<>();
 		for (Polygon3D polygon : polygons) {
-			this.polygons.add(polygon.clonePolygon());
+			this.polygons.add(polygon.clone());
 		}
 
 		polygonComparator = new PolygonComparator();
@@ -40,7 +41,7 @@ public class Mesh {
 	public Mesh(List<Polygon3D> polygons) {
 		this.polygons = new ArrayList<>();
 		for (Polygon3D polygon : polygons) {
-			this.polygons.add(polygon.clonePolygon());
+			this.polygons.add(polygon.clone());
 		}
 
 		polygonComparator = new PolygonComparator();
@@ -52,9 +53,13 @@ public class Mesh {
 	 * @param drawType Signifies which draw type should be used to render this mesh
 	 * @param lightSource A source of light illuminating the mesh
 	 */
-	public void render(Graphics2D g, DrawType drawType, LightSource lightSource, Camera camera) {
+	public void render(
+			Graphics2D g, DrawType drawType,
+			LightSource lightSource, Camera camera,
+			ProjectionValues projectionValues
+	) {
 		for (Polygon3D polygon: polygons) {
-			polygon.render(g, drawType, lightSource, camera);
+			polygon.render(g, drawType, lightSource, camera, projectionValues);
 		}
 	}
 
@@ -127,8 +132,14 @@ public class Mesh {
 	 * </p>
 	 * @return A new mesh object that has the same data as this mesh.
 	 */
-	public Mesh cloneMesh() {
-		return new Mesh(polygons.toArray(new Polygon3D[0]));
+	@Override
+	public Mesh clone() {
+		Polygon3D[] polygons = new Polygon3D[this.polygons.size()];
+		for (int i = 0; i < polygons.length; i++) {
+			polygons[i] = this.polygons.get(i).clone();
+		}
+
+		return new Mesh(polygons);
 	}
 
 	/**
