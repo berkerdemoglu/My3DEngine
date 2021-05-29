@@ -1,7 +1,6 @@
 package engine.graphics.rendering;
 
 import engine.graphics.display.DisplayConstants;
-import engine.graphics.math.geometry.DrawType;
 import engine.graphics.rendering.scene.Scene;
 
 import java.awt.*;

@@ -1,6 +1,6 @@
 package engine.input.keyboard;
 
-import engine.graphics.math.geometry.DrawType;
+import engine.graphics.rendering.DrawType;
 import engine.graphics.rendering.Renderer;
 
 import java.awt.event.KeyEvent;
