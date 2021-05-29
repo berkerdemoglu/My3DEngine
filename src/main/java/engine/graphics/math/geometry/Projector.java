@@ -17,7 +17,13 @@ public abstract class Projector {
 	/**
 	 * Project 3D point to 2D.
 	 * @param v3d A {@link Vector3D} to be projected
-	 * @return A projected 2D {@link Point}
+	 * @param camera Camera object
+	 * @param width Width of the window
+	 * @param height Height of the window
+	 * @param fov Field of view
+	 * @param near Near plane
+	 * @param far Far plane
+	 * @return A {@link Point} in 2D coordinates.
 	 */
 	public static Point project3DPoint(
 			Vector3D v3d, Camera camera,
@@ -40,6 +46,7 @@ public abstract class Projector {
 
 		Vector3D o = new Vector3D(result.matrix[0][0], result.matrix[0][1], result.matrix[0][2]);
 		double w = result.matrix[0][3];
+		// The following code will be added later on, it causes bugs if enabled as of now.
 //		if (w != 0) {
 //			o.x /= w;
 //			o.y /= w;
@@ -51,17 +58,6 @@ public abstract class Projector {
 		o.z *= scale;
 
 		return new Point((int) (o.x + width/2), (int) (o.y + height/2));
-
-//		double x3d = (v3d.x - camera.position.x) * scale;
-//		double y3d = (v3d.y - camera.position.y) * scale;
-//		double depth = (v3d.z + camera.position.z) * scale;
-//		double[] newValues = scalePoint(x3d, y3d, depth);
-//
-//		// Add half the screen width and height so that the point is centered in the middle
-//		int x2d = (int) (Engine.SCREEN_WIDTH / 2 + newValues[0]);
-//		int y2d = (int) (Engine.SCREEN_HEIGHT / 2 - newValues[1]);
-//
-//		return new Point(x2d, y2d);
 	}
 
 	/**

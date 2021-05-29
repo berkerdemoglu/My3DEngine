@@ -1,5 +1,6 @@
 package engine.engine;
 
+import engine.graphics.math.geometry.ProjectionValues;
 import engine.models.mesh.Mesh;
 import engine.graphics.math.Vector3D;
 import engine.models.entity.Entity;
@@ -21,7 +22,8 @@ public class ExampleEngine extends Display {
 
 		Scene scene = new Scene(
 				Color.BLACK,
-				new LightSource(new Vector3D(-100, 0, 0))
+				new LightSource(new Vector3D(-100, 0, 0)),
+				new ProjectionValues(SCREEN_WIDTH, SCREEN_HEIGHT, 90, 0.1, 1000)
 		);
 
 		eng.renderer.setScene(scene);

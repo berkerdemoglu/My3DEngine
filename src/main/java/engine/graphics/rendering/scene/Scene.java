@@ -1,6 +1,7 @@
 package engine.graphics.rendering.scene;
 
-import engine.graphics.math.geometry.DrawType;
+import engine.graphics.math.geometry.ProjectionValues;
+import engine.graphics.rendering.DrawType;
 import engine.graphics.rendering.Camera;
 import engine.models.entity.Entity;
 
@@ -14,18 +15,25 @@ public class Scene {
 	private final ArrayList<Entity> entities;
 	private LightSource lightSource;
 
-	public Scene(Color backgroundColor, LightSource lightSource, Entity... entities) {
+	private final ProjectionValues projectionValues;
+
+	public Scene(
+			Color backgroundColor, LightSource lightSource,
+			ProjectionValues projectionValues, Entity... entities
+	) {
 		this.backgroundColor = backgroundColor;
 
 		this.entities = new ArrayList<>(Arrays.asList(entities));
 
 		this.lightSource = lightSource;
+
+		this.projectionValues = projectionValues;
 	}
 
 	public void renderScene(Graphics2D g, DrawType drawType, Camera camera) {
 		// Render the entities
 		for (Entity entity: entities) {
-			entity.render(g, drawType, lightSource, camera);
+			entity.render(g, drawType, lightSource, camera, projectionValues);
 		}
 	}
 
@@ -35,7 +43,15 @@ public class Scene {
 
 	@Override
 	public Scene clone() {
-		return new Scene(backgroundColor, lightSource, entities.toArray(new Entity[0]));
+		Entity[] entities = new Entity[this.entities.size()];
+		for (int i = 0; i < entities.length; i++) {
+			entities[i] = this.entities.get(i).clone();
+		}
+
+		return new Scene(
+				new Color(backgroundColor.getRGB()), lightSource.clone(),
+				projectionValues.clone(), entities
+		);
 	}
 
 	// Getters and Setters
@@ -57,5 +73,9 @@ public class Scene {
 
 	public void setLightSource(LightSource lightSource) {
 		this.lightSource = lightSource;
+	}
+
+	public ProjectionValues getProjectionValues() {
+		return projectionValues;
 	}
 }
