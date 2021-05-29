@@ -1,4 +1,6 @@
-package engine.graphics.math.geometry;
+package engine.graphics.rendering;
+
+import engine.graphics.math.geometry.Polygon3D;
 
 /**
  * Represents the draw type of entities. There are 3 options available: Wireframe drawing, filling the entire polygon,
