@@ -1,6 +1,6 @@
 package engine.graphics.rendering.scene;
 
-import engine.graphics.math.geometry.ProjectionValues;
+import engine.graphics.math.geometry.ProjectionSettings;
 import engine.graphics.rendering.DrawType;
 import engine.graphics.rendering.Camera;
 import engine.models.entity.Entity;
@@ -15,11 +15,11 @@ public class Scene {
 	private final ArrayList<Entity> entities;
 	private LightSource lightSource;
 
-	private final ProjectionValues projectionValues;
+	private final ProjectionSettings projectionSettings;
 
 	public Scene(
 			Color backgroundColor, LightSource lightSource,
-			ProjectionValues projectionValues, Entity... entities
+			ProjectionSettings projectionSettings, Entity... entities
 	) {
 		this.backgroundColor = backgroundColor;
 
@@ -27,13 +27,13 @@ public class Scene {
 
 		this.lightSource = lightSource;
 
-		this.projectionValues = projectionValues;
+		this.projectionSettings = projectionSettings;
 	}
 
 	public void renderScene(Graphics2D g, DrawType drawType, Camera camera) {
 		// Render the entities
 		for (Entity entity: entities) {
-			entity.render(g, drawType, lightSource, camera, projectionValues);
+			entity.render(g, drawType, lightSource, camera, projectionSettings);
 		}
 	}
 
@@ -50,7 +50,7 @@ public class Scene {
 
 		return new Scene(
 				new Color(backgroundColor.getRGB()), lightSource.clone(),
-				projectionValues.clone(), entities
+				projectionSettings.clone(), entities
 		);
 	}
 
@@ -75,7 +75,7 @@ public class Scene {
 		this.lightSource = lightSource;
 	}
 
-	public ProjectionValues getProjectionValues() {
-		return projectionValues;
+	public ProjectionSettings getProjectionValues() {
+		return projectionSettings;
 	}
 }

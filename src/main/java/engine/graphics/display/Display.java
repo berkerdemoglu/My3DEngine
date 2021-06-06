@@ -19,7 +19,9 @@ import java.awt.image.BufferStrategy;
  * The <code>Display</code> class allows customization as it has <code>protected</code> variables.
  * It is easy to add keys to detect, entities to render, and more.
  */
-public abstract class Display extends Canvas implements Runnable, DisplayConstants {
+public abstract class Display extends Canvas implements Runnable {
+	protected Settings settings;
+
 	protected JFrame window;
 
 	protected final Renderer renderer;
@@ -31,34 +33,43 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 	protected Thread thread;
 
-	protected String title;
 	protected boolean isRunning;
 
 	/**
 	 * Create a new display object.
-	 * @param title Title of the window
+	 * @param settings The settings for the display
+	 * @param scene The scene to display
 	 */
-	public Display(String title, Scene scene) {
-		this.title = title;
+	public Display(Settings settings, Scene scene) {
+		this.settings = settings;
 
 		window = new JFrame();
-		window.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		window.setPreferredSize(new Dimension(
+				settings.SCREEN_WIDTH(), settings.SCREEN_HEIGHT()
+		));
 
 		renderer = new Renderer(scene);
 		// Create antialiasing hints
-		antiAliasingHints = new RenderingHints(
-				RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON
-		);
+		if (settings.useAntialiasing()) {
+			antiAliasingHints = new RenderingHints(
+					RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON
+			);
+		} else {
+			antiAliasingHints = new RenderingHints(
+					RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_OFF
+			);
+		}
 
-		keyboard = new Keyboard(renderer);
+		keyboard = new Keyboard(renderer, settings);
 		wireframeDrawListener = new DrawListener(renderer);
 
 		mouse = new Mouse();
 	}
 
-	public Display(String title) {
-		this(title, null);
+	public Display(Settings settings) {
+		this(settings, null);
 	}
 
 	/**
@@ -67,7 +78,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	 * this function not be overridden.
 	 */
 	protected void manageWindowSettings() {
-		window.setTitle(title);
+		window.setTitle(settings.TITLE());
 		window.add(this);
 		window.pack();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,7 +128,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 	 */
 	@Override
 	public void run() {
-		final double nanoSecondsPerUpdate = 1000000000.0 / FPS;
+		final double nanoSecondsPerUpdate = 1000000000.0 / settings.FPS();
 
 		long lastNano = System.nanoTime();
 		long nowNano;
@@ -143,7 +154,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 
 			if (System.currentTimeMillis() - secondCounter > 1000) {
 				secondCounter += 1000;
-				window.setTitle(title + " - " + drawnFrames + "fps");
+				window.setTitle(settings.TITLE() + " - " + drawnFrames + "fps");
 				drawnFrames = 0; // reset drawn frames to 0
 			}
 		}
@@ -187,7 +198,7 @@ public abstract class Display extends Canvas implements Runnable, DisplayConstan
 		g.setRenderingHints(antiAliasingHints);
 
 		// Call the render method of the renderer using the graphics object from the buffer strategy
-		renderer.render(g);
+		renderer.render(g, settings);
 
 		// Delete graphics object and show next buffer
 		g.dispose();

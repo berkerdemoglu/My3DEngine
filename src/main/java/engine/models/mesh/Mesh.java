@@ -1,7 +1,7 @@
 package engine.models.mesh;
 
 import engine.graphics.math.geometry.Axis;
-import engine.graphics.math.geometry.ProjectionValues;
+import engine.graphics.math.geometry.ProjectionSettings;
 import engine.graphics.rendering.DrawType;
 import engine.graphics.math.geometry.Polygon3D;
 import engine.graphics.math.geometry.PolygonComparator;
@@ -56,10 +56,10 @@ public class Mesh {
 	public void render(
 			Graphics2D g, DrawType drawType,
 			LightSource lightSource, Camera camera,
-			ProjectionValues projectionValues
+			ProjectionSettings projectionSettings
 	) {
 		for (Polygon3D polygon: polygons) {
-			polygon.render(g, drawType, lightSource, camera, projectionValues);
+			polygon.render(g, drawType, lightSource, camera, projectionSettings);
 		}
 	}
 

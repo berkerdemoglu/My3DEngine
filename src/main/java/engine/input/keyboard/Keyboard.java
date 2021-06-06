@@ -1,6 +1,6 @@
 package engine.input.keyboard;
 
-import engine.graphics.display.DisplayConstants;
+import engine.graphics.display.Settings;
 import engine.graphics.rendering.Renderer;
 import engine.input.keyboard.keys.*;
 
@@ -15,15 +15,11 @@ import java.util.Arrays;
 public class Keyboard implements KeyListener {
 	private final Key[] keys;
 
-	public final static double degreeChangeSpeed = 45.0 / DisplayConstants.FPS;
-	public final static double cameraMoveSpeed = 60.0 / DisplayConstants.FPS;
-
 	/**
 	 * Create a new <code>Keyboard</code> with a <code>Renderer</code> and an array of keys
-	 * @param renderer The <code>Renderer</code> object
 	 * @param keys Array of <code>Key</code>s to press
 	 */
-	public Keyboard(Renderer renderer, Key... keys) {
+	public Keyboard(Key... keys) {
 		this.keys = Arrays.copyOf(keys, keys.length);
 	}
 
@@ -39,17 +35,17 @@ public class Keyboard implements KeyListener {
 	 *
 	 * @param renderer The <code>Renderer</code> object
 	 */
-	public Keyboard(Renderer renderer) {
+	public Keyboard(Renderer renderer, Settings settings) {
 		this.keys = new Key[]{
 				// Entity rotation keys
-				new Key.KeyNumpad2(renderer), new Key.KeyNumpad8(renderer),
-				new Key.KeyNumpad4(renderer), new Key.KeyNumpad6(renderer),
-				new Key.KeyNumpad7(renderer), new Key.KeyNumpad9(renderer),
+				new Key.KeyNumpad2(renderer, settings), new Key.KeyNumpad8(renderer, settings),
+				new Key.KeyNumpad4(renderer, settings), new Key.KeyNumpad6(renderer, settings),
+				new Key.KeyNumpad7(renderer, settings), new Key.KeyNumpad9(renderer, settings),
 
 				// Camera movement keys
-				new Key.KeyW(renderer), new Key.KeyA(renderer),
-				new Key.KeyS(renderer), new Key.KeyD(renderer),
-				new Key.KeyShift(renderer), new Key.KeySpace(renderer),
+				new Key.KeyW(renderer, settings), new Key.KeyA(renderer, settings),
+				new Key.KeyS(renderer, settings), new Key.KeyD(renderer, settings),
+				new Key.KeyShift(renderer, settings), new Key.KeySpace(renderer, settings),
 		};
 	}
 

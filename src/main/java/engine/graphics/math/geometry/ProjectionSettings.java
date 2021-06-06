@@ -1,13 +1,13 @@
 package engine.graphics.math.geometry;
 
-public class ProjectionValues {
+public class ProjectionSettings {
 	public double width, height;
 
 	public double fov;
 	public double near;
 	public double far;
 
-	public ProjectionValues(int width, int height, double fov, double near, double far) {
+	public ProjectionSettings(int width, int height, double fov, double near, double far) {
 		this.width = (double) width;
 		this.height = (double) height;
 		this.fov = fov;
@@ -16,7 +16,7 @@ public class ProjectionValues {
 	}
 
 	@Override
-	public ProjectionValues clone() {
-		return new ProjectionValues((int) width, (int) height, fov, near, far);
+	public ProjectionSettings clone() {
+		return new ProjectionSettings((int) width, (int) height, fov, near, far);
 	}
 }

@@ -1,6 +1,6 @@
 package engine.graphics.rendering;
 
-import engine.graphics.display.DisplayConstants;
+import engine.graphics.display.Settings;
 import engine.graphics.rendering.scene.Scene;
 
 import java.awt.*;
@@ -28,9 +28,9 @@ public class Renderer {
 	 * Renders all entities.
 	 * @param g Graphics object used for rendering
 	 */
-	public void render(Graphics2D g) {
+	public void render(Graphics2D g, Settings settings) {
 		g.setColor(scene.getBackgroundColor());
-		g.fillRect(0, 0, DisplayConstants.SCREEN_WIDTH, DisplayConstants.SCREEN_HEIGHT);
+		g.fillRect(0, 0, settings.SCREEN_WIDTH(), settings.SCREEN_HEIGHT());
 
 		scene.renderScene(g, drawType, camera);
 	}

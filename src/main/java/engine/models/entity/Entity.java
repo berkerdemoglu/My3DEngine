@@ -1,7 +1,7 @@
 package engine.models.entity;
 
 import engine.graphics.math.geometry.Axis;
-import engine.graphics.math.geometry.ProjectionValues;
+import engine.graphics.math.geometry.ProjectionSettings;
 import engine.graphics.rendering.DrawType;
 import engine.models.mesh.Mesh;
 import engine.models.mesh.MeshComparator;
@@ -42,10 +42,10 @@ public class Entity {
 	public void render(
 			Graphics2D g, DrawType drawType,
 			LightSource lightSource, Camera camera,
-			ProjectionValues projectionValues
+			ProjectionSettings projectionSettings
 	) {
 		for (Mesh mesh: meshes) {
-			mesh.render(g, drawType, lightSource, camera, projectionValues);
+			mesh.render(g, drawType, lightSource, camera, projectionSettings);
 		}
 	}
 

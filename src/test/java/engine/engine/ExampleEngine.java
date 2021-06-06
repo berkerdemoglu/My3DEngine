@@ -1,6 +1,7 @@
 package engine.engine;
 
-import engine.graphics.math.geometry.ProjectionValues;
+import engine.graphics.display.Settings;
+import engine.graphics.math.geometry.ProjectionSettings;
 import engine.models.mesh.Mesh;
 import engine.graphics.math.Vector3D;
 import engine.models.entity.Entity;
@@ -13,17 +14,32 @@ import java.awt.Color;
 import java.io.IOException;
 
 public class ExampleEngine extends Display {
-	public ExampleEngine(String title) {
-		super(title);
+	public ExampleEngine(Settings settings) {
+		super(settings);
 	}
 
 	public static void main(String[] args) throws IOException {
-		ExampleEngine eng = new ExampleEngine("3D Engine");
+		ExampleEngine eng = new ExampleEngine(new Settings() {
+			public int SCREEN_WIDTH() {
+				return 600;
+			}
+			public int SCREEN_HEIGHT() {
+				return 600;
+			}
+			public int FPS() {
+				return 60;
+			}
+			public String TITLE() {
+				return "3D Engine";
+			}
+		});
 
 		Scene scene = new Scene(
 				Color.BLACK,
 				new LightSource(new Vector3D(-100, 0, 0)),
-				new ProjectionValues(SCREEN_WIDTH, SCREEN_HEIGHT, 90, 0.1, 1000)
+				new ProjectionSettings(
+						eng.settings.SCREEN_WIDTH(), eng.settings.SCREEN_HEIGHT(), 90, 0.1, 1000
+				)
 		);
 
 		eng.renderer.setScene(scene);

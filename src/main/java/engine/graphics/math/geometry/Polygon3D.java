@@ -8,8 +8,6 @@ import engine.graphics.math.Vector3D;
 import java.awt.*;
 import java.util.Arrays;
 
-import static engine.graphics.display.DisplayConstants.SCREEN_HEIGHT;
-import static engine.graphics.display.DisplayConstants.SCREEN_WIDTH;
 import static java.lang.Math.toRadians;
 
 /**
@@ -52,7 +50,7 @@ public class Polygon3D {
 	public void render(
 			Graphics2D g, DrawType drawType,
 			LightSource lightSource, Camera camera,
-			ProjectionValues projectionValues
+			ProjectionSettings projectionSettings
 	) {
 //		if (!shouldBeDrawn(camera)) return;
 
@@ -63,8 +61,8 @@ public class Polygon3D {
 
 		for (Vector3D vector3D: vertices) {
 			point2D = Projector.project3DPoint(vector3D, camera,
-					projectionValues.width, projectionValues.height,
-					projectionValues.fov, projectionValues.near, projectionValues.far
+					projectionSettings.width, projectionSettings.height,
+					projectionSettings.fov, projectionSettings.near, projectionSettings.far
 			);
 			polygon.addPoint(point2D.x, point2D.y);
 		}
