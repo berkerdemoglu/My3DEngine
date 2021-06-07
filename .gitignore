@@ -4,7 +4,7 @@
 .idea/usage.statistics.xml
 .idea/discord.xml
 
-# Compiles files
+# Compiled files
 *.jar
 *.class
 *.zip
@@ -12,3 +12,7 @@
 # Results
 out/
 target/
+
+# Python API stuff
+venv/
+__pycache__/
