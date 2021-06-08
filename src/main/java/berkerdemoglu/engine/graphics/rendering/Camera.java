@@ -1,6 +1,6 @@
-package engine.graphics.rendering;
+package berkerdemoglu.engine.graphics.rendering;
 
-import engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.graphics.math.Vector3D;
 
 public class Camera {
 	public Vector3D position;

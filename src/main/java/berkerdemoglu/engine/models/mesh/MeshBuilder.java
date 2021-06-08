@@ -1,7 +1,7 @@
-package engine.models.mesh;
+package berkerdemoglu.engine.models.mesh;
 
-import engine.graphics.math.Vector3D;
-import engine.graphics.math.geometry.Polygon3D;
+import berkerdemoglu.engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.graphics.math.geometry.Polygon3D;
 
 import java.awt.Color;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package engine.graphics.rendering;
+package berkerdemoglu.engine.graphics.rendering;
 
-import engine.graphics.display.Settings;
-import engine.graphics.rendering.scene.Scene;
+import berkerdemoglu.engine.graphics.display.Settings;
+import berkerdemoglu.engine.graphics.rendering.scene.Scene;
 
 import java.awt.*;
 

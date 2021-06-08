@@ -1,12 +1,12 @@
-package engine.models.entity;
+package berkerdemoglu.engine.models.entity;
 
-import engine.graphics.math.geometry.Axis;
-import engine.graphics.math.geometry.ProjectionSettings;
-import engine.graphics.rendering.DrawType;
-import engine.models.mesh.Mesh;
-import engine.models.mesh.MeshComparator;
-import engine.graphics.rendering.Camera;
-import engine.graphics.rendering.scene.LightSource;
+import berkerdemoglu.engine.graphics.math.geometry.Axis;
+import berkerdemoglu.engine.graphics.math.geometry.ProjectionSettings;
+import berkerdemoglu.engine.graphics.rendering.DrawType;
+import berkerdemoglu.engine.models.mesh.MeshComparator;
+import berkerdemoglu.engine.models.mesh.Mesh;
+import berkerdemoglu.engine.graphics.rendering.Camera;
+import berkerdemoglu.engine.graphics.rendering.scene.LightSource;
 
 import java.awt.*;
 import java.util.ArrayList;

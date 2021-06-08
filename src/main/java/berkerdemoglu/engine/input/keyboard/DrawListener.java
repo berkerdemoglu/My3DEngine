@@ -1,7 +1,7 @@
-package engine.input.keyboard;
+package berkerdemoglu.engine.input.keyboard;
 
-import engine.graphics.rendering.DrawType;
-import engine.graphics.rendering.Renderer;
+import berkerdemoglu.engine.graphics.rendering.DrawType;
+import berkerdemoglu.engine.graphics.rendering.Renderer;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

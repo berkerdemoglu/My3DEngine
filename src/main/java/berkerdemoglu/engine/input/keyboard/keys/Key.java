@@ -1,15 +1,16 @@
-package engine.input.keyboard.keys;
+package berkerdemoglu.engine.input.keyboard.keys;
 
-import engine.graphics.display.Settings;
-import engine.graphics.math.geometry.Axis;
-import engine.models.entity.Entity;
-import engine.graphics.rendering.Renderer;
+import berkerdemoglu.engine.graphics.display.Settings;
+import berkerdemoglu.engine.graphics.math.geometry.Axis;
+import berkerdemoglu.engine.graphics.rendering.Renderer;
+import berkerdemoglu.engine.input.keyboard.Keyboard;
+import berkerdemoglu.engine.models.entity.Entity;
 
 import java.awt.event.KeyEvent;
 
 /**
  * Key is an abstract class that provides extensive customization for handling key presses and is used along with
- * {@link engine.input.keyboard.Keyboard}.
+ * {@link Keyboard}.
  */
 public abstract class Key {
 	protected int keyCode;
@@ -39,7 +40,7 @@ public abstract class Key {
 	}
 
 	/**
-	 * This function is called in {@link engine.input.keyboard.Keyboard} and should provide what to when the key is
+	 * This function is called in {@link Keyboard} and should provide what to when the key is
 	 * actually pressed.
 	 */
 	abstract public void pressKey();

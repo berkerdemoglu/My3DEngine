@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ExampleEngine" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="engine.engine.ExampleEngine" />
+    <option name="MAIN_CLASS_NAME" value="berkerdemoglu.engine.engine.ExampleEngine" />
     <module name="My3DEngine" />
     <extension name="coverage">
       <pattern>

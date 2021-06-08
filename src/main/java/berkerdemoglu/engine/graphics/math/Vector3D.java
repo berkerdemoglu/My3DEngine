@@ -1,6 +1,6 @@
-package engine.graphics.math;
+package berkerdemoglu.engine.graphics.math;
 
-import engine.graphics.rendering.Camera;
+import berkerdemoglu.engine.graphics.rendering.Camera;
 
 public class Vector3D {
 	public double x, y, z;

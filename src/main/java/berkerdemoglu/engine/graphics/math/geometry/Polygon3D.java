@@ -1,9 +1,9 @@
-package engine.graphics.math.geometry;
+package berkerdemoglu.engine.graphics.math.geometry;
 
-import engine.graphics.rendering.Camera;
-import engine.graphics.rendering.DrawType;
-import engine.graphics.rendering.scene.LightSource;
-import engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.graphics.rendering.DrawType;
+import berkerdemoglu.engine.graphics.rendering.Camera;
+import berkerdemoglu.engine.graphics.rendering.scene.LightSource;
 
 import java.awt.*;
 import java.util.Arrays;

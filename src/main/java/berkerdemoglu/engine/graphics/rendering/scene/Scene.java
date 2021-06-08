@@ -1,9 +1,9 @@
-package engine.graphics.rendering.scene;
+package berkerdemoglu.engine.graphics.rendering.scene;
 
-import engine.graphics.math.geometry.ProjectionSettings;
-import engine.graphics.rendering.DrawType;
-import engine.graphics.rendering.Camera;
-import engine.models.entity.Entity;
+import berkerdemoglu.engine.graphics.math.geometry.ProjectionSettings;
+import berkerdemoglu.engine.graphics.rendering.DrawType;
+import berkerdemoglu.engine.models.entity.Entity;
+import berkerdemoglu.engine.graphics.rendering.Camera;
 
 import java.awt.*;
 

@@ -1,7 +1,7 @@
-package engine.graphics.rendering.scene;
+package berkerdemoglu.engine.graphics.rendering.scene;
 
-import engine.graphics.math.Vector3D;
-import engine.graphics.rendering.Camera;
+import berkerdemoglu.engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.graphics.rendering.Camera;
 
 public class LightSource {
 	private Vector3D source;
@@ -11,7 +11,7 @@ public class LightSource {
 	}
 
 	public Vector3D getLightVectorTo(Vector3D p, Camera camera) {
-		return Vector3D.normalize(new engine.graphics.math.Vector3D(
+		return Vector3D.normalize(new Vector3D(
 				Vector3D.cameraAdjustedVector(source, camera),
 				Vector3D.cameraAdjustedVector(p, camera))
 		);

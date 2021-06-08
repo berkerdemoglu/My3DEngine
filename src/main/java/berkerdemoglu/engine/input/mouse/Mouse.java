@@ -1,4 +1,4 @@
-package engine.input.mouse;
+package berkerdemoglu.engine.input.mouse;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;

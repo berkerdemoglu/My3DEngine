@@ -1,8 +1,8 @@
-package engine.graphics.math.geometry;
+package berkerdemoglu.engine.graphics.math.geometry;
 
-import engine.graphics.rendering.Camera;
-import engine.graphics.math.Matrix;
-import engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.graphics.math.Matrix;
+import berkerdemoglu.engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.graphics.rendering.Camera;
 
 import java.awt.Point;
 

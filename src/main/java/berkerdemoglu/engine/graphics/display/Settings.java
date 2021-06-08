@@ -1,8 +1,7 @@
-package engine.graphics.display;
+package berkerdemoglu.engine.graphics.display;
 
 /**
- * This interface will be changed in the future but its current functionality is used to set and change properties
- * for the <code>Display</code> class.
+ * The <code>Settings</code> class is used to set and change properties for the <code>Display</code> class.
  */
 public interface Settings {
 	// Display settings
