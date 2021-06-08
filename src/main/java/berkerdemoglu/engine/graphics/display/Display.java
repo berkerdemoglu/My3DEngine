@@ -1,12 +1,12 @@
-package engine.graphics.display;
+package berkerdemoglu.engine.graphics.display;
 
-import engine.models.entity.Entity;
-import engine.graphics.math.geometry.Projector;
-import engine.graphics.rendering.Renderer;
-import engine.graphics.rendering.scene.Scene;
-import engine.input.keyboard.Keyboard;
-import engine.input.keyboard.DrawListener;
-import engine.input.mouse.Mouse;
+import berkerdemoglu.engine.models.entity.Entity;
+import berkerdemoglu.engine.graphics.math.geometry.Projector;
+import berkerdemoglu.engine.graphics.rendering.Renderer;
+import berkerdemoglu.engine.graphics.rendering.scene.Scene;
+import berkerdemoglu.engine.input.keyboard.Keyboard;
+import berkerdemoglu.engine.input.keyboard.DrawListener;
+import berkerdemoglu.engine.input.mouse.Mouse;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -105,6 +105,12 @@ public abstract class Display extends Canvas implements Runnable {
 		// Manage window settings
 		manageWindowSettings();
 
+		// Create buffer strategy with front-middle-back buffers
+		BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+			createBufferStrategy(3);
+		}
+
 		// Start the thread
 		isRunning = true;
 		thread = new Thread(this);
@@ -187,20 +193,16 @@ public abstract class Display extends Canvas implements Runnable {
 	 * and getting its graphics, and then rendering entities from the {@link Renderer} class.
 	 */
 	private void render() {
-		// Create buffers if null
+		// Get Graphics2D object to draw on
 		BufferStrategy bs = getBufferStrategy();
-		if (bs == null) {
-			createBufferStrategy(3); // front-middle-back buffers
-			return;
-		}
 
-		Graphics2D g = (Graphics2D) bs.getDrawGraphics(); // Get Graphics2D object to draw on
+		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
 		g.setRenderingHints(antiAliasingHints);
 
 		// Call the render method of the renderer using the graphics object from the buffer strategy
 		renderer.render(g, settings);
 
-		// Delete graphics object and show next buffer
+		// Dispose of the graphics object and swap buffers
 		g.dispose();
 		bs.show();
 	}
