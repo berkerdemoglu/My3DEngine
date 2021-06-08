@@ -1,14 +1,14 @@
-package engine.engine;
+package berkerdemoglu.engine.engine;
 
-import engine.graphics.display.Settings;
-import engine.graphics.math.geometry.ProjectionSettings;
-import engine.models.mesh.Mesh;
-import engine.graphics.math.Vector3D;
-import engine.models.entity.Entity;
-import engine.models.mesh.MeshBuilder;
-import engine.graphics.display.Display;
-import engine.graphics.rendering.scene.LightSource;
-import engine.graphics.rendering.scene.Scene;
+import berkerdemoglu.engine.graphics.display.Settings;
+import berkerdemoglu.engine.graphics.math.geometry.ProjectionSettings;
+import berkerdemoglu.engine.models.mesh.Mesh;
+import berkerdemoglu.engine.graphics.math.Vector3D;
+import berkerdemoglu.engine.models.entity.Entity;
+import berkerdemoglu.engine.models.mesh.MeshBuilder;
+import berkerdemoglu.engine.graphics.display.Display;
+import berkerdemoglu.engine.graphics.rendering.scene.LightSource;
+import berkerdemoglu.engine.graphics.rendering.scene.Scene;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -19,20 +19,7 @@ public class ExampleEngine extends Display {
 	}
 
 	public static void main(String[] args) throws IOException {
-		ExampleEngine eng = new ExampleEngine(new Settings() {
-			public int SCREEN_WIDTH() {
-				return 600;
-			}
-			public int SCREEN_HEIGHT() {
-				return 600;
-			}
-			public int FPS() {
-				return 60;
-			}
-			public String TITLE() {
-				return "3D Engine";
-			}
-		});
+		ExampleEngine eng = new ExampleEngine(new BaseSettings());
 
 		Scene scene = new Scene(
 				Color.BLACK,
@@ -58,7 +45,5 @@ public class ExampleEngine extends Display {
 	}
 
 	@Override
-	protected void update() {
-
-	}
+	protected void update() {}
 }
