@@ -1,6 +1,20 @@
-from .awt import Color
+from ...base import BaseAPIClass
 
 
+class Color(BaseAPIClass):
+	"""Represents the java.awt.Color class."""
+
+	def __init__(self, r: int, g: int, b: int):
+		"""Initialize the color in RGB format."""
+		self.r = r
+		self.g = g
+		self.b = b
+
+	def as_dict(self):
+		return self.__dict__
+
+
+# Color constants
 WHITE = Color(256, 256, 256)
 LIGHT_GRAY = Color(192, 192, 192)
 GRAY = Color(128, 128, 128)

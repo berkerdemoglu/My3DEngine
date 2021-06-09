@@ -4,4 +4,3 @@ defined in libraries, used in the 3D engine.
 """
 
 from .awt import *
-from .constants import *
