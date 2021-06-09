@@ -11,8 +11,8 @@ class Entity(BaseAPIClass):
 		self.meshes = meshes
 
 	def as_dict(self):
-		meshes_list = list()
-		for mesh in self.meshes:
-			meshes_list.append(mesh.as_dict())
+		d = {
+			'meshes': [mesh.as_dict() for mesh in self.meshes]
+		}
 
-		return {'meshes': meshes_list}
+		return d

@@ -11,8 +11,8 @@ class Mesh(BaseAPIClass):
 		self.polygons = polygons
 
 	def as_dict(self):
-		polygons_list = list()
-		for polygon in self.polygons:
-			polygons_list.append(polygon.as_dict())
+		d = {
+			'polygons': [polygon.as_dict() for polygon in self.polygons]
+		}
 
-		return {'polygons': polygons_list}
+		return d
