@@ -7,7 +7,7 @@ from typing import List
 import json
 
 # Import packages from the API
-from .api import Settings
+from .display import Settings
 
 
 class Application:
@@ -17,12 +17,20 @@ class Application:
 			'settings': settings.as_dict()
 		}
 
-	# Run methods
-	def run(self):
-		commands = self._generate_commands()
-		subprocess.run(commands)
+	def _dump_json(self, filename):
+		"""Dump the object dictionary to a JSON file for the engine to use."""
+		with open(filename, 'w') as f:
+			json.dump(self.obj_dict, f)
 
-	def _generate_commands(self) -> List:
+	def run(self, filename: str = 'start') -> None:
+		"""Start the engine with the provided file name without the .json extension."""
+		filename += '.json'
+
+		self._dump_json(filename)
+
+		subprocess.run(self._generate_commands(filename))
+
+	def _generate_commands(self, filename) -> List:
 		commands = []
 
 		# Java
@@ -30,7 +38,7 @@ class Application:
 		commands.append('-jar')
 
 		# Command line argument - JSON file
-		commands.append(self.filename)
+		commands.append(filename)
 		
 		return commands
 

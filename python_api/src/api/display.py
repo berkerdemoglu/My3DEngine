@@ -1,6 +1,6 @@
 from .base import BaseAPIClass
 from .libraries import *
-from models import *
+from .models import *
 
 
 class Settings(BaseAPIClass):
@@ -22,10 +22,14 @@ class Settings(BaseAPIClass):
 		return self.__dict__
 
 
-class Scene(BaseAPIClass):
-	"""Represents the berkerdemoglu.engine.graphics.rendering.scene.Scene class."""
+# class Scene(BaseAPIClass):
+# 	"""Represents the berkerdemoglu.engine.graphics.rendering.scene.Scene class."""
 
-	def __init__(self, 
-		background_color: Color, light_source: LightSource,
-		projection_values: ProjectionValues, *entities: List[Entity]
-		)
+# 	def __init__(self, 
+# 			background_color: Color, light_source: LightSource,
+# 			projection_values: ProjectionValues, *entities: List[Entity]
+# 		):
+# 		pass
+
+# 	def as_dict(self):
+# 		pass
