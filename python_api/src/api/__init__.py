@@ -5,5 +5,8 @@ The Python API for My3DEngine
 """
 
 from .application import Application
-from .display import Settings
-from .libraries import *
+from .settings import Settings
+from .libraries import awt
+from .scene import Scene, LightSource
+from . import geom
+from . import models

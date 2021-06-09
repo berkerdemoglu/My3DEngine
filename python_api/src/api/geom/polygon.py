@@ -15,17 +15,16 @@ class Polygon(BaseAPIClass):
 		self.vertices = vertices
 
 	def _check_args(self, vertices):
-		if len(vertices) <= 2:
-			print(len(vertices))
-			raise ValueError('2 or more vertices must be provided to make a polygon')
-
 		for v in vertices:
 			if type(v) != Vector:
 				raise ValueError('Vectors must be provided as input')
 
+		if len(vertices) <= 2:
+			raise ValueError('2 or more vertices must be provided to make a polygon')
+
 	def as_dict(self):
 		d = {
-			'color': self.color,
+			'color': self.color.as_dict(),
 			'vertices': [vertex.as_dict() for vertex in self.vertices]
 		}
 
