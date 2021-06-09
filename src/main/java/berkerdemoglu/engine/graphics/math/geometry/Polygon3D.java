@@ -26,6 +26,10 @@ public class Polygon3D {
 	 * @param vertices Points in 3D plane that make up the polygon
 	 */
 	public Polygon3D(Color color, Vector3D... vertices) {
+		if (vertices.length <= 2) {
+			throw new IllegalArgumentException("2 or more vertices must be provided to make a polygon");
+		}
+
 		this.vertices = new Vector3D[vertices.length];
 		for (int i = 0; i < vertices.length; i++) {
 			this.vertices[i] = vertices[i].clone();
