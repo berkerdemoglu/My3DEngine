@@ -1,5 +1,5 @@
 from ..base import BaseAPIClass
-from ..display import Settings
+from ..settings import Settings
 
 
 class ProjectionSettings(BaseAPIClass):
