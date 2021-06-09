@@ -24,8 +24,9 @@ class Polygon(BaseAPIClass):
 				raise ValueError('Vectors must be provided as input')
 
 	def as_dict(self):
-		vertices_list = list()
-		for vertex in self.vertices:
-			vertices_list.append(vertex.as_dict())
+		d = {
+			'color': self.color,
+			'vertices': [vertex.as_dict() for vertex in self.vertices]
+		}
 
-		return {'color': self.color, 'vertices': vertices_list}
+		return d
