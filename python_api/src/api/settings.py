@@ -9,9 +9,9 @@ class Settings(BaseAPIClass):
 
 	def __init__(self, screen_width: int, screen_height: int, fps: int, title: str, **kwargs):
 		"""Initialize settings."""
-		self.screen_width = screen_width
-		self.screen_height = screen_height
-		self.fps = fps
+		self.screen_width = int(screen_width)
+		self.screen_height = int(screen_height)
+		self.fps = int(fps)
 		self.title = title
 
 		self._parse_kwargs(kwargs)
