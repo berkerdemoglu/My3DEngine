@@ -4,6 +4,7 @@ from ..base import BaseAPIClass
 from ..geom import Vector, ProjectionSettings
 from ..libraries.awt import Color
 from ..models import Entity
+from ..utils import to_dict, to_dict_seq
 
 
 class LightSource(BaseAPIClass):
@@ -14,7 +15,7 @@ class LightSource(BaseAPIClass):
 
 	def as_dict(self):
 		d = {
-			'source': self.source.as_dict()
+			'source': to_dict(self.source)
 		}
 		return d
 
@@ -33,10 +34,10 @@ class Scene(BaseAPIClass):
 
 	def as_dict(self):
 		d = {
-			'background_color': self.background_color.as_dict(),
-			'light_source': self.light_source.as_dict(),
-			'projection_settings': self.projection_settings.as_dict(),
-			'entities': [entity.as_dict() for entity in self.entities]
+			'background_color': to_dict(self.background_color),
+			'light_source': to_dict(self.light_source),
+			'projection_settings': to_dict(self.projection_settings),
+			'entities': to_dict_seq(self.entities)
 		}
 		
 		return d

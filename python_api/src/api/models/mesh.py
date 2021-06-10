@@ -2,6 +2,7 @@ from typing import Sequence
 
 from ..base import BaseAPIClass
 from ..geom import Polygon
+from ..utils import to_dict_seq
 
 
 class Mesh(BaseAPIClass):
@@ -12,7 +13,7 @@ class Mesh(BaseAPIClass):
 
 	def as_dict(self):
 		d = {
-			'polygons': [polygon.as_dict() for polygon in self.polygons]
+			'polygons': to_dict_seq(self.polygons)
 		}
 
 		return d

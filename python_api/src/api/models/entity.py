@@ -2,6 +2,7 @@ from typing import Sequence
 
 from ..base import BaseAPIClass
 from .mesh import Mesh
+from ..utils import to_dict_seq
 
 
 class Entity(BaseAPIClass):
@@ -12,7 +13,7 @@ class Entity(BaseAPIClass):
 
 	def as_dict(self):
 		d = {
-			'meshes': [mesh.as_dict() for mesh in self.meshes]
+			'meshes': to_dict_seq(self.meshes)
 		}
 
 		return d

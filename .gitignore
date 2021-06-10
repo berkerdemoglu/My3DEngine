@@ -13,6 +13,10 @@
 out/
 target/
 
-# Python API stuff
+# Python bytecode
 venv/
 __pycache__/
+
+# Python API related files
+start.json
+python_api/run_*.bat
