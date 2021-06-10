@@ -44,7 +44,7 @@ class PolygonTestCase(unittest.TestCase):
 			Vector(100, 0, 0), Vector(100, 100, 0)
 		]
 
-		self.assertRaises(ValueError, Polygon, CYAN, vertices)
+		self.assertRaises(TypeError, Polygon, CYAN, vertices)
 
 	def test_invalid_number_vertices(self):
 		"""Test that a polygon cannot be initialized with 2 or less vertices."""
