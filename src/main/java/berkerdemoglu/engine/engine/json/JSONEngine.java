@@ -18,6 +18,11 @@ public class JSONEngine extends Display {
 
 		JSONConverter converter = new JSONConverter(filename);
 		Settings settings = converter.readSettings();
+		Scene scene = converter.readScene();
+
+		JSONEngine engine = new JSONEngine(settings, scene);
+
+		engine.start();
 	}
 
 	@Override
