@@ -6,24 +6,30 @@ class Color(BaseAPIClass):
 
 	def __init__(self, r: int, g: int, b: int):
 		"""Initialize the color in RGB format."""
-		self.r = r
-		self.g = g
-		self.b = b
+		self._set_color('r', r)
+		self._set_color('g', g)
+		self._set_color('b', b)
+
+	def _set_color(self, name, value):
+		if 0 <= value <= 255:
+			setattr(self, name, int(value))
+		else:
+			raise ValueError("Color provided outside the possible range")
 
 	def as_dict(self):
 		return self.__dict__
 
 
 # Color constants
-WHITE = Color(256, 256, 256)
+WHITE = Color(255, 255, 255)
 LIGHT_GRAY = Color(192, 192, 192)
 GRAY = Color(128, 128, 128)
 DARK_GRAY = Color(64, 64, 64)
 BLACK = Color(0, 0, 0)
 
-RED = Color(256, 0, 0)
-GREEN = Color(0, 256, 0)
-BLUE = Color(0, 0, 256)
+RED = Color(255, 0, 0)
+GREEN = Color(0, 255, 0)
+BLUE = Color(0, 0, 255)
 
 YELLOW = Color(255, 255, 0)
 MAGENTA = Color(255, 0, 255)
