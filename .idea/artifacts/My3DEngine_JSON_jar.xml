@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="My3DEngine_JSON:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/My3DEngine_JSON_jar</output-path>
+    <root id="archive" name="My3DEngine-JSON.jar">
+      <element id="module-output" name="My3DEngine" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.12.2/jackson-core-2.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.12.2/jackson-annotations-2.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.12.2/jackson-databind-2.12.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
