@@ -11,6 +11,7 @@ from .settings import Settings
 from .scene import Scene
 from .utils import to_dict
 from .base import BaseAPIClass
+from .constants import JAR_NAME
 
 
 class Application(BaseAPIClass):
@@ -69,6 +70,9 @@ class Application(BaseAPIClass):
 		# Java
 		commands.append(self._get_java())
 		commands.append('-jar')
+
+		# JAR file
+		commands.append(JAR_NAME)
 
 		# Command line argument - JSON file
 		commands.append(filename)

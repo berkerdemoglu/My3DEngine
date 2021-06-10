@@ -9,7 +9,7 @@ from src.api import (
 		models as m,
 		geom as g,
 		awt,
-		Scene,
+		Scene, LightSource,
 		Application
 	)
 
@@ -41,9 +41,10 @@ mesh = m.Mesh(
 entity = m.Entity(mesh)
 
 # Create the scene
-scene = Scene(awt.BLACK, None, g.ProjectionSettings(settings, 90, 0.1, 1000), entity)
+light_source = LightSource(g.Vector(100, 0, 0))
+scene = Scene(awt.BLACK, light_source, g.ProjectionSettings(settings, 90, 0.1, 1000), entity)
 
 # Create the application object
 app = Application(settings, scene)
 
-app.run(f'{os.getcwd()}/tests/start', start=False, pretty_output=True)
+app.run(f'{os.getcwd()}/tests/start', start=True, pretty_output=False)
