@@ -48,7 +48,7 @@ class AWTTestCase(unittest.TestCase):
 
 	def test_red(self):
 		"""Test the black color of the Color class."""
-		self.assertEqual(awt.RED.r, 256)
+		self.assertEqual(awt.RED.r, 255)
 		self.assertEqual(awt.RED.g, 0)
 		self.assertEqual(awt.RED.b, 0)
 
