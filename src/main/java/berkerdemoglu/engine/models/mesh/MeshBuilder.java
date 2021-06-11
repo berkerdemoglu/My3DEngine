@@ -56,7 +56,7 @@ public class MeshBuilder {
 	 * @param center The center of the rectangular prism.
 	 * @return A rectangular prism as a {@link Mesh}
 	 */
-	public static Mesh constructRectangularPrism(Color color,double a, double b, double c, Vector3D center) {
+	public static Mesh constructRectangularPrism(Color color, double a, double b, double c, Vector3D center) {
 		double centerX = center.x;
 		double centerY = center.y;
 		double centerZ = center.z;
@@ -65,14 +65,14 @@ public class MeshBuilder {
 		double halfB = b / 2;
 		double halfC = c / 2;
 
-		Vector3D p1 = new Vector3D(centerX + -halfA, centerY + -halfB, centerZ + halfC);
-		Vector3D p2 = new Vector3D(centerX + halfA, centerY + -halfB, centerZ + halfC);
+		Vector3D p1 = new Vector3D(centerX - halfA, centerY - halfB, centerZ + halfC);
+		Vector3D p2 = new Vector3D(centerX + halfA, centerY - halfB, centerZ + halfC);
 		Vector3D p3 = new Vector3D(centerX + halfA, centerY + halfB, centerZ + halfC);
-		Vector3D p4 = new Vector3D(centerX + -halfA, centerY + halfB, centerZ + halfC);
-		Vector3D p5 = new Vector3D(centerX + -halfA, centerY + -halfB, centerZ + -halfC);
-		Vector3D p6 = new Vector3D(centerX + halfA, centerY + -halfB, centerZ + -halfC);
-		Vector3D p7 = new Vector3D(centerX + halfA, centerY + halfB, centerZ + -halfC);
-		Vector3D p8 = new Vector3D(centerX + -halfA, centerY + halfB, centerZ + -halfC);
+		Vector3D p4 = new Vector3D(centerX - halfA, centerY + halfB, centerZ + halfC);
+		Vector3D p5 = new Vector3D(centerX - halfA, centerY - halfB, centerZ - halfC);
+		Vector3D p6 = new Vector3D(centerX + halfA, centerY - halfB, centerZ - halfC);
+		Vector3D p7 = new Vector3D(centerX + halfA, centerY + halfB, centerZ - halfC);
+		Vector3D p8 = new Vector3D(centerX - halfA, centerY + halfB, centerZ - halfC);
 
 		Mesh mesh = new Mesh(
 				new Polygon3D(color, p5, p6, p7, p8),
@@ -95,41 +95,44 @@ public class MeshBuilder {
 	 * @return The mesh from the file
 	 * @throws IOException Throws an <code>IOException</code> if there is an error with reading the file.
 	 */
-	public static Mesh fromObjFile(String filename, Color color, double scale, Vector3D center) throws IOException {
+	public static Mesh constructFromObjFile(
+			String filename, Color color, double scale, Vector3D center
+	) throws IOException {
 		Path filePath = Paths.get(filename);
 
 		List<String> lines = Files.readAllLines(filePath);
 
-		List<Polygon3D> polygons = new ArrayList<>();
 		List<Vector3D> vertices = new ArrayList<>();
+		List<Polygon3D> polygons = new ArrayList<>();
 		String[] line;
 		for (String l: lines) {
 			line = l.split("\\s+");
 			if (l.isEmpty()) continue; // make sure that the line is not empty
 
-			if (l.charAt(0) == 'v') {
-				// We are reading a vertex
-				Vector3D v = new Vector3D(
-						(Double.parseDouble(line[1]) * scale) + center.x,
-						(Double.parseDouble(line[2]) * scale) + center.y,
-						(Double.parseDouble(line[3])  * scale) + center.z
-				);
-				vertices.add(v);
-			}
-
-			if (l.charAt(0) == 'f') {
-				// We are reading a face (triangle)
-				int[] f = new int[3];
-				f[0] = Integer.parseInt(line[1]);
-				f[1] = Integer.parseInt(line[2]);
-				f[2] = Integer.parseInt(line[3]);
-				polygons.add(new Polygon3D(
-						color,
-						vertices.get(f[0] - 1),
-						vertices.get(f[1] - 1),
-						vertices.get(f[2] - 1)
-						)
-				);
+			switch (l.charAt(0)) {
+				case 'v':
+					// We are reading a vertex
+					Vector3D v = new Vector3D(
+							(Double.parseDouble(line[1]) * scale) + center.x,
+							(Double.parseDouble(line[2]) * scale) + center.y,
+							(Double.parseDouble(line[3])  * scale) + center.z
+					);
+					vertices.add(v);
+					break;
+				case 'f':
+					// We are reading a face (triangle)
+					int[] f = new int[3];
+					f[0] = Integer.parseInt(line[1]);
+					f[1] = Integer.parseInt(line[2]);
+					f[2] = Integer.parseInt(line[3]);
+					polygons.add(new Polygon3D(
+									color,
+									vertices.get(f[0] - 1),
+									vertices.get(f[1] - 1),
+									vertices.get(f[2] - 1)
+							)
+					);
+					break;
 			}
 		}
 
