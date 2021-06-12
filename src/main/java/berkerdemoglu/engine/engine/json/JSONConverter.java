@@ -76,6 +76,8 @@ public class JSONConverter {
 	}
 
 	private Entity readEntity(Map<String, Object> entityMap) {
+		if (entityMap == null) return null;
+
 		ArrayList<Map<String, Object>> meshMapList = (ArrayList<Map<String, Object>>) entityMap.get("meshes");
 		int meshesLength = meshMapList.size();
 
@@ -142,10 +144,10 @@ public class JSONConverter {
 		return new ProjectionSettings(width, height, fov, near, far);
 	}
 
-	private LightSource readLightSource(Map<String, Object> light_source) {
-		if (light_source == null) return null;  // guard clause
+	private LightSource readLightSource(Map<String, Object> lightSourceMap) {
+		if (lightSourceMap == null) return null;  // guard clause
 
-		Vector3D sourceVector = readVector((Map<String, Double>) light_source.get("source"));
+		Vector3D sourceVector = readVector((Map<String, Double>) lightSourceMap.get("source"));
 		return new LightSource(sourceVector);
 	}
 }
